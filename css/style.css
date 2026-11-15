@@ -6338,14 +6338,14 @@ html.contact-open body {
    ========================================================================== */
 @font-face {
   font-family: "Nyght Serif";
-  src: url("../assets/fonts/NyghtSerif-Regular.woff2?v=49") format("woff2");
+  src: url("../assets/fonts/NyghtSerif-Regular.woff2?v=50") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Nyght Serif";
-  src: url("../assets/fonts/NyghtSerif-RegularItalic.woff2?v=49") format("woff2");
+  src: url("../assets/fonts/NyghtSerif-RegularItalic.woff2?v=50") format("woff2");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -7060,4 +7060,27 @@ html.consult-skip-cover body.consult-page.is-cover .consult-flow {
 
 @media (max-width: 1080px) {
   .consult-page .consult-recap { grid-template-columns: 1fr; }
+}
+
+
+/* Consulenze: DM Sans on the whole page. Only "la tua richiesta" stays in Nyght Serif. */
+.consult-page {
+  --font-sans: "DM Sans", system-ui, sans-serif;
+  font-family: "DM Sans", system-ui, sans-serif;
+}
+.consult-page button,
+.consult-page input,
+.consult-page textarea,
+.consult-page select,
+.consult-page optgroup,
+.consult-page option {
+  font-family: "DM Sans", system-ui, sans-serif;
+}
+.consult-page .consult-step__head h2 em {
+  font-family: "DM Sans", system-ui, sans-serif;
+}
+.consult-page .consult-flow__side-copy h1 em {
+  font-family: "Nyght Serif", "Cormorant Garamond", serif;
+  font-style: italic;
+  font-weight: 400;
 }
