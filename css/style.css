@@ -6338,14 +6338,14 @@ html.contact-open body {
    ========================================================================== */
 @font-face {
   font-family: "Nyght Serif";
-  src: url("../assets/fonts/NyghtSerif-Regular.woff2?v=53") format("woff2");
+  src: url("../assets/fonts/NyghtSerif-Regular.woff2?v=54") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Nyght Serif";
-  src: url("../assets/fonts/NyghtSerif-RegularItalic.woff2?v=53") format("woff2");
+  src: url("../assets/fonts/NyghtSerif-RegularItalic.woff2?v=54") format("woff2");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -7547,7 +7547,6 @@ html:has(body.consult-page.is-cover) {
 .consult-page .consult-summary[hidden] { display: none !important; }
 
 @media (min-width: 1024px) {
-  .consult-page [data-step-id="summary"] .consult-step__head,
   .consult-page [data-step-id="contact"] .consult-step__head { margin-bottom: 10px; }
   .consult-page .consult-recap { gap: 10px; }
   .consult-page .consult-recap__card { padding: 14px 16px; gap: 8px; }
@@ -7558,9 +7557,42 @@ html:has(body.consult-page.is-cover) {
   .consult-page .consult-consent { gap: 6px; }
 }
 @media (min-width: 1024px) and (max-height: 820px) {
-  .consult-page [data-step-id="summary"] .consult-step__head h2,
   .consult-page [data-step-id="contact"] .consult-step__head h2 { font-size: clamp(22px, 2vw, 30px); }
   .consult-page .consult-qacc summary { padding: 8px 0; }
   .consult-page .consult-brief-card__stats { padding-top: 10px; margin-top: 0; }
   .consult-page .consult-mini-card__head h3 { font-size: 15px; }
+}
+
+
+/* Final step: recap sits under the contact + preventivo columns and may scroll */
+.consult-page .consult-final-recap {
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(245, 245, 245, 0.1);
+}
+.consult-page .consult-final-recap__head {
+  max-width: 780px;
+  margin-bottom: 16px;
+}
+.consult-page .consult-final-recap__head h2 {
+  margin: 0;
+  font-size: clamp(22px, 2vw, 32px);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  font-weight: 400;
+}
+.consult-page .consult-final-recap__head p {
+  margin: 8px 0 0;
+  color: var(--consult-muted);
+  font-size: clamp(14px, 0.9vw, 16px);
+}
+
+/* Hide Safari / iOS AutoFill icons on Consulenze fields */
+.consult-page input::-webkit-contacts-auto-fill-button,
+.consult-page input::-webkit-credentials-auto-fill-button {
+  visibility: hidden;
+  display: none !important;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
 }
