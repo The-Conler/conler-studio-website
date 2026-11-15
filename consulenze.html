@@ -20,7 +20,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Migra&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="css/style.css?v=54" />
+  <link rel="stylesheet" href="css/style.css?v=55" />
   <script>
     if (location.hash === '#brief') document.documentElement.classList.add('consult-skip-cover');
   </script>
@@ -110,6 +110,28 @@
     </div>
   </section>
 
+
+  <section class="consult-thanks" data-consult-thanks hidden aria-live="polite" aria-label="Richiesta inviata">
+    <div class="consult-thanks__media" aria-hidden="true">
+      <div class="consult-cover__glow"></div>
+      <svg class="consult-cover__grain" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <defs>
+          <filter id="consultThanksGrain" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
+            <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="4" stitchTiles="stitch" result="noise">
+              <animate attributeName="seed" values="0;1;2;3;4;5;6;7;0" dur="0.64s" repeatCount="indefinite" />
+            </feTurbulence>
+            <feColorMatrix type="saturate" values="0" />
+          </filter>
+        </defs>
+        <rect width="100%" height="100%" filter="url(#consultThanksGrain)" opacity="1"></rect>
+      </svg>
+    </div>
+    <div class="consult-thanks__content">
+      <h1>Grazie, richiesta inviata.</h1>
+      <p>Controllate il programma di posta per completare l'invio. Vi risponderemo a breve.</p>
+    </div>
+  </section>
+
   <main class="consult-flow" id="main" data-consult-flow>
     <aside class="consult-flow__side" aria-label="Stato della richiesta">
       <div class="consult-flow__side-copy">
@@ -145,6 +167,11 @@
       </div>
 
       <p class="consult-steps__label">Il percorso</p>
+      <div class="consult-steps-wrap">
+      <div class="consult-steps__rail" aria-hidden="true">
+        <span class="consult-steps__line" data-steps-line></span>
+        <span class="consult-steps__traveler" data-steps-dot></span>
+      </div>
       <ol class="consult-steps" aria-label="Passaggi">
         <li class="consult-steps__item is-active" data-step-id="category">
           <span class="consult-steps__icon"><i class="fa-solid fa-layer-group" aria-hidden="true"></i></span>
@@ -202,6 +229,7 @@
           <span class="consult-steps__trail" aria-hidden="true"><span class="consult-steps__dot"></span><i class="fa-solid fa-chevron-right"></i></span>
         </li>
       </ol>
+      </div>
     </aside>
 
     <section class="consult-flow__panel" aria-live="polite">
@@ -679,10 +707,10 @@
             <span>€10.000+</span>
           </div>
           <div class="consult-budget-slider__labels" aria-hidden="true" data-hide-cat="Associazione">
-            <span>Starter</span>
-            <span>Growth</span>
-            <span>Full Brand</span>
-            <span>Premium</span>
+            <span data-budget-tier="Starter">Starter</span>
+            <span data-budget-tier="Growth">Growth</span>
+            <span data-budget-tier="Full Brand">Full Brand</span>
+            <span data-budget-tier="Premium">Premium</span>
           </div>
           <p class="consult-budget-slider__note" data-budget-note data-hide-cat="Associazione">Growth: abbastanza spazio per creare una soluzione curata e concreta.</p>
         </div>
@@ -951,7 +979,7 @@
           <i class="fa-solid fa-lock" aria-hidden="true"></i>
           <span>I vostri dati sono trattati in modo riservato e utilizzati solo per questa richiesta.</span>
         </p>
-        <button class="consult-flow__next button-02" type="button" data-consult-next aria-disabled="true"><div class="inner" data-next-label>Avanti</div><div class="circle" aria-hidden="true"><span>→</span></div></button>
+        <button class="consult-flow__next button-02" type="button" data-consult-next aria-disabled="true"><div class="inner" data-next-label>Avanti</div><div class="circle" aria-hidden="true"><span data-next-arrow>→</span><span class="consult-send-spin" data-next-spin hidden></span><span class="consult-send-check" data-next-check hidden>✓</span></div></button>
       </div>
 
     </section>
@@ -1330,17 +1358,16 @@
         if (summaries.services) summaries.services.textContent = joinSet(state.services, 'Nessun servizio selezionato');
         if (summaries.goal) summaries.goal.textContent = state.goal || 'Non selezionato';
         const exactBudget = formatEuro(state.fields.budgetExact);
-        if (budgetOutput) budgetOutput.textContent = exactBudget;
-        if (budgetNote) budgetNote.textContent = getBudgetNote(state.fields.budgetExact);
+        syncBudgetMotion(false);
         if (summaries.budget) summaries.budget.textContent = state.budget ? `${state.budget} · circa ${exactBudget}` : `Circa ${exactBudget}`;
         if (summaries.details) summaries.details.textContent = getDetailText();
         if (summaries.timeline) summaries.timeline.textContent = timelineText() || 'Non selezionata';
         if (summaries.materials) summaries.materials.textContent = joinSet(state.materials, 'Nessun materiale selezionato');
         if (summaries.location) summaries.location.textContent = state.fields.location.trim() || 'Non inserito';
 
-        if (sideSummary.category) sideSummary.category.textContent = state.category || '-';
-        if (sideSummary.services) sideSummary.services.textContent = state.services.size ? `${state.services.size} selezionati` : '-';
-        if (sideSummary.budget) sideSummary.budget.textContent = state.budget ? exactBudget : '-';
+        setLiveValue(sideSummary.category, state.category || '-', null);
+        setLiveValue(sideSummary.services, state.services.size ? `${state.services.size} selezionati` : '-', 'services');
+        setLiveValue(sideSummary.budget, state.budget ? exactBudget : '-', 'euro');
         if (briefTitle) briefTitle.textContent = state.category ? `${state.category} · ${state.goal || 'Consulenza'}` : 'Richiesta Conler';
 
         const quoteEl = flow.querySelector('[data-quote-list]');
@@ -1354,11 +1381,11 @@
           const f = state.fields;
           const ambiti = Array.from(state.assocAmbiti).map(v => (v === 'Altro' && f.assocAmbitoAltro.trim() ? f.assocAmbitoAltro.trim() : v));
           const set = (sel, text) => { const el = flow.querySelector(sel); if (el) el.textContent = text; };
-          set('[data-side-assoc-name]', f.assocName.trim() || '-');
-          set('[data-side-assoc-soci]', f.assocSociCount.trim() ? `${f.assocSociCount.trim()} soci` : '-');
-          set('[data-side-assoc-organi]', [f.assocPresidente.trim() && `Pres. ${f.assocPresidente.trim()}`, f.assocTesoriere.trim() && `Tes. ${f.assocTesoriere.trim()}`, f.assocSegretario.trim() && `Seg. ${f.assocSegretario.trim()}`].filter(Boolean).join(' · ') || '-');
+          setLiveValue(flow.querySelector('[data-side-assoc-name]'), f.assocName.trim() || '-', null);
+          setLiveValue(flow.querySelector('[data-side-assoc-soci]'), f.assocSociCount.trim() ? `${f.assocSociCount.trim()} soci` : '-', 'soci');
+          setLiveValue(flow.querySelector('[data-side-assoc-organi]'), [f.assocPresidente.trim() && `Pres. ${f.assocPresidente.trim()}`, f.assocTesoriere.trim() && `Tes. ${f.assocTesoriere.trim()}`, f.assocSegretario.trim() && `Seg. ${f.assocSegretario.trim()}`].filter(Boolean).join(' · ') || '-', null);
           set('[data-summary-composition]', [f.assocSociCount.trim() && `${f.assocSociCount.trim()} soci`, f.assocPresidente.trim() && `Presidente: ${f.assocPresidente.trim()}`, f.assocTesoriere.trim() && `Tesoriere: ${f.assocTesoriere.trim()}`, f.assocSegretario.trim() && `Segretario: ${f.assocSegretario.trim()}`].filter(Boolean).join(' · ') || '-');
-          set('[data-side-assoc-ambiti]', ambiti.length ? ambiti.join(', ') : '-');
+          setLiveValue(flow.querySelector('[data-side-assoc-ambiti]'), ambiti.length ? ambiti.join(', ') : '-', null);
           set('[data-summary-assoc]', [f.assocName.trim(), state.assocForm, state.assocRunts ? `RUNTS: ${state.assocRunts}` : ''].filter(Boolean).join(' · ') || '-');
           set('[data-summary-assoc-rep]', [f.assocRep.trim(), f.assocEmail.trim(), needsFiller() && f.assocFiller.trim() ? `compila: ${f.assocFiller.trim()} (${state.assocRole === 'Altro' && f.assocRoleAltro.trim() ? f.assocRoleAltro.trim() : state.assocRole})` : ''].filter(Boolean).join(' · ') || '-');
           set('[data-summary-assoc-scope]', [ambiti.join(', '), joinSet(state.assocTargets, '')].filter(Boolean).join(' → ') || '-');
@@ -1366,10 +1393,10 @@
           set('[data-summary-assoc-pain]', joinSet(state.assocPain, '-'));
           set('[data-summary-funding]', fundingText() || '-');
           set('[data-summary-destination]', destinationText() || '-');
-          set('[data-side-destination]', destinationText() || '-');
+          setLiveValue(flow.querySelector('[data-side-destination]'), destinationText() || '-', null);
           set('[data-summary-org]', [state.assocSize ? `${state.assocSize} persone attive` : '', state.assocFrequency].filter(Boolean).join(' · ') || '-');
-          set('[data-side-assoc-timing]', timelineText() || '-');
-          set('[data-side-assoc-funding]', fundingText() || '-');
+          setLiveValue(flow.querySelector('[data-side-assoc-timing]'), timelineText() || '-', null);
+          setLiveValue(flow.querySelector('[data-side-assoc-funding]'), fundingText() || '-', null);
           set('[data-contact-assoc-name]', f.assocName.trim() || '-');
           set('[data-contact-assoc-rep]', f.assocRep.trim() || '-');
           set('[data-contact-assoc-email]', f.assocEmail.trim() || '-');
@@ -1857,6 +1884,235 @@
         return out;
       }
 
+
+      function prefersReduce() {
+        return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      }
+      function motionOk() { return window.gsap && !prefersReduce(); }
+
+      function lockButton02(btn) {
+        if (!btn || btn.classList.contains('is-sending') || btn.classList.contains('is-sent')) return;
+        const inner = btn.querySelector('.inner');
+        btn.style.width = 'auto';
+        if (inner) inner.style.width = '';
+        const w = Math.ceil(btn.getBoundingClientRect().width);
+        if (w > 0) btn.style.width = `${w}px`;
+      }
+      function lockConsultButtons() {
+        flow.querySelectorAll('.button-02').forEach(lockButton02);
+        const start = document.querySelector('[data-consult-start]');
+        if (start) lockButton02(start);
+      }
+
+      const livePrev = new Map();
+      function parseLiveNumber(text) {
+        const raw = String(text || '').trim();
+        if (!raw || raw === '-' || raw === '—') return null;
+        const compact = raw.replace(/\s/g, '');
+        const it = compact.match(/(\d{1,3}(?:\.\d{3})+|\d+)/);
+        return it ? Number(it[1].replace(/\./g, '')) : null;
+      }
+      function setLiveValue(el, text, kind) {
+        if (!el) return;
+        const row = el.closest('span') || el;
+        const next = String(text);
+        const prev = livePrev.get(el) || { text: el.textContent, hidden: row.hidden, num: parseLiveNumber(el.textContent) };
+        const becameVisible = prev.hidden && !row.hidden;
+        const filled = next !== '-' && next !== '—' && next !== '';
+        const wasEmpty = !prev.text || prev.text === '-' || prev.text === '—' ;
+        const changed = prev.text !== next;
+        livePrev.set(el, { text: next, hidden: row.hidden, num: parseLiveNumber(next) });
+        if (!changed && !becameVisible) return;
+        if (!motionOk()) { el.textContent = next; return; }
+        const gsap = window.gsap;
+        gsap.killTweensOf(el);
+        if ((wasEmpty && filled) || becameVisible) {
+          el.textContent = next;
+          gsap.fromTo(row, { filter: 'blur(8px)', opacity: 0.35 }, { filter: 'blur(0px)', opacity: 1, duration: 0.38, ease: 'power2.out', clearProps: 'filter,opacity' });
+          return;
+        }
+        const fromNum = prev.num;
+        const toNum = parseLiveNumber(next);
+        if (kind && fromNum != null && toNum != null && fromNum !== toNum) {
+          const proxy = { v: fromNum };
+          gsap.to(proxy, {
+            v: toNum,
+            duration: 0.45,
+            ease: 'power2.out',
+            onUpdate: () => {
+              const n = Math.round(proxy.v);
+              el.textContent = kind === 'euro' ? formatEuro(n) : kind === 'soci' ? `${n} soci` : `${n} selezionati`;
+            },
+            onComplete: () => { el.textContent = next; },
+          });
+        } else {
+          el.textContent = next;
+        }
+        gsap.fromTo(el, { backgroundColor: 'rgba(245,245,245,0.22)' }, { backgroundColor: 'rgba(245,245,245,0)', duration: 0.55, ease: 'power1.out', clearProps: 'backgroundColor' });
+      }
+
+      const budgetProxy = { v: Number(state.fields.budgetExact) || 2500 };
+      let budgetAmtTween, budgetNoteTween;
+      function budgetTierName(amount) {
+        const n = Number(amount) || 0;
+        if (n < 1000) return 'Starter';
+        if (n < 2500) return 'Growth';
+        if (n < 5000) return 'Full Brand';
+        return 'Premium';
+      }
+      function syncBudgetMotion(immediate) {
+        const amount = Number(state.fields.budgetExact) || 0;
+        const labels = flow.querySelectorAll('[data-budget-tier]');
+        const tier = budgetTierName(amount);
+        labels.forEach(el => el.classList.toggle('is-active', el.dataset.budgetTier === tier));
+        const noteText = getBudgetNote(amount);
+        if (budgetNote && budgetNote.dataset.note !== noteText) {
+          budgetNote.dataset.note = noteText;
+          if (immediate || !motionOk()) {
+            if (budgetNoteTween) { budgetNoteTween.kill(); budgetNoteTween = null; }
+            budgetNote.textContent = noteText;
+            budgetNote.style.opacity = '';
+          } else {
+            const gsap = window.gsap;
+            if (budgetNoteTween) budgetNoteTween.kill();
+            budgetNoteTween = gsap.to(budgetNote, {
+              opacity: 0,
+              duration: 0.14,
+              ease: 'power1.out',
+              onComplete: () => {
+                budgetNote.textContent = noteText;
+                budgetNoteTween = gsap.to(budgetNote, { opacity: 1, duration: 0.2, ease: 'power1.out', onComplete: () => { budgetNoteTween = null; } });
+              },
+            });
+          }
+        }
+        if (!budgetOutput) return;
+        if (immediate || !motionOk()) {
+          if (budgetAmtTween) { budgetAmtTween.kill(); budgetAmtTween = null; }
+          budgetProxy.v = amount;
+          budgetOutput.textContent = formatEuro(amount);
+          return;
+        }
+        if (budgetAmtTween) budgetAmtTween.kill();
+        budgetAmtTween = window.gsap.to(budgetProxy, {
+          v: amount,
+          duration: 0.28,
+          ease: 'power1.out',
+          overwrite: true,
+          onUpdate: () => { budgetOutput.textContent = formatEuro(Math.round(budgetProxy.v / 100) * 100); },
+          onComplete: () => { budgetOutput.textContent = formatEuro(amount); budgetAmtTween = null; },
+        });
+      }
+
+      function layoutPercorso(immediate) {
+        const wrap = flow.querySelector('.consult-steps-wrap');
+        const line = flow.querySelector('[data-steps-line]');
+        const traveler = flow.querySelector('[data-steps-dot]');
+        if (!wrap || !line || !traveler) return;
+        if (window.getComputedStyle(wrap).display === 'none') return;
+        const visible = indicators.filter(item => !item.hidden && item.offsetParent !== null);
+        const active = visible.find(item => item.classList.contains('is-active')) || visible[0];
+        if (!active || !visible.length) return;
+        const wrapRect = wrap.getBoundingClientRect();
+        const firstIcon = visible[0].querySelector('.consult-steps__icon') || visible[0];
+        const activeIcon = active.querySelector('.consult-steps__icon') || active;
+        const activeTrail = active.querySelector('.consult-steps__trail') || active;
+        const firstRect = firstIcon.getBoundingClientRect();
+        const activeRect = activeIcon.getBoundingClientRect();
+        const trailRect = activeTrail.getBoundingClientRect();
+        const startY = firstRect.top + firstRect.height / 2 - wrapRect.top;
+        const endY = activeRect.top + activeRect.height / 2 - wrapRect.top;
+        const lineX = firstRect.left + firstRect.width / 2 - wrapRect.left;
+        const dotX = trailRect.left + 3 - wrapRect.left;
+        const dotY = trailRect.top + trailRect.height / 2 - wrapRect.top;
+        const height = Math.max(0, endY - startY);
+        line.style.left = `${lineX}px`;
+        line.style.top = `${startY}px`;
+        if (immediate || !motionOk()) {
+          window.gsap && window.gsap.killTweensOf([line, traveler]);
+          line.style.height = `${height}px`;
+          traveler.style.left = `${dotX}px`;
+          traveler.style.top = `${dotY}px`;
+          traveler.style.transform = '';
+          return;
+        }
+        const gsap = window.gsap;
+        const prev = traveler.getBoundingClientRect();
+        traveler.style.left = `${dotX}px`;
+        traveler.style.top = `${dotY}px`;
+        traveler.style.transform = '';
+        const next = traveler.getBoundingClientRect();
+        gsap.fromTo(traveler, { x: prev.left - next.left, y: prev.top - next.top }, { x: 0, y: 0, duration: 0.45, ease: 'power2.inOut' });
+        gsap.to(line, { height, duration: 0.45, ease: 'power2.inOut' });
+      }
+
+      let sending = false;
+      function openMailto() {
+        const subject = encodeURIComponent('Richiesta consulenza Conler');
+        const body = encodeURIComponent(buildEmailBody());
+        window.location.href = `mailto:conlerevents@gmail.com?subject=${subject}&body=${body}`;
+      }
+      function showThanksThenMail() {
+        const thanks = document.querySelector('[data-consult-thanks]');
+        const page = document.body;
+        if (!thanks) { openMailto(); return; }
+        thanks.removeAttribute('hidden');
+        thanks.setAttribute('aria-hidden', 'false');
+        const reveal = () => thanks.classList.add('is-in');
+        if (prefersReduce()) {
+          reveal();
+          openMailto();
+          return;
+        }
+        requestAnimationFrame(() => {
+          requestAnimationFrame(reveal);
+        });
+        setTimeout(openMailto, 900);
+      }
+      function playSendAnimation() {
+        const inner = next.querySelector('.inner');
+        const circle = next.querySelector('.circle');
+        const arrow = next.querySelector('[data-next-arrow]');
+        const spin = next.querySelector('[data-next-spin]');
+        const check = next.querySelector('[data-next-check]');
+        sending = true;
+        next.setAttribute('aria-disabled', 'true');
+        next.classList.add('is-sending');
+        const finish = () => {
+          next.classList.remove('is-sending');
+          next.classList.add('is-sent');
+          if (spin) spin.hidden = true;
+          if (check) check.hidden = false;
+          if (arrow) arrow.hidden = true;
+          showThanksThenMail();
+        };
+        if (!motionOk()) {
+          if (spin) spin.hidden = true;
+          if (check) check.hidden = false;
+          if (arrow) arrow.hidden = true;
+          if (circle) circle.style.scale = '1';
+          if (inner) inner.style.opacity = '0';
+          finish();
+          return;
+        }
+        const gsap = window.gsap;
+        if (arrow) arrow.hidden = false;
+        if (spin) spin.hidden = false;
+        if (check) check.hidden = true;
+        gsap.to(next, { width: 48, duration: 0.35, ease: 'power2.inOut' });
+        if (inner) gsap.to(inner, { opacity: 0, width: 48, paddingLeft: 0, paddingRight: 0, duration: 0.28, ease: 'power2.inOut' });
+        if (circle) gsap.to(circle, { scale: 1, duration: 0.35, ease: 'power2.out' });
+        if (arrow) gsap.to(arrow, { opacity: 0, duration: 0.15 });
+        gsap.delayedCall(0.7, () => {
+          if (spin) spin.hidden = true;
+          if (check) {
+            check.hidden = false;
+            gsap.fromTo(check, { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: 'back.out(1.6)' });
+          }
+        });
+        gsap.delayedCall(1.25, finish);
+      }
+
       let lastStep = null;
 
       function render() {
@@ -1928,12 +2184,14 @@
         if (progressFill) progressFill.style.width = `${progress}%`;
         back.hidden = state.step === 1;
         next.setAttribute('aria-disabled', String(!canContinue()));
-        if (nextLabel) nextLabel.textContent = state.step === total() ? 'Invia richiesta' : 'Avanti';
+        if (nextLabel && !sending) nextLabel.textContent = state.step === total() ? 'Invia richiesta' : 'Avanti';
         const privacyNote = flow.querySelector('[data-consult-privacy-note]');
         const finalBar = activeId === 'contact';
         if (privacyNote) privacyNote.hidden = !finalBar;
         const barEl = flow.querySelector('.consult-flow__bar');
         if (barEl) barEl.classList.toggle('is-final', finalBar);
+        if (!sending) lockConsultButtons();
+        layoutPercorso(false);
         saveDraft(false);
         animateStep();
       }
@@ -2004,7 +2262,15 @@
           }
           return input(['assocName', 'assocRep'].find(k => !String(f[k]).trim()) || 'assocEmail');
         }
-        if (id === 'contact') return String(f.name).trim() ? input('email') : input('name');
+        if (id === 'contact') {
+          const box = flow.querySelector('[data-edit-fields]');
+          if (box && box.hidden) {
+            box.hidden = false;
+            const tog = flow.querySelector('[data-edit-toggle]');
+            if (tog) { tog.setAttribute('aria-expanded', 'true'); tog.textContent = 'Chiudi modifica'; }
+          }
+          return String(f.name).trim() ? input('email') : input('name');
+        }
         const optionKeys = { category: 'category', services: 'service', details: 'serviceDirection', goal: 'goal', budget: 'budget', timeline: 'timeline', materials: 'material' };
         const opt = optionKeys[id] && flow.querySelector(`[data-step-id="${id}"] [data-option="${optionKeys[id]}"]`);
         return opt ? opt.closest('.consult-options') : null;
@@ -2400,16 +2666,14 @@
       });
 
       next.addEventListener('click', () => {
+        if (sending) return;
         if (!canContinue()) { showMissing(); return; }
         if (state.step < total()) {
           state.step += 1;
           render();
           return;
         }
-
-        const subject = encodeURIComponent('Richiesta consulenza Conler');
-        const body = encodeURIComponent(buildEmailBody());
-        window.location.href = `mailto:conlerevents@gmail.com?subject=${subject}&body=${body}`;
+        playSendAnimation();
       });
 
       back.addEventListener('click', () => {
@@ -2422,6 +2686,8 @@
       const restored = restoreDraft();
       render();
       if (restored) showNote('Bozza ripristinata');
+      window.addEventListener('resize', () => { layoutPercorso(true); lockConsultButtons(); });
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { lockConsultButtons(); layoutPercorso(true); });
     })();
 
     (function initConsultCover() {

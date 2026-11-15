@@ -5972,7 +5972,8 @@ html.contact-open body {
   .consult-page .consult-flow__mark,
   .consult-page .consult-flow__side-copy,
   .consult-page .consult-live-summary,
-  .consult-page .consult-steps { display: none; }
+  .consult-page .consult-steps,
+  .consult-page .consult-steps-wrap { display: none; }
   .consult-page .consult-progress { margin: 0; padding: 0; border: 0; background: none; }
   .consult-page .consult-progress__head { margin-bottom: 8px; }
   .consult-page .consult-flow__panel { border-radius: 24px; min-height: calc(100svh - 150px); }
@@ -6338,14 +6339,14 @@ html.contact-open body {
    ========================================================================== */
 @font-face {
   font-family: "Nyght Serif";
-  src: url("../assets/fonts/NyghtSerif-Regular.woff2?v=54") format("woff2");
+  src: url("../assets/fonts/NyghtSerif-Regular.woff2?v=55") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Nyght Serif";
-  src: url("../assets/fonts/NyghtSerif-RegularItalic.woff2?v=54") format("woff2");
+  src: url("../assets/fonts/NyghtSerif-RegularItalic.woff2?v=55") format("woff2");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -7595,4 +7596,160 @@ html:has(body.consult-page.is-cover) {
   pointer-events: none;
   position: absolute;
   right: 0;
+}
+
+
+/* ---- Motion: live brief, budget slider, Il percorso, send + thanks ---- */
+.consult-page .consult-live-summary__grid strong {
+  border-radius: 4px;
+  background-color: transparent;
+}
+.consult-page .consult-budget-slider__labels span {
+  opacity: 0.42;
+  transition: opacity 0.25s ease, color 0.25s ease;
+}
+.consult-page .consult-budget-slider__labels span.is-active {
+  opacity: 1;
+  color: #f5f5f5;
+  font-weight: 650;
+}
+.consult-page .consult-steps-wrap {
+  position: relative;
+}
+.consult-page .consult-steps__rail {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+.consult-page .consult-steps__line {
+  position: absolute;
+  width: 1.5px;
+  height: 0;
+  margin-left: -0.75px;
+  border-radius: 999px;
+  background: linear-gradient(to bottom, rgba(76, 141, 255, 0.15), rgba(76, 141, 255, 0.7));
+  transform-origin: top center;
+}
+.consult-page .consult-steps__traveler {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: #4c8dff;
+  box-shadow: 0 0 0 2px rgba(76, 141, 255, 0.18);
+  z-index: 2;
+}
+.consult-page .consult-steps__item .consult-steps__dot { visibility: hidden; }
+.consult-page .consult-steps__item.is-complete .consult-steps__icon {
+  position: relative;
+}
+.consult-page .consult-steps__item.is-complete .consult-steps__icon::after {
+  content: "";
+  position: absolute;
+  right: -3px;
+  bottom: -3px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #f5f5f5 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='none' stroke='%23131313' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' d='M2.5 6.2L5 8.6 9.5 3.6'/%3E%3C/svg%3E") center / 8px 8px no-repeat;
+  box-shadow: 0 0 0 1px rgba(19, 19, 19, 0.2);
+}
+
+/* button-02: lock width in JS; circle never steals the click */
+.consult-page .button-02 .circle,
+.consult-page .button-02 .inner {
+  pointer-events: none;
+}
+.consult-page .button-02.is-sending,
+.consult-page .button-02.is-sent {
+  min-width: 48px;
+  pointer-events: none;
+  cursor: default;
+}
+.consult-page .button-02.is-sending .inner,
+.consult-page .button-02.is-sent .inner {
+  opacity: 0;
+  overflow: hidden;
+}
+.consult-page .button-02.is-sending .circle,
+.consult-page .button-02.is-sent .circle {
+  scale: 1;
+}
+.consult-page .consult-send-spin {
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid rgba(19, 19, 19, 0.2);
+  border-top-color: #131313;
+  border-radius: 50%;
+  animation: consult-send-spin 0.6s linear infinite;
+}
+.consult-page .consult-send-check {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  color: #131313;
+}
+@keyframes consult-send-spin { to { transform: rotate(360deg); } }
+
+.consult-thanks {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  background: #0b0b0b;
+  color: #f5f5f5;
+  opacity: 0;
+  filter: blur(5px);
+  pointer-events: none;
+  transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.consult-thanks:not([hidden]) { display: grid; }
+.consult-thanks.is-in {
+  opacity: 1;
+  filter: blur(0);
+  pointer-events: auto;
+}
+.consult-thanks__media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.consult-thanks__media .consult-cover__grain,
+.consult-thanks__media .consult-cover__glow { position: absolute; inset: 0; width: 100%; height: 100%; }
+.consult-thanks__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+  max-width: min(720px, calc(100vw - 40px));
+  padding: 0 16px;
+}
+.consult-thanks__content h1 {
+  margin: 0;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 550;
+  font-size: clamp(28px, 5vw, 52px);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+.consult-thanks__content p {
+  margin: 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: clamp(14px, 1.4vw, 18px);
+  line-height: 1.4;
+  color: rgba(245, 245, 245, 0.7);
+  max-width: 42ch;
+}
+@media (prefers-reduced-motion: reduce) {
+  .consult-thanks { transition: none; filter: none; }
+  .consult-page .consult-send-spin { animation: none; }
+  .consult-page .consult-budget-slider__labels span { transition: none; }
+  .consult-page .consult-steps__item .consult-steps__dot { visibility: visible; }
+  .consult-page .consult-steps__traveler { display: none; }
 }
