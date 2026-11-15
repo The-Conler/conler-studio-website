@@ -6339,14 +6339,14 @@ html.contact-open body {
    ========================================================================== */
 @font-face {
   font-family: "Nyght Serif";
-  src: url("../assets/fonts/NyghtSerif-Regular.woff2?v=56") format("woff2");
+  src: url("../assets/fonts/NyghtSerif-Regular.woff2?v=57") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Nyght Serif";
-  src: url("../assets/fonts/NyghtSerif-RegularItalic.woff2?v=56") format("woff2");
+  src: url("../assets/fonts/NyghtSerif-RegularItalic.woff2?v=57") format("woff2");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -7256,8 +7256,8 @@ html:has(body.consult-page.is-cover) {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #4c8dff;
-  box-shadow: 0 0 0 2px rgba(76, 141, 255, 0.18);
+  background: #ff5a36;
+  box-shadow: 0 0 0 2px rgba(255, 90, 54, 0.18);
 }
 .consult-page .consult-steps__item.is-active .consult-steps__dot { display: block; }
 .consult-page .consult-steps__item[data-reachable="true"] { cursor: pointer; }
@@ -7616,11 +7616,15 @@ html:has(body.consult-page.is-cover) {
 .consult-page .consult-steps-wrap {
   position: relative;
 }
+.consult-page .consult-steps {
+  position: relative;
+  z-index: 1;
+}
 .consult-page .consult-steps__rail {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  z-index: 1;
+  z-index: 0;
 }
 .consult-page .consult-steps__line {
   position: absolute;
@@ -7628,8 +7632,9 @@ html:has(body.consult-page.is-cover) {
   height: 0;
   margin-left: -0.75px;
   border-radius: 999px;
-  background: linear-gradient(to bottom, rgba(76, 141, 255, 0.15), rgba(76, 141, 255, 0.7));
+  background: linear-gradient(to bottom, rgba(255, 90, 54, 0.15), #ff5a36);
   transform-origin: top center;
+  z-index: 0;
 }
 .consult-page .consult-steps__traveler {
   position: absolute;
@@ -7637,9 +7642,10 @@ html:has(body.consult-page.is-cover) {
   height: 6px;
   margin: -3px 0 0 -3px;
   border-radius: 50%;
-  background: #4c8dff;
-  box-shadow: 0 0 0 2px rgba(76, 141, 255, 0.18);
+  background: #ff5a36;
+  box-shadow: 0 0 0 2px rgba(255, 90, 54, 0.18);
   z-index: 2;
+  pointer-events: none;
 }
 .consult-page .consult-steps__item .consult-steps__dot { visibility: hidden; }
 .consult-page .consult-steps__item.is-complete .consult-steps__icon {

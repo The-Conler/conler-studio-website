@@ -20,7 +20,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Migra&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="css/style.css?v=56" />
+  <link rel="stylesheet" href="css/style.css?v=57" />
   <script>
     if (location.hash === '#brief') document.documentElement.classList.add('consult-skip-cover');
   </script>
@@ -170,7 +170,6 @@
       <div class="consult-steps-wrap">
       <div class="consult-steps__rail" aria-hidden="true">
         <span class="consult-steps__line" data-steps-line></span>
-        <span class="consult-steps__traveler" data-steps-dot></span>
       </div>
       <ol class="consult-steps" aria-label="Passaggi">
         <li class="consult-steps__item is-active" data-step-id="category">
@@ -229,6 +228,7 @@
           <span class="consult-steps__trail" aria-hidden="true"><span class="consult-steps__dot"></span><i class="fa-solid fa-chevron-right"></i></span>
         </li>
       </ol>
+      <span class="consult-steps__traveler" data-steps-dot aria-hidden="true"></span>
       </div>
     </aside>
 
@@ -2008,7 +2008,7 @@
         const trailRect = activeTrail.getBoundingClientRect();
         const startY = firstRect.top + firstRect.height / 2 - wrapRect.top;
         const endY = activeRect.top + activeRect.height / 2 - wrapRect.top;
-        const lineX = firstRect.left + firstRect.width / 2 - wrapRect.left;
+        const lineX = firstRect.left - wrapRect.left - 6;
         const dotX = trailRect.left + 3 - wrapRect.left;
         const dotY = trailRect.top + trailRect.height / 2 - wrapRect.top;
         const height = Math.max(0, endY - startY);
