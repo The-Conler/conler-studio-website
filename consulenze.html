@@ -1384,7 +1384,6 @@
           Q('s_plat', 'Su quali piattaforme volete comunicare?', 'multi', ['Instagram', 'Facebook', 'TikTok', 'LinkedIn', 'YouTube', DEF], { s: 'Piattaforme' }),
           Q('s_now', 'Qual è la situazione attuale dei vostri social?', 'single', ['Non abbiamo ancora profili', 'Abbiamo profili, ma pubblichiamo raramente', 'Pubblichiamo regolarmente', 'Abbiamo una gestione attiva, ma vogliamo migliorarla'], { s: 'Situazione attuale' }),
           Q('s_dur', 'Per quanto tempo prevedete di aver bisogno del servizio?', 'single', ['Per un evento o una campagna', '1–3 mesi', '3–6 mesi', 'Gestione continuativa', DEF], { s: 'Durata' }),
-          Q('s_cont', 'Quali contenuti vorreste pubblicare?', 'multi', ['Fotografie', 'Reel e video', 'Grafiche e locandine', 'Stories', 'Interviste e racconti', 'Aggiornamenti sulle attività', DEF], { s: 'Contenuti' }),
           NOTE('s_note', 'Tutta la produzione fotografica e video prevista dal servizio viene gestita da CONLER.', () => true),
         ] },
         { id: 'guide', num: '07', service: 'Non sappiamo ancora cosa ci serve', title: 'Guidami / proposta CONLER', intro: 'Non avete ancora individuato i servizi più adatti? Partiamo dalle vostre esigenze.', qs: [
@@ -1422,6 +1421,7 @@
         sec.qs.forEach(q => { if (q.id in state.ans) delete state.ans[q.id]; });
       }
       function pruneAnswers() {
+        delete state.ans.s_cont;
         for (let pass = 0; pass < 3; pass += 1) {
           ACC_SECTIONS.forEach(sec => {
             const vis = secVisible(sec);
@@ -1623,7 +1623,7 @@
             items.push({ n: '5', kind: 'Continuativo', title: 'Social Media Management', lines: [DEFERRED_LINE] });
           } else {
             const once = A('s_dur') === 'Per un evento o una campagna';
-            items.push({ n: '5', kind: once ? 'Una tantum' : 'Continuativo', title: 'Social Media Management', lines: [ln('Supporto', 's_support'), ln('Piattaforme', 's_plat'), ln('Situazione attuale', 's_now'), ln('Durata', 's_dur'), ln('Contenuti', 's_cont'), 'Produzione foto/video gestita da CONLER'].filter(Boolean) });
+            items.push({ n: '5', kind: once ? 'Una tantum' : 'Continuativo', title: 'Social Media Management', lines: [ln('Supporto', 's_support'), ln('Piattaforme', 's_plat'), ln('Situazione attuale', 's_now'), ln('Durata', 's_dur'), 'Produzione foto/video gestita da CONLER'].filter(Boolean) });
           }
         }
         if (has('Non sappiamo ancora cosa ci serve')) {
