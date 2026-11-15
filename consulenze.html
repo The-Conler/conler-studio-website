@@ -20,7 +20,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Migra&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="css/style.css?v=47" />
+  <link rel="stylesheet" href="css/style.css?v=48" />
   <script>
     if (location.hash === '#brief') document.documentElement.classList.add('consult-skip-cover');
   </script>
@@ -774,20 +774,26 @@
 
         <div class="consult-contact-layout">
           <div class="consult-assoc-contact" data-only-cat="Associazione" hidden>
-            <div class="consult-detail-block" data-show-nonlegal hidden>
-              <div class="consult-detail-block__head">
-                <span>Chi sta compilando</span>
-                <p>Hai indicato un ruolo diverso da rappresentante legale: dicci come ti chiami.</p>
+            <div class="consult-detail-block consult-mini-card" data-show-nonlegal hidden>
+              <div class="consult-mini-card__head">
+                <span class="consult-mini-card__icon" aria-hidden="true"><i class="fa-regular fa-user"></i></span>
+                <div>
+                  <h3>Chi sta compilando</h3>
+                  <p>Hai indicato un ruolo diverso da rappresentante legale: dicci come ti chiami.</p>
+                </div>
               </div>
               <label class="consult-field consult-field--solo">
                 <span>Il tuo nome e cognome <b class="consult-req" aria-hidden="true">*</b></span>
                 <input type="text" name="assocFiller" data-field="assocFiller" autocomplete="name" placeholder="Nome e cognome" required aria-required="true" />
               </label>
             </div>
-            <div class="consult-detail-block">
-              <div class="consult-detail-block__head">
-                <span>I vostri dati</span>
-                <p>Li abbiamo presi da quanto scritto nello step 02. Potete modificarli.</p>
+            <div class="consult-detail-block consult-mini-card">
+              <div class="consult-mini-card__head">
+                <span class="consult-mini-card__icon" aria-hidden="true"><i class="fa-regular fa-address-card"></i></span>
+                <div>
+                  <h3>I vostri dati</h3>
+                  <p>Li abbiamo presi da quanto scritto nello step 02. Potete modificarli.</p>
+                </div>
               </div>
               <dl class="consult-assoc-card">
                 <div><dt>Associazione</dt><dd data-contact-assoc-name>-</dd></div>
@@ -810,18 +816,21 @@
                 </label>
               </div>
             </div>
-            <div class="consult-detail-block">
-              <div class="consult-detail-block__head">
-                <span>Informazioni aggiuntive</span>
-                <p>Facoltative: servono solo per contattarvi più facilmente.</p>
+            <div class="consult-detail-block consult-mini-card">
+              <div class="consult-mini-card__head">
+                <span class="consult-mini-card__icon" aria-hidden="true"><i class="fa-regular fa-comments"></i></span>
+                <div>
+                  <h3>Informazioni aggiuntive</h3>
+                  <p>Facoltative: servono solo per contattarvi più facilmente.</p>
+                </div>
               </div>
               <div class="consult-fields">
                 <label class="consult-field">
-                  <span>Numero WhatsApp <small>facoltativo</small></span>
+                  <span>Numero WhatsApp (facoltativo)</span>
                   <input type="tel" name="assocWhatsapp" data-field="assocWhatsapp" autocomplete="tel" placeholder="+39 ..." />
                 </label>
                 <label class="consult-field">
-                  <span>Persona da contattare <small>se diversa dal rappresentante legale</small></span>
+                  <span>Referente (facoltativo)</span>
                   <input type="text" name="assocContactPerson" data-field="assocContactPerson" placeholder="Nome e cognome" />
                 </label>
               </div>
@@ -852,14 +861,23 @@
           </div>
 
           <div class="consult-final-brief" aria-label="Riepilogo richiesta">
-            <div class="consult-package" data-only-cat="Associazione" hidden>
-              <span>Riepilogo della proposta</span>
-              <strong>Il vostro brief</strong>
-              <p>Valuteremo il brief e vi proporremo una direzione progettuale su misura.</p>
-            </div>
-            <div class="consult-quote" data-only-cat="Associazione" hidden>
-              <h4>Componenti del preventivo</h4>
-              <div data-quote-list></div>
+            <div class="consult-brief-card" data-only-cat="Associazione" hidden>
+              <header class="consult-brief-card__head">
+                <h3>Il vostro brief</h3>
+                <p>Una proposta su misura, a partire da noi.</p>
+              </header>
+              <p class="consult-brief-card__label">Servizi selezionati</p>
+              <div class="consult-brief-card__list" data-quote-list></div>
+              <div class="consult-brief-card__stats">
+                <div>
+                  <span>Budget indicativo</span>
+                  <strong data-brief-budget>-</strong>
+                </div>
+                <div>
+                  <span>Tempistiche</span>
+                  <strong data-brief-timeline>-</strong>
+                </div>
+              </div>
             </div>
             <div class="consult-package" data-hide-cat="Associazione">
               <span>Pacchetto consigliato</span>
@@ -867,7 +885,7 @@
               <p data-package-text>Una base chiara per definire progetto, contenuti e prossimi passi.</p>
             </div>
 
-            <div class="consult-summary consult-summary--final">
+            <div class="consult-summary consult-summary--final" data-hide-cat="Associazione">
               <div class="consult-summary__header">
                 <span>Project brief</span>
                 <strong data-brief-title>Richiesta Conler</strong>
@@ -891,29 +909,36 @@
             <div data-assoc-only hidden><span>Problema attuale</span><strong data-summary-assoc-pain>-</strong></div>
             </div>
           </div>
+
+          <div class="consult-consent">
+            <label class="consult-check">
+              <input type="checkbox" name="privacyAccepted" data-field="privacyAccepted" required aria-required="true" />
+              <span>Ho letto l'<a href="privacy.html" target="_blank" rel="noopener">informativa privacy</a> <b class="consult-req" aria-hidden="true">*</b></span>
+            </label>
+            <label class="consult-check">
+              <input type="checkbox" name="marketingConsent" data-field="marketingConsent" />
+              <span>Acconsento a ricevere comunicazioni promozionali da CONLER <small>facoltativo</small></span>
+            </label>
+          </div>
         </div>
-        <div class="consult-consent">
-          <label class="consult-check">
-            <input type="checkbox" name="privacyAccepted" data-field="privacyAccepted" required aria-required="true" />
-            <span>Ho letto l'<a href="privacy.html" target="_blank" rel="noopener">informativa privacy</a> <b class="consult-req" aria-hidden="true">*</b></span>
-          </label>
-          <label class="consult-check">
-            <input type="checkbox" name="marketingConsent" data-field="marketingConsent" />
-            <span>Acconsento a ricevere comunicazioni promozionali da CONLER <small>facoltativo</small></span>
-          </label>
-        </div>
+
       </section>
 
       <div class="consult-flow__bar">
         <button class="consult-flow__back" type="button" data-consult-back hidden>Indietro</button>
+        <p class="consult-flow__note" data-consult-privacy-note hidden>
+          <i class="fa-solid fa-lock" aria-hidden="true"></i>
+          <span>I vostri dati sono trattati in modo riservato e utilizzati solo per questa richiesta.</span>
+        </p>
         <button class="consult-flow__next button-02" type="button" data-consult-next aria-disabled="true"><span class="inner" data-next-label>Avanti</span><span class="circle" aria-hidden="true"><span>&rarr;</span></span></button>
       </div>
+
     </section>
   </main>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" crossorigin="anonymous" defer></script>
-  <script src="js/main.js?v=32" defer></script>
+  <script src="js/main.js?v=33" defer></script>
   <script>
     (() => {
       const flow = document.querySelector('[data-consult-flow]');
@@ -1043,8 +1068,8 @@
           'project.loc': 'Luogo del progetto (comune / città)',
           'project.descLabel': "Descrizione del progetto o dell'iniziativa",
           'project.descPh': 'Raccontateci cosa avete in mente, cosa non funziona oggi o che atmosfera volete creare.',
-          'contact.title': 'Lasciateci i vostri contatti.',
-          'contact.sub': 'Controllate i dati e aggiungete, se volete, due informazioni utili. Poi inviate la richiesta.',
+          'contact.title': 'Un ultimo passo.',
+          'contact.sub': 'Controllate i vostri dati e inviate la richiesta.',
           'sum.goal': 'Risultato atteso',
           'sum.loc': 'Luogo del progetto',
         },
@@ -1298,6 +1323,10 @@
 
         const quoteEl = flow.querySelector('[data-quote-list]');
         if (quoteEl && isAssoc()) quoteEl.innerHTML = quoteHtml();
+        const briefBudget = flow.querySelector('[data-brief-budget]');
+        const briefTimeline = flow.querySelector('[data-brief-timeline]');
+        if (briefBudget) briefBudget.textContent = state.budget ? `${state.budget} · circa ${exactBudget}` : (state.fields.budgetExact ? `Circa ${exactBudget}` : 'Da definire');
+        if (briefTimeline) briefTimeline.textContent = timelineText() || 'Da definire';
         if (isAssoc()) {
           const f = state.fields;
           const ambiti = Array.from(state.assocAmbiti).map(v => (v === 'Altro' && f.assocAmbitoAltro.trim() ? f.assocAmbitoAltro.trim() : v));
@@ -1574,10 +1603,10 @@
         const items = [];
         if (has('Website')) {
           if (isDeferred('website')) {
-            items.push({ n: '1', kind: 'Una tantum', title: 'Realizzazione del sito', lines: [DEFERRED_LINE] });
+            items.push({ n: '1', kind: 'Una tantum', title: 'Realizzazione del sito', short: 'Realizzazione del sito', icon: 'fa-globe', lines: [DEFERRED_LINE] });
           } else {
             const subs = [['w_s_iscr', 'Iscrizioni'], ['w_s_tess', 'Tesseramento'], ['w_s_don', 'Donazioni dirette'], ['w_s_tick', 'Biglietteria'], ['w_s_news', 'Frequenza news']].map(([id, l]) => ln(l, id));
-            items.push({ n: '1', kind: 'Una tantum', title: 'Realizzazione del sito', lines: [ln('Sito attuale', 'w_has'), ln('Indirizzo', 'w_url'), ln('Scopi', 'w_goal'), ln('Funzionalità', 'w_feat'), ...subs, ln('Lingue', 'w_lang')].filter(Boolean) });
+            items.push({ n: '1', kind: 'Una tantum', title: 'Realizzazione del sito', short: 'Realizzazione del sito', icon: 'fa-globe', lines: [ln('Sito attuale', 'w_has'), ln('Indirizzo', 'w_url'), ln('Scopi', 'w_goal'), ln('Funzionalità', 'w_feat'), ...subs, ln('Lingue', 'w_lang')].filter(Boolean) });
           }
         }
         const siteShoot = has('Website') && !isDeferred('website') && M('w_shoot').length > 0;
@@ -1588,7 +1617,7 @@
           const videoDef = has('Video') && isDeferred('video');
           const onlyDeferred = (photoDef || !has('Photo')) && (videoDef || !has('Video')) && !siteShoot && (has('Photo') || has('Video'));
           if (onlyDeferred) {
-            items.push({ n: '2', kind: 'Una tantum', title: 'Produzione dei contenuti', lines: [DEFERRED_LINE] });
+            items.push({ n: '2', kind: 'Una tantum', title: 'Produzione dei contenuti', short: 'Produzione dei contenuti', icon: 'fa-clapperboard', lines: [DEFERRED_LINE] });
           } else {
             const cont = A('p_days') === 'Produzione continuativa' || A('v_count') === 'Produzione continuativa';
             const lines = [];
@@ -1599,17 +1628,20 @@
             if (videoDef) lines.push('Video: ' + DEFERRED_LINE);
             if (has('Website') && !isDeferred('website') && (has('Photo') || has('Video'))) lines.push('Produzioni unificate (sito + Photo/Video): da non conteggiare due volte');
             if (photoOn || videoOn || siteShoot) lines.push('Produzione gestita esclusivamente da CONLER');
-            items.push({ n: '2', kind: cont ? 'Continuativo' : 'Una tantum', title: 'Produzione dei contenuti', lines: lines.filter(Boolean) });
+            items.push({ n: '2', kind: cont ? 'Continuativo' : 'Una tantum', title: 'Produzione dei contenuti', short: 'Produzione dei contenuti', icon: 'fa-clapperboard', sub: cont ? 'Continuativi' : '', lines: lines.filter(Boolean) });
           }
         }
         if (has('Website') && !isDeferred('website') && A('w_freq')) {
-          items.push({ n: '3', kind: 'Continuativo', title: 'Gestione del sito', lines: [ln('Aggiornamenti', 'w_freq'), 'Gestione e manutenzione affidate esclusivamente a CONLER'].filter(Boolean) });
+          items.push({ n: '3', kind: 'Continuativo', title: 'Gestione del sito', short: 'Gestione del sito', icon: 'fa-screwdriver-wrench', sub: 'Continuativi', lines: [ln('Aggiornamenti', 'w_freq'), 'Gestione e manutenzione affidate esclusivamente a CONLER'].filter(Boolean) });
         }
         if (has('Brand Identity') || has('Logo')) {
           const both = has('Brand Identity') && has('Logo');
           const bDef = has('Brand Identity') && isDeferred('brand');
           const lDef = has('Logo') && isDeferred('logo');
           const title = both ? 'Identità visiva (Brand Identity + Logo: un unico progetto)' : (has('Logo') ? 'Logo' : 'Brand Identity');
+          const short = both ? 'Identità visiva' : title;
+          const sub = both ? 'Brand identity e logo' : '';
+          const icon = has('Logo') && !has('Brand Identity') ? 'fa-pen-nib' : 'fa-palette';
           let lines;
           if ((has('Brand Identity') ? bDef : true) && (has('Logo') ? lDef : true)) {
             lines = [DEFERRED_LINE];
@@ -1621,32 +1653,56 @@
             else if (has('Logo')) lines.push(ln('Logo — esigenza', 'l_need'), ln('Logo — destinazione', 'l_dest'), ln('Logo — utilizzo', 'l_where'), ln('Logo — Stile visivo', 'l_idea'));
             lines = lines.filter(Boolean);
           }
-          items.push({ n: '4', kind: 'Una tantum', title, lines });
+          items.push({ n: '4', kind: 'Una tantum', title, short, icon, sub, lines });
         }
         if (has('Social Media Management')) {
           if (isDeferred('social')) {
-            items.push({ n: '5', kind: 'Continuativo', title: 'Social Media Management', lines: [DEFERRED_LINE] });
+            items.push({ n: '5', kind: 'Continuativo', title: 'Social Media Management', short: 'Social Media Management', icon: 'fa-share-nodes', sub: 'Continuativi', lines: [DEFERRED_LINE] });
           } else {
             const once = A('s_dur') === 'Per un evento o una campagna';
-            items.push({ n: '5', kind: once ? 'Una tantum' : 'Continuativo', title: 'Social Media Management', lines: [ln('Supporto', 's_support'), ln('Piattaforme', 's_plat'), ln('Situazione attuale', 's_now'), ln('Durata', 's_dur'), 'Produzione foto/video gestita da CONLER'].filter(Boolean) });
+            items.push({ n: '5', kind: once ? 'Una tantum' : 'Continuativo', title: 'Social Media Management', short: 'Social Media Management', icon: 'fa-share-nodes', sub: once ? '' : 'Continuativi', lines: [ln('Supporto', 's_support'), ln('Piattaforme', 's_plat'), ln('Situazione attuale', 's_now'), ln('Durata', 's_dur'), 'Produzione foto/video gestita da CONLER'].filter(Boolean) });
           }
         }
         if (has('Non sappiamo ancora cosa ci serve')) {
-          items.push({ n: '6', kind: 'Una tantum', title: 'Consulenza guidata CONLER', lines: [ln('Situazione', 'g_sit'), ln('Esigenza', 'g_need'), ln('Direzione creativa', 'g_dir'), ln('Note', 'g_free')].filter(Boolean) });
+          items.push({ n: '6', kind: 'Una tantum', title: 'Consulenza guidata CONLER', short: 'Consulenza guidata CONLER', icon: 'fa-compass', lines: [ln('Situazione', 'g_sit'), ln('Esigenza', 'g_need'), ln('Direzione creativa', 'g_dir'), ln('Note', 'g_free')].filter(Boolean) });
         }
         return items;
       }
+      const quoteOpen = new Set();
       function quoteHtml() {
         const items = quoteItems();
         if (!items.length) return '<p class="consult-q__note">Nessun servizio selezionato.</p>';
-        const groups = ['Una tantum', 'Continuativo'].map(kind => {
-          const list = items.filter(i => i.kind === kind);
-          if (!list.length) return '';
-          return `<div class="consult-quote__group"><h5>${kind === 'Continuativo' ? 'Continuativi' : 'Una tantum'}</h5>` + list.map(i => `<div class="consult-quote__item"><strong>${i.n}) ${escHtml(i.title)}</strong>${i.lines.map(l => `<span>${escHtml(l)}</span>`).join('')}</div>`).join('') + '</div>';
+        const rows = items.map(i => {
+          const short = i.short || i.title;
+          const icon = i.icon || 'fa-layer-group';
+          const sub = i.sub || (i.kind === 'Continuativo' ? 'Continuativi' : '');
+          const deferred = i.lines.length === 1 && i.lines[0] === DEFERRED_LINE;
+          const bodyLines = deferred ? ['Dettagli da definire insieme'] : i.lines;
+          const open = quoteOpen.has(String(i.n));
+          const subHtml = sub ? `<small>${escHtml(sub)}</small>` : '';
+          const body = bodyLines.map(l => `<span>${escHtml(l)}</span>`).join('') || '<span>Nessun dettaglio aggiuntivo.</span>';
+          return `<details class="consult-qacc"${open ? ' open' : ''} data-qacc="${escHtml(String(i.n))}">
+            <summary>
+              <span class="consult-qacc__icon" aria-hidden="true"><i class="fa-solid ${escHtml(icon)}"></i></span>
+              <span class="consult-qacc__title"><strong>${escHtml(short)}</strong>${subHtml}</span>
+              <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+            </summary>
+            <div class="consult-qacc__body">${body}</div>
+          </details>`;
         }).join('');
         const phase = phaseLine();
-        return groups + (phase ? `<p class="consult-quote__phase">${escHtml(phase)}</p>` : '');
+        return rows + (phase ? `<p class="consult-quote__phase">${escHtml(phase)}</p>` : '');
       }
+      const quoteRoot = flow.querySelector('[data-quote-list]');
+      if (quoteRoot) {
+        quoteRoot.addEventListener('toggle', event => {
+          const row = event.target;
+          if (!row || row.dataset.qacc == null) return;
+          if (row.open) quoteOpen.add(row.dataset.qacc);
+          else quoteOpen.delete(row.dataset.qacc);
+        }, true);
+      }
+
       function quoteLines() {
         const items = quoteItems();
         const out = ['--- Componenti del preventivo ---'];
@@ -1683,7 +1739,10 @@
           step.classList.toggle('is-active', active);
           const eyebrow = step.querySelector('[data-step-eyebrow]');
           const pos = ids.indexOf(step.dataset.stepId) + 1;
-          if (eyebrow && pos) eyebrow.textContent = `Step ${String(pos).padStart(2, '0')}`;
+          if (eyebrow && pos) {
+            if (isAssoc() && step.dataset.stepId === 'contact') eyebrow.textContent = 'Contatti e invio';
+            else eyebrow.textContent = `Step ${String(pos).padStart(2, '0')}`;
+          }
         });
         flow.querySelectorAll('[data-reveal-when]').forEach(el => {
           const [setName, value] = el.dataset.revealWhen.split(':');
@@ -1731,6 +1790,11 @@
         back.hidden = state.step === 1;
         next.setAttribute('aria-disabled', String(!canContinue()));
         if (nextLabel) nextLabel.textContent = state.step === total() ? 'Invia richiesta' : 'Avanti';
+        const privacyNote = flow.querySelector('[data-consult-privacy-note]');
+        const finalBar = isAssoc() && activeId === 'contact';
+        if (privacyNote) privacyNote.hidden = !finalBar;
+        const barEl = flow.querySelector('.consult-flow__bar');
+        if (barEl) barEl.classList.toggle('is-final', finalBar);
         saveDraft(false);
         animateStep();
       }

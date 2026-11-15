@@ -6338,14 +6338,14 @@ html.contact-open body {
    ========================================================================== */
 @font-face {
   font-family: "Nyght Serif";
-  src: url("../assets/fonts/NyghtSerif-Regular.woff2?v=47") format("woff2");
+  src: url("../assets/fonts/NyghtSerif-Regular.woff2?v=48") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Nyght Serif";
-  src: url("../assets/fonts/NyghtSerif-RegularItalic.woff2?v=47") format("woff2");
+  src: url("../assets/fonts/NyghtSerif-RegularItalic.woff2?v=48") format("woff2");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -6742,4 +6742,216 @@ html.consult-skip-cover body.consult-page.is-cover .consult-flow {
   font-size: .86rem;
   line-height: 1.45;
   opacity: .85;
+}
+
+
+/* ---- Associazione contact v2: cards, brief accordion, footer note ---- */
+.consult-page .consult-contact-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(280px, 0.92fr);
+  grid-template-areas:
+    "form brief"
+    "consent brief";
+  gap: 16px 18px;
+  align-items: start;
+}
+.consult-page .consult-assoc-contact,
+.consult-page .consult-contact-layout > .consult-fields { grid-area: form; }
+.consult-page .consult-final-brief { grid-area: brief; min-width: 0; }
+.consult-page .consult-contact-layout > .consult-consent { grid-area: consent; margin: 0; }
+.consult-page .consult-assoc-contact[hidden],
+.consult-page .consult-contact-layout > .consult-fields[hidden],
+.consult-page .consult-brief-card[hidden] { display: none !important; }
+
+.consult-page .consult-mini-card__head {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  max-width: none;
+}
+.consult-page .consult-mini-card__icon {
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(245, 245, 245, 0.12);
+  background: rgba(245, 245, 245, 0.05);
+  color: #f5f5f5;
+  font-size: 14px;
+}
+.consult-page .consult-mini-card__head h3 {
+  margin: 0;
+  font-size: clamp(16px, 1.15vw, 19px);
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  color: var(--consult-ink);
+}
+.consult-page .consult-mini-card__head p {
+  margin: 4px 0 0;
+  max-width: 52ch;
+  color: var(--consult-muted);
+  font-size: clamp(12px, 0.8vw, 14px);
+  line-height: 1.4;
+}
+.consult-page .consult-mini-card .consult-assoc-card { margin-top: 4px; }
+.consult-page .consult-mini-card .consult-linkbtn { margin-top: 2px; }
+
+.consult-page .consult-brief-card {
+  display: grid;
+  gap: 14px;
+  padding: clamp(18px, 1.6vw, 24px);
+  border: 1px solid rgba(245, 245, 245, 0.1);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(245, 245, 245, 0.08), transparent 42%),
+    rgba(255, 255, 255, 0.03);
+  color: #f5f5f5;
+}
+.consult-page .consult-brief-card__head h3 {
+  margin: 0;
+  font-size: clamp(20px, 1.6vw, 26px);
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
+.consult-page .consult-brief-card__head p {
+  margin: 6px 0 0;
+  color: var(--consult-muted);
+  font-size: clamp(13px, 0.85vw, 15px);
+  line-height: 1.4;
+}
+.consult-page .consult-brief-card__label {
+  margin: 4px 0 0;
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--consult-muted);
+}
+.consult-page .consult-brief-card__list { display: grid; }
+.consult-page .consult-brief-card__list .consult-q__note {
+  margin: 0;
+  color: var(--consult-muted);
+  font-size: 14px;
+}
+.consult-page .consult-qacc {
+  border-bottom: 1px solid rgba(245, 245, 245, 0.1);
+}
+.consult-page .consult-qacc:first-child { border-top: 1px solid rgba(245, 245, 245, 0.1); }
+.consult-page .consult-qacc summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  cursor: pointer;
+  list-style: none;
+}
+.consult-page .consult-qacc summary::-webkit-details-marker,
+.consult-page .consult-qacc summary::marker { display: none; }
+.consult-page .consult-qacc__icon {
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(245, 245, 245, 0.07);
+  border: 1px solid rgba(245, 245, 245, 0.1);
+  font-size: 13px;
+}
+.consult-page .consult-qacc__title { flex: 1; min-width: 0; }
+.consult-page .consult-qacc__title strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.consult-page .consult-qacc__title small {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.65rem;
+  font-weight: 650;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--consult-muted);
+}
+.consult-page .consult-qacc summary > .fa-chevron-down {
+  color: var(--consult-muted);
+  font-size: 11px;
+  transition: transform 0.2s ease;
+}
+.consult-page .consult-qacc[open] summary > .fa-chevron-down { transform: rotate(180deg); }
+.consult-page .consult-qacc__body {
+  display: grid;
+  gap: 4px;
+  padding: 0 0 14px 44px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: rgba(245, 245, 245, 0.72);
+}
+.consult-page .consult-brief-card__stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 4px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(245, 245, 245, 0.1);
+}
+.consult-page .consult-brief-card__stats span {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--consult-muted);
+}
+.consult-page .consult-brief-card__stats strong {
+  display: block;
+  margin-top: 6px;
+  font-size: clamp(14px, 1vw, 16px);
+  font-weight: 550;
+  letter-spacing: -0.02em;
+  color: #f5f5f5;
+}
+.consult-page .consult-flow__note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0 12px;
+  color: var(--consult-muted);
+  font-size: clamp(11px, 0.75vw, 13px);
+  line-height: 1.35;
+  text-align: center;
+  max-width: 42ch;
+}
+.consult-page .consult-flow__note[hidden] { display: none !important; }
+.consult-page .consult-flow__note i { color: #f5f5f5; font-size: 12px; flex: 0 0 auto; }
+.consult-page .consult-flow__bar.is-final {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px 12px;
+}
+.consult-page .consult-flow__bar.is-final .consult-flow__next { margin-left: 0; }
+
+@media (max-width: 1080px) {
+  .consult-page .consult-contact-layout {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "form"
+      "brief"
+      "consent";
+  }
+  .consult-page .consult-flow__bar.is-final {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "note note"
+      "back next";
+  }
+  .consult-page .consult-flow__bar.is-final .consult-flow__note { grid-area: note; max-width: none; padding: 0 4px 6px; }
+  .consult-page .consult-flow__bar.is-final .consult-flow__back { grid-area: back; }
+  .consult-page .consult-flow__bar.is-final .consult-flow__next { grid-area: next; justify-self: end; }
 }
