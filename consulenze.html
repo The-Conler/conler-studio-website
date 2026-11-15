@@ -6,6 +6,9 @@
   <title>Consulenze — Conler</title>
   <meta name="description" content="Scegli la tua categoria e i servizi creativi di cui hai bisogno: video, foto, sito web, brand identity, logo e social media management." />
   <meta name="theme-color" content="#0b0b0b" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <link rel="canonical" href="https://theconler.com/consulenze.html" />
   <link rel="icon" href="assets/conler-logo.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="assets/conler-logo.svg" />
@@ -17,7 +20,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Migra&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="css/style.css?v=46" />
+  <link rel="stylesheet" href="css/style.css?v=47" />
   <script>
     if (location.hash === '#brief') document.documentElement.classList.add('consult-skip-cover');
   </script>
@@ -877,7 +880,7 @@
             <div><span>Budget</span><strong data-summary-budget>Non selezionato</strong></div>
             <div><span>Timeline</span><strong data-summary-timeline>Non selezionata</strong></div>
             <div><span>Materiali</span><strong data-summary-materials>Nessun materiale selezionato</strong></div>
-            <div><span data-copy-key="sum.loc">Luogo</span><strong data-summary-location>Non inserito</strong></div>
+            <div data-hide-cat="Associazione"><span data-copy-key="sum.loc">Luogo</span><strong data-summary-location>Non inserito</strong></div>
             <div data-assoc-only hidden><span>Associazione</span><strong data-summary-assoc>-</strong></div>
             <div data-assoc-only hidden><span>Rappresentante</span><strong data-summary-assoc-rep>-</strong></div>
             <div data-assoc-only hidden><span>Composizione</span><strong data-summary-composition>-</strong></div>
@@ -910,7 +913,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" crossorigin="anonymous" defer></script>
-  <script src="js/main.js?v=31" defer></script>
+  <script src="js/main.js?v=32" defer></script>
   <script>
     (() => {
       const flow = document.querySelector('[data-consult-flow]');
@@ -975,10 +978,10 @@
       /* ---- data-driven flow ----------------------------------------------
          FLOW_BASE is the default order. BRANCHES maps a Categoria value to
          extra steps inserted right after the category step. Associazione uses
-         FLOW_ASSOC: Materiali comes right after Attività, and Destinazione e
-         obiettivi is skipped (the goal step HTML is kept to restore later). */
+         FLOW_ASSOC: Materiali comes right after Attività; Destinazione e
+         obiettivi and Luogo are skipped (their step HTML is kept to restore later). */
       const FLOW_BASE = ['category', 'services', 'details', 'goal', 'budget', 'timeline', 'materials', 'project', 'contact'];
-      const FLOW_ASSOC = ['category', 'assoc', 'assocActivity', 'materials', 'services', 'details', 'budget', 'timeline', 'project', 'contact'];
+      const FLOW_ASSOC = ['category', 'assoc', 'assocActivity', 'materials', 'services', 'details', 'budget', 'timeline', 'contact'];
       const BRANCHES = {
         'Associazione': ['assoc', 'assocActivity'],
       };
@@ -1939,6 +1942,7 @@
         syncDetailBlocks();
         let idx = flowIds().indexOf(data.stepId);
         if (idx < 0 && data.stepId === 'goal') idx = flowIds().indexOf('budget');
+        if (idx < 0 && data.stepId === 'project') idx = flowIds().indexOf('contact');
         let step = Math.max(idx + 1, 1);
         while (step > 1 && !canReach(step)) step -= 1;
         state.step = step;
@@ -2099,8 +2103,6 @@
           `Finanziamento: ${fundingText() || '-'}`,
           `Timing: ${timelineText() || '-'}`,
           `Materiali: ${joinSet(state.materials, '-')}`,
-          `Luogo del progetto: ${dash(f.location)}${f.locationSame === '1' ? ' (coincide con la sede legale)' : ''}`,
-          `Descrizione: ${dash(f.description)}`,
           '',
           '--- Contatti ---',
           needsFiller()
