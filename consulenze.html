@@ -20,7 +20,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Migra&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="css/style.css?v=55" />
+  <link rel="stylesheet" href="css/style.css?v=56" />
   <script>
     if (location.hash === '#brief') document.documentElement.classList.add('consult-skip-cover');
   </script>
@@ -1890,20 +1890,6 @@
       }
       function motionOk() { return window.gsap && !prefersReduce(); }
 
-      function lockButton02(btn) {
-        if (!btn || btn.classList.contains('is-sending') || btn.classList.contains('is-sent')) return;
-        const inner = btn.querySelector('.inner');
-        btn.style.width = 'auto';
-        if (inner) inner.style.width = '';
-        const w = Math.ceil(btn.getBoundingClientRect().width);
-        if (w > 0) btn.style.width = `${w}px`;
-      }
-      function lockConsultButtons() {
-        flow.querySelectorAll('.button-02').forEach(lockButton02);
-        const start = document.querySelector('[data-consult-start]');
-        if (start) lockButton02(start);
-      }
-
       const livePrev = new Map();
       function parseLiveNumber(text) {
         const raw = String(text || '').trim();
@@ -2070,47 +2056,29 @@
         setTimeout(openMailto, 900);
       }
       function playSendAnimation() {
-        const inner = next.querySelector('.inner');
-        const circle = next.querySelector('.circle');
         const arrow = next.querySelector('[data-next-arrow]');
         const spin = next.querySelector('[data-next-spin]');
         const check = next.querySelector('[data-next-check]');
         sending = true;
         next.setAttribute('aria-disabled', 'true');
         next.classList.add('is-sending');
+        if (arrow) arrow.hidden = true;
+        if (spin) spin.hidden = false;
+        if (check) check.hidden = true;
         const finish = () => {
-          next.classList.remove('is-sending');
           next.classList.add('is-sent');
           if (spin) spin.hidden = true;
           if (check) check.hidden = false;
           if (arrow) arrow.hidden = true;
           showThanksThenMail();
         };
-        if (!motionOk()) {
+        if (!motionOk()) { finish(); return; }
+        setTimeout(() => {
           if (spin) spin.hidden = true;
           if (check) check.hidden = false;
-          if (arrow) arrow.hidden = true;
-          if (circle) circle.style.scale = '1';
-          if (inner) inner.style.opacity = '0';
-          finish();
-          return;
-        }
-        const gsap = window.gsap;
-        if (arrow) arrow.hidden = false;
-        if (spin) spin.hidden = false;
-        if (check) check.hidden = true;
-        gsap.to(next, { width: 48, duration: 0.35, ease: 'power2.inOut' });
-        if (inner) gsap.to(inner, { opacity: 0, width: 48, paddingLeft: 0, paddingRight: 0, duration: 0.28, ease: 'power2.inOut' });
-        if (circle) gsap.to(circle, { scale: 1, duration: 0.35, ease: 'power2.out' });
-        if (arrow) gsap.to(arrow, { opacity: 0, duration: 0.15 });
-        gsap.delayedCall(0.7, () => {
-          if (spin) spin.hidden = true;
-          if (check) {
-            check.hidden = false;
-            gsap.fromTo(check, { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: 'back.out(1.6)' });
-          }
-        });
-        gsap.delayedCall(1.25, finish);
+          next.classList.add('is-sent');
+        }, 700);
+        setTimeout(showThanksThenMail, 1250);
       }
 
       let lastStep = null;
@@ -2190,7 +2158,6 @@
         if (privacyNote) privacyNote.hidden = !finalBar;
         const barEl = flow.querySelector('.consult-flow__bar');
         if (barEl) barEl.classList.toggle('is-final', finalBar);
-        if (!sending) lockConsultButtons();
         layoutPercorso(false);
         saveDraft(false);
         animateStep();
@@ -2686,8 +2653,7 @@
       const restored = restoreDraft();
       render();
       if (restored) showNote('Bozza ripristinata');
-      window.addEventListener('resize', () => { layoutPercorso(true); lockConsultButtons(); });
-      if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { lockConsultButtons(); layoutPercorso(true); });
+      window.addEventListener('resize', () => { layoutPercorso(true); });
     })();
 
     (function initConsultCover() {
