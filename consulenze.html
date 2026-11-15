@@ -20,7 +20,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Migra&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="css/style.css?v=60" />
+  <link rel="stylesheet" href="css/style.css?v=61" />
   <script>
     if (location.hash === '#brief') document.documentElement.classList.add('consult-skip-cover');
   </script>
@@ -129,6 +129,7 @@
     <div class="consult-thanks__content">
       <h1>Grazie, richiesta inviata.</h1>
       <p>Controllate il programma di posta per completare l'invio. Vi risponderemo a breve.</p>
+      <button type="button" class="consult-pdf-btn consult-pdf-btn--thanks" data-consult-pdf aria-label="Scarica il brief in PDF">Scarica PDF</button>
     </div>
   </section>
 
@@ -1051,7 +1052,10 @@
           <span>I vostri dati sono trattati in modo riservato e utilizzati solo per questa richiesta.</span>
         </p>
         <p class="consult-flow__hint" data-consult-step-hint hidden></p>
-        <button class="consult-flow__next button-02" type="button" data-consult-next aria-disabled="true"><div class="inner" data-next-label>Avanti</div><div class="circle" aria-hidden="true"><span data-next-arrow>→</span><span class="consult-send-spin" data-next-spin hidden></span><span class="consult-send-check" data-next-check hidden>✓</span></div></button>
+        <div class="consult-flow__actions">
+          <button type="button" class="consult-pdf-btn" data-consult-pdf aria-label="Scarica il brief in PDF">Scarica PDF</button>
+          <button class="consult-flow__next button-02" type="button" data-consult-next aria-disabled="true"><div class="inner" data-next-label>Avanti</div><div class="circle" aria-hidden="true"><span data-next-arrow>→</span><span class="consult-send-spin" data-next-spin hidden></span><span class="consult-send-check" data-next-check hidden>✓</span></div></button>
+        </div>
       </div>
 
     </section>
@@ -1060,6 +1064,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" crossorigin="anonymous" defer></script>
   <script src="js/main.js?v=38" defer></script>
+  <script src="js/vendor/jspdf.umd.min.js"></script>
+  <script src="js/consult-brief-pdf.js?v=61"></script>
   <script>
 
     function textReveal06(scope = document) {
@@ -2269,6 +2275,169 @@
         gsap.fromTo(traveler, { x: prev.left - next.left, y: prev.top - next.top }, { x: 0, y: 0, duration: 0.45, ease: 'power2.inOut' });
         gsap.to(line, { height, duration: 0.45, ease: 'power2.inOut' });
       }
+
+
+      function italianDate(d) {
+        const months = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+        return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+      }
+      function rowIf(label, value) {
+        const v = value == null ? '' : String(value).trim();
+        return v ? { label, value: v } : null;
+      }
+      function collectBriefData() {
+        const f = state.fields;
+        const dashJoin = (arr, sep) => (arr && arr.length ? arr.filter(Boolean).join(sep || ', ') : '');
+        const isA = isAssoc();
+        const clientName = isA ? (f.assocName || '').trim() : ((f.business || '').trim() || (f.name || '').trim());
+        const referente = isA
+          ? ((needsFiller() && (f.assocFiller || '').trim()) ? (f.assocFiller || '').trim() : (f.assocRep || '').trim())
+          : (f.name || '').trim();
+        const email = isA ? (f.assocEmail || '').trim() : (f.email || '').trim();
+        const phone = isA ? (f.assocWhatsapp || '').trim() : (f.phone || '').trim();
+        const clientLines = [];
+        if (isA && (f.assocSede || '').trim()) clientLines.push(f.assocSede.trim());
+        if (referente) clientLines.push(referente);
+        const contactBits = [email, phone].filter(Boolean);
+        if (contactBits.length) clientLines.push(contactBits.join(' | '));
+        const sections = [];
+        let runts = state.assocRunts || '';
+        if (['Sì', 'Iscrizione in corso'].includes(state.assocRunts)) {
+          const bits = [];
+          if ((f.assocRuntsNumero || '').trim()) bits.push(`repertorio: ${f.assocRuntsNumero.trim()}`);
+          if ((f.assocRuntsSezione || '').trim()) bits.push(`sezione: ${f.assocRuntsSezione.trim()}`);
+          if (bits.length) runts = `${state.assocRunts} (${bits.join('; ')})`;
+        }
+        const legal = [
+          rowIf('Categoria', state.category),
+          isA ? rowIf('Denominazione', f.assocName) : rowIf('Attività', f.business),
+          isA && rowIf('Forma giuridica', state.assocForm),
+          isA && rowIf('Codice fiscale', f.assocCF),
+          isA && rowIf('Partita IVA', f.assocPIVA),
+          isA && rowIf('Sede legale', f.assocSede),
+          isA && rowIf('Anno di costituzione', f.assocYear),
+          isA && rowIf('RUNTS', runts),
+          isA && rowIf('PEC', f.assocPEC),
+          !isA && rowIf('Obiettivo', state.goal),
+          !isA && rowIf('Luogo', f.location),
+          !isA && rowIf('Descrizione', f.description),
+        ].filter(Boolean);
+        if (legal.length) sections.push({ title: 'Categoria e dati legali', rows: legal });
+        if (isA) {
+          const ambiti = Array.from(state.assocAmbiti || []).map(v => (v === 'Altro' && (f.assocAmbitoAltro || '').trim() ? `Altro (${f.assocAmbitoAltro.trim()})` : v));
+          const activity = [
+            rowIf('Ambiti', dashJoin(ambiti)),
+            rowIf('Destinatari', joinSet(state.assocTargets, '')),
+            rowIf('Territorio', state.assocTerritorio),
+            rowIf('Persone attive', state.assocSize),
+            rowIf('Numero soci', f.assocSociCount),
+            rowIf('Frequenza attività', state.assocFrequency),
+            rowIf('Presidente', f.assocPresidente),
+            rowIf('Tesoriere', f.assocTesoriere),
+            rowIf('Segretario', f.assocSegretario),
+            rowIf('Progetti e iniziative', f.assocProjects),
+            rowIf('Problema attuale', joinSet(state.assocPain, '')),
+          ].filter(Boolean);
+          if (activity.length) sections.push({ title: 'Attività e dimensione', rows: activity });
+        }
+        const ideas = [1, 2, 3].map(n => ({
+          num: String(n).padStart(2, '0'),
+          title: (f[`idea${n}Title`] || '').trim(),
+          body: (f[`idea${n}Desc`] || '').trim(),
+        })).filter(i => i.title || i.body);
+        if (ideas.length) sections.push({ title: 'Le vostre idee', ideas });
+        const mats = joinSet(state.materials, '');
+        if (mats) sections.push({ title: 'Materiali', rows: [rowIf('Materiali disponibili', mats)].filter(Boolean) });
+        const deferred = typeof DEFERRED_LINE !== 'undefined' ? DEFERRED_LINE : 'Da definire insieme in una fase successiva';
+        const services = (typeof quoteItems === 'function' ? quoteItems() : []).map(item => {
+          const details = (item.lines || []).map(l => String(l).replace(deferred, 'Da definire insieme')).filter(Boolean);
+          if (!details.length) details.push('Da definire insieme');
+          return { name: item.title || item.short, kind: item.kind || '', details };
+        });
+        if (services.length) {
+          const sec = { title: 'Servizi', services };
+          const phase = typeof phaseLine === 'function' ? phaseLine() : '';
+          if (phase) sec.rows = [rowIf('Percorso suggerito', phase)].filter(Boolean);
+          sections.push(sec);
+        }
+        const unknownBudget = state.budget === 'Non lo so ancora';
+        const money = [
+          rowIf('Fascia', state.budget),
+          rowIf('Importo indicativo', unknownBudget ? 'Non lo so ancora' : (f.budgetExact ? formatEuro(f.budgetExact) : '')),
+          isA && rowIf('Finanziamento', fundingText()),
+          rowIf('Tempistiche', timelineText()),
+        ].filter(Boolean);
+        if (money.length) sections.push({ title: 'Budget e tempistiche', rows: money });
+        const contacts = isA ? [
+          rowIf('Associazione', f.assocName),
+          rowIf('Referente', referente),
+          rowIf('Rappresentante legale', f.assocRep),
+          rowIf('Ruolo di chi compila', state.assocRole === 'Altro' && (f.assocRoleAltro || '').trim() ? `Altro (${f.assocRoleAltro.trim()})` : state.assocRole),
+          rowIf('Email', f.assocEmail),
+          rowIf('Persona da contattare', f.assocContactPerson),
+          rowIf('WhatsApp', f.assocWhatsapp),
+        ] : [
+          rowIf('Nome', f.name),
+          rowIf('Attività', f.business),
+          rowIf('Email', f.email),
+          rowIf('Telefono', f.phone),
+        ];
+        const contactRows = contacts.filter(Boolean);
+        if (contactRows.length) sections.push({ title: 'Contatti', rows: contactRows });
+        const date = italianDate(new Date());
+        return {
+          title: 'Brief',
+          date,
+          client: { name: clientName || '—', lines: clientLines },
+          sections,
+          note: window.ConlerBriefPdf ? window.ConlerBriefPdf.defaultNote(date) : `Documento generato il ${date} dalla richiesta di consulenza CONLER. Non costituisce un preventivo.`,
+        };
+      }
+      function missingRequiredSteps() {
+        return flowIds().filter((_, i) => !stepValid(i + 1));
+      }
+      async function loadBriefFonts() {
+        const base = new URL('assets/fonts/', document.baseURI);
+        const names = { light: 'DMSans-Light.ttf', regular: 'DMSans-Regular.ttf', medium: 'DMSans-Medium.ttf', bold: 'DMSans-Bold.ttf' };
+        const fonts = {};
+        await Promise.all(Object.keys(names).map(async key => {
+          const res = await fetch(new URL(names[key] + '?v=61', base).href);
+          if (!res.ok) throw new Error('Font mancante: ' + names[key]);
+          fonts[key] = new Uint8Array(await res.arrayBuffer());
+        }));
+        return fonts;
+      }
+      let pdfBusy = false;
+      async function downloadBriefPdf() {
+        if (pdfBusy) return;
+        if (!window.ConlerBriefPdf || !window.jspdf || !window.jspdf.jsPDF) {
+          window.alert('Il generatore PDF non è pronto. Riprova tra un attimo.');
+          return;
+        }
+        if (missingRequiredSteps().length) {
+          const ok = window.confirm('Mancano ancora alcuni campi obbligatori. Potete scaricare il brief lo stesso, ma risulterà incompleto.');
+          if (!ok) return;
+        }
+        pdfBusy = true;
+        document.querySelectorAll('[data-consult-pdf]').forEach(btn => btn.setAttribute('aria-busy', 'true'));
+        try {
+          const fonts = await loadBriefFonts();
+          const data = collectBriefData();
+          window.ConlerBriefPdf.download(data, { jsPDF: window.jspdf.jsPDF, fonts });
+        } catch (err) {
+          console.error(err);
+          window.alert('Non è stato possibile generare il PDF. Riprova tra un attimo.');
+        } finally {
+          pdfBusy = false;
+          document.querySelectorAll('[data-consult-pdf]').forEach(btn => btn.removeAttribute('aria-busy'));
+        }
+      }
+      document.addEventListener('click', event => {
+        const btn = event.target.closest('[data-consult-pdf]');
+        if (!btn) return;
+        event.preventDefault();
+        downloadBriefPdf();
+      });
 
       let sending = false;
       function openMailto() {
