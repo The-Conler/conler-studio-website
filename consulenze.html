@@ -20,7 +20,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Migra&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="css/style.css?v=57" />
+  <link rel="stylesheet" href="css/style.css?v=58" />
   <script>
     if (location.hash === '#brief') document.documentElement.classList.add('consult-skip-cover');
   </script>
@@ -156,6 +156,7 @@
           <span><small>Categoria</small><strong data-side-category>-</strong></span>
           <span class="is-prominent" hidden data-skip-assoc-goal><small>Destinazione</small><strong data-side-destination>-</strong></span>
           <span><small>Servizi</small><strong data-side-services>-</strong></span>
+          <span><small>Idee</small><strong data-side-ideas>-</strong></span>
           <span><small>Budget</small><strong data-side-budget>-</strong></span>
           <span data-assoc-only hidden><small>Associazione</small><strong data-side-assoc-name>-</strong></span>
           <span data-assoc-only hidden><small>Soci</small><strong data-side-assoc-soci>-</strong></span>
@@ -185,6 +186,11 @@
         <li class="consult-steps__item" data-step-id="assocActivity" hidden>
           <span class="consult-steps__icon"><i class="fa-solid fa-compass" aria-hidden="true"></i></span>
           <span class="consult-steps__copy"><strong>Attività e dimensione</strong><small>Cosa fate e per chi?</small></span>
+          <span class="consult-steps__trail" aria-hidden="true"><span class="consult-steps__dot"></span><i class="fa-solid fa-chevron-right"></i></span>
+        </li>
+        <li class="consult-steps__item" data-step-id="ideas">
+          <span class="consult-steps__icon"><i class="fa-solid fa-lightbulb" aria-hidden="true"></i></span>
+          <span class="consult-steps__copy"><strong>Le vostre idee</strong><small>Cosa avete in mente?</small></span>
           <span class="consult-steps__trail" aria-hidden="true"><span class="consult-steps__dot"></span><i class="fa-solid fa-chevron-right"></i></span>
         </li>
         <li class="consult-steps__item" data-step-id="services">
@@ -515,6 +521,50 @@
               <button class="consult-option" type="button" aria-pressed="false" data-option="assocPain" data-value="Non sappiamo ancora quali siano le priorità"><i class="fa-solid fa-circle-question" aria-hidden="true"></i><span>Non sappiamo ancora quali siano le priorità</span></button>
             </div>
           </div>
+        </div>
+      </section>
+
+
+      <section class="consult-step" data-step-id="ideas" aria-labelledby="consult-ideas-title" hidden>
+        <div class="consult-step__head">
+          <p class="eyebrow" data-step-eyebrow>Step 02</p>
+          <h2 id="consult-ideas-title">Descriveteci almeno 3 idee.</h2>
+          <p>Anche abbozzate: ci aiutano a capire dove volete arrivare.</p>
+        </div>
+        <div class="consult-ideas">
+          <article class="consult-ideas__card">
+            <h3>Idea 01</h3>
+            <label class="consult-field">
+              <span>Titolo <b class="consult-req" aria-hidden="true">*</b></span>
+              <input type="text" data-field="idea1Title" autocomplete="off" data-form-type="other" placeholder="Un titolo breve" required aria-required="true" />
+            </label>
+            <label class="consult-field consult-field--full">
+              <span>Descrizione <b class="consult-req" aria-hidden="true">*</b></span>
+              <textarea rows="3" data-field="idea1Desc" autocomplete="off" data-form-type="other" placeholder="Anche solo qualche riga." required aria-required="true"></textarea>
+            </label>
+          </article>
+          <article class="consult-ideas__card">
+            <h3>Idea 02</h3>
+            <label class="consult-field">
+              <span>Titolo <b class="consult-req" aria-hidden="true">*</b></span>
+              <input type="text" data-field="idea2Title" autocomplete="off" data-form-type="other" placeholder="Un titolo breve" required aria-required="true" />
+            </label>
+            <label class="consult-field consult-field--full">
+              <span>Descrizione <b class="consult-req" aria-hidden="true">*</b></span>
+              <textarea rows="3" data-field="idea2Desc" autocomplete="off" data-form-type="other" placeholder="Anche solo qualche riga." required aria-required="true"></textarea>
+            </label>
+          </article>
+          <article class="consult-ideas__card">
+            <h3>Idea 03</h3>
+            <label class="consult-field">
+              <span>Titolo <b class="consult-req" aria-hidden="true">*</b></span>
+              <input type="text" data-field="idea3Title" autocomplete="off" data-form-type="other" placeholder="Un titolo breve" required aria-required="true" />
+            </label>
+            <label class="consult-field consult-field--full">
+              <span>Descrizione <b class="consult-req" aria-hidden="true">*</b></span>
+              <textarea rows="3" data-field="idea3Desc" autocomplete="off" data-form-type="other" placeholder="Anche solo qualche riga." required aria-required="true"></textarea>
+            </label>
+          </article>
         </div>
       </section>
 
@@ -1045,6 +1095,7 @@
           assocRuntsNumero: '', assocRuntsSezione: '', eventDate: '', locationSame: '',
           assocWhatsapp: '', assocContactPerson: '',
           assocRoleAltro: '', assocFiller: '', assocProjectName: '',
+          idea1Title: '', idea1Desc: '', idea2Title: '', idea2Desc: '', idea3Title: '', idea3Desc: '',
           privacyAccepted: '', marketingConsent: '',
         },
       };
@@ -1052,11 +1103,11 @@
       /* ---- data-driven flow ----------------------------------------------
          FLOW_BASE is the default order. BRANCHES maps a Categoria value to
          extra steps inserted right after the category step. Associazione uses
-         FLOW_ASSOC: Materiali comes right after Attività; Destinazione e
+         FLOW_ASSOC: Idee comes right after Attività, then Materiali; Destinazione e
          obiettivi and Luogo are skipped (their step HTML is kept to restore later);
          the 2x2 recap "Il progetto, in sintesi." lives on the final Contatti step. */
-      const FLOW_BASE = ['category', 'services', 'details', 'goal', 'budget', 'timeline', 'materials', 'project', 'contact'];
-      const FLOW_ASSOC = ['category', 'assoc', 'assocActivity', 'materials', 'services', 'details', 'budget', 'timeline', 'contact'];
+      const FLOW_BASE = ['category', 'ideas', 'services', 'details', 'goal', 'budget', 'timeline', 'materials', 'project', 'contact'];
+      const FLOW_ASSOC = ['category', 'assoc', 'assocActivity', 'ideas', 'materials', 'services', 'details', 'budget', 'timeline', 'contact'];
       const BRANCHES = {
         'Associazione': ['assoc', 'assocActivity'],
       };
@@ -1232,6 +1283,7 @@
       const sideSummary = {
         category: flow.querySelector('[data-side-category]'),
         services: flow.querySelector('[data-side-services]'),
+        ideas: flow.querySelector('[data-side-ideas]'),
         budget: flow.querySelector('[data-side-budget]'),
       };
       const briefTitle = flow.querySelector('[data-brief-title]');
@@ -1247,6 +1299,21 @@
       }
 
       function filled(key) { return Boolean(String(state.fields[key] || '').trim()); }
+      function ideaComplete(n) { return filled(`idea${n}Title`) && filled(`idea${n}Desc`); }
+      function ideaCount() { return [1, 2, 3].filter(ideaComplete).length; }
+      function ideasValid() { return ideaCount() === 3; }
+      function ideasLines() {
+        const f = state.fields;
+        const out = ['--- Le vostre idee ---'];
+        [1, 2, 3].forEach(n => {
+          const title = (f[`idea${n}Title`] || '').trim();
+          const desc = (f[`idea${n}Desc`] || '').trim();
+          out.push(`Idea 0${n}: ${title || '-'}`);
+          if (desc) out.push(`   ${desc}`);
+        });
+        out.push('');
+        return out;
+      }
 
       function stepValid(n) {
         const id = flowIds()[n - 1];
@@ -1257,6 +1324,7 @@
             const soci = Number(state.fields.assocSociCount);
             return Number.isFinite(soci) && soci >= 1 && filled('assocPresidente') && filled('assocTesoriere') && filled('assocSegretario');
           }
+          case 'ideas': return ideasValid();
           case 'services': return state.services.size > 0;
           case 'details': return isAssoc() ? true : Boolean(state.serviceDirection);
           case 'goal': return Boolean(state.goal);
@@ -1367,6 +1435,7 @@
 
         setLiveValue(sideSummary.category, state.category || '-', null);
         setLiveValue(sideSummary.services, state.services.size ? `${state.services.size} selezionati` : '-', 'services');
+        setLiveValue(sideSummary.ideas, ideaCount() ? `Idee: ${ideaCount()}` : '-', null);
         setLiveValue(sideSummary.budget, state.budget ? exactBudget : '-', 'euro');
         if (briefTitle) briefTitle.textContent = state.category ? `${state.category} · ${state.goal || 'Consulenza'}` : 'Richiesta Conler';
 
@@ -1827,7 +1896,25 @@
           ? `<ul class="consult-recap__mats">${mats.map(v => `<li>${escHtml(v)}</li>`).join('')}</ul>`
           : '<p class="consult-q__note">Nessun materiale selezionato.</p>';
         const materials = card('materials', 'fa-folder-open', 'Materiali disponibili', matBody);
-        return ident + services + money + materials;
+        const ideaParts = [];
+        [1, 2, 3].forEach(n => {
+          const title = (f[`idea${n}Title`] || '').trim();
+          const desc = (f[`idea${n}Desc`] || '').trim();
+          if (!title && !desc) return;
+          ideaParts.push(row(`Idea 0${n}`, title ? `${title}${desc ? ` — ${desc}` : ''}` : desc));
+        });
+        const ideaBody = ideaParts.length
+          ? `<dl class="consult-recap__rows">${ideaParts.join('')}</dl>`
+          : '<p class="consult-q__note">Nessun dato</p>';
+        const ideas = card('ideas', 'fa-lightbulb', 'Le vostre idee', ideaBody);
+        const pack = (html, compact) => compact
+          ? html.replace('class="consult-recap__card"', 'class="consult-recap__card is-compact"')
+          : html;
+        const left = [ident, ideas, services];
+        const right = [money, pack(materials, mats.length <= 1)];
+        if (!mats.length) right[1] = pack(materials, true);
+        if (!ideaParts.length) left[1] = pack(ideas, true);
+        return `<div class="consult-recap__col">${left.join('')}</div><div class="consult-recap__col">${right.join('')}</div>`;
       }
       function syncRecap() {
         const board = flow.querySelector('[data-recap-board]');
@@ -2207,6 +2294,10 @@
           const key = ['assocPresidente', 'assocTesoriere', 'assocSegretario'].find(k => !String(f[k]).trim());
           if (key) return input(key);
         }
+        if (id === 'ideas') {
+          const key = [1, 2, 3].flatMap(n => [`idea${n}Title`, `idea${n}Desc`]).find(k => !String(f[k] || '').trim());
+          return key ? input(key) : null;
+        }
         if (id === 'project') return input('location');
         if (id === 'goal' && isAssoc()) {
           const key = state.assocDestination ? 'goal' : 'assocDestination';
@@ -2531,6 +2622,7 @@
           ...assocLines(),
           '--- Brief ---',
           `Categoria: ${state.category}`,
+          ...ideasLines(),
           `Servizi: ${joinSet(state.services, '-')}`,
           `Dettagli: ${getDetailText()}`,
           ...accDetailLines(),
@@ -2562,6 +2654,7 @@
           '',
           `Pacchetto consigliato: ${recommended.title}`,
           `Categoria: ${state.category}`,
+          ...ideasLines(),
           `Servizi: ${joinSet(state.services, '-')}`,
           `Dettagli: ${getDetailText()}`,
           `Booking sito: ${state.websiteBooking || '-'}`,
