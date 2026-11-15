@@ -16,11 +16,11 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400;1,9..40,500;1,9..40,600;1,9..40,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Migra&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="css/style.css?v=50" />
+  <link rel="stylesheet" href="css/style.css?v=51" />
   <script>
     if (location.hash === '#brief') document.documentElement.classList.add('consult-skip-cover');
   </script>
@@ -104,8 +104,8 @@
       <h1 class="consult-cover__title">Conler Studio</h1>
       <p class="consult-cover__subtitle">Consulenza per la tua attività</p>
       <button class="consult-cover__start button-02" type="button" data-consult-start>
-        <span class="inner">Inizia</span>
-        <span class="circle" aria-hidden="true"><span>&rarr;</span></span>
+        <div class="inner">Inizia</div>
+        <div class="circle" aria-hidden="true"><span>→</span></div>
       </button>
     </div>
   </section>
@@ -144,54 +144,67 @@
         </div>
       </div>
 
+      <p class="consult-steps__label">Il percorso</p>
       <ol class="consult-steps" aria-label="Passaggi">
         <li class="consult-steps__item is-active" data-step-id="category">
           <span class="consult-steps__icon"><i class="fa-solid fa-layer-group" aria-hidden="true"></i></span>
-          <span><strong>Categoria</strong><small>Che tipo di realtà sei?</small></span>
+          <span class="consult-steps__copy"><strong>Categoria</strong><small>Che tipo di realtà sei?</small></span>
+          <span class="consult-steps__trail" aria-hidden="true"><span class="consult-steps__dot"></span><i class="fa-solid fa-chevron-right"></i></span>
         </li>
         <li class="consult-steps__item" data-step-id="assoc" hidden>
           <span class="consult-steps__icon"><i class="fa-solid fa-people-group" aria-hidden="true"></i></span>
-          <span><strong>Dati legali e referente</strong><small>Chi siete e chi compila.</small></span>
+          <span class="consult-steps__copy"><strong>Dati legali e referente</strong><small>Chi siete e chi compila.</small></span>
+          <span class="consult-steps__trail" aria-hidden="true"><span class="consult-steps__dot"></span><i class="fa-solid fa-chevron-right"></i></span>
         </li>
         <li class="consult-steps__item" data-step-id="assocActivity" hidden>
           <span class="consult-steps__icon"><i class="fa-solid fa-compass" aria-hidden="true"></i></span>
-          <span><strong>Attività e dimensione</strong><small>Cosa fate e per chi?</small></span>
+          <span class="consult-steps__copy"><strong>Attività e dimensione</strong><small>Cosa fate e per chi?</small></span>
+          <span class="consult-steps__trail" aria-hidden="true"><span class="consult-steps__dot"></span><i class="fa-solid fa-chevron-right"></i></span>
         </li>
         <li class="consult-steps__item" data-step-id="services">
           <span class="consult-steps__icon"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i></span>
-          <span><strong>Servizi</strong><small data-copy-key="side.services">Cosa vuoi creare?</small></span>
+          <span class="consult-steps__copy"><strong>Servizi</strong><small data-copy-key="side.services">Cosa vuoi creare?</small></span>
+          <span class="consult-steps__trail" aria-hidden="true"><span class="consult-steps__dot"></span><i class="fa-solid fa-chevron-right"></i></span>
         </li>
         <li class="consult-steps__item" data-step-id="details">
           <span class="consult-steps__icon"><i class="fa-solid fa-sliders" aria-hidden="true"></i></span>
-          <span><strong data-copy-key="side.detailsTitle">Dettagli</strong><small>Domande su misura.</small></span>
+          <span class="consult-steps__copy"><strong data-copy-key="side.detailsTitle">Dettagli</strong><small>Domande su misura.</small></span>
+          <span class="consult-steps__trail" aria-hidden="true"><span class="consult-steps__dot"></span><i class="fa-solid fa-chevron-right"></i></span>
         </li>
         <li class="consult-steps__item" data-step-id="goal">
           <span class="consult-steps__icon"><i class="fa-solid fa-bullseye" aria-hidden="true"></i></span>
-          <span><strong data-copy-key="side.goalTitle">Obiettivo</strong><small data-copy-key="side.goal">Cosa vuoi ottenere?</small></span>
+          <span class="consult-steps__copy"><strong data-copy-key="side.goalTitle">Obiettivo</strong><small data-copy-key="side.goal">Cosa vuoi ottenere?</small></span>
+          <span class="consult-steps__trail" aria-hidden="true"><span class="consult-steps__dot"></span><i class="fa-solid fa-chevron-right"></i></span>
         </li>
         <li class="consult-steps__item" data-step-id="budget">
           <span class="consult-steps__icon"><i class="fa-solid fa-coins" aria-hidden="true"></i></span>
-          <span><strong data-copy-key="side.budgetTitle">Budget</strong><small data-copy-key="side.budget">Che investimento immagini?</small></span>
+          <span class="consult-steps__copy"><strong data-copy-key="side.budgetTitle">Budget</strong><small data-copy-key="side.budget">Che investimento immagini?</small></span>
+          <span class="consult-steps__trail" aria-hidden="true"><span class="consult-steps__dot"></span><i class="fa-solid fa-chevron-right"></i></span>
         </li>
         <li class="consult-steps__item" data-step-id="timeline">
           <span class="consult-steps__icon"><i class="fa-regular fa-clock" aria-hidden="true"></i></span>
-          <span><strong data-copy-key="side.timelineTitle">Timing</strong><small data-copy-key="side.timeline">Quando ti serve?</small></span>
+          <span class="consult-steps__copy"><strong data-copy-key="side.timelineTitle">Timing</strong><small data-copy-key="side.timeline">Quando ti serve?</small></span>
+          <span class="consult-steps__trail" aria-hidden="true"><span class="consult-steps__dot"></span><i class="fa-solid fa-chevron-right"></i></span>
         </li>
         <li class="consult-steps__item" data-step-id="materials">
           <span class="consult-steps__icon"><i class="fa-solid fa-folder-open" aria-hidden="true"></i></span>
-          <span><strong>Materiali</strong><small data-copy-key="side.materials">Cosa hai già?</small></span>
+          <span class="consult-steps__copy"><strong>Materiali</strong><small data-copy-key="side.materials">Cosa hai già?</small></span>
+          <span class="consult-steps__trail" aria-hidden="true"><span class="consult-steps__dot"></span><i class="fa-solid fa-chevron-right"></i></span>
         </li>
         <li class="consult-steps__item" data-step-id="project">
           <span class="consult-steps__icon"><i class="fa-solid fa-location-dot" aria-hidden="true"></i></span>
-          <span><strong data-copy-key="side.projectTitle">Progetto</strong><small data-copy-key="side.project">Luogo e contesto.</small></span>
+          <span class="consult-steps__copy"><strong data-copy-key="side.projectTitle">Progetto</strong><small data-copy-key="side.project">Luogo e contesto.</small></span>
+          <span class="consult-steps__trail" aria-hidden="true"><span class="consult-steps__dot"></span><i class="fa-solid fa-chevron-right"></i></span>
         </li>
         <li class="consult-steps__item" data-step-id="summary" hidden>
           <span class="consult-steps__icon"><i class="fa-solid fa-table-columns" aria-hidden="true"></i></span>
-          <span><strong>Riepilogo</strong><small>Il progetto in sintesi.</small></span>
+          <span class="consult-steps__copy"><strong>Riepilogo</strong><small>Il progetto in sintesi.</small></span>
+          <span class="consult-steps__trail" aria-hidden="true"><span class="consult-steps__dot"></span><i class="fa-solid fa-chevron-right"></i></span>
         </li>
         <li class="consult-steps__item" data-step-id="contact">
           <span class="consult-steps__icon"><i class="fa-regular fa-paper-plane" aria-hidden="true"></i></span>
-          <span><strong data-copy-key="side.contactTitle">Contatto</strong><small>Riepilogo e invio.</small></span>
+          <span class="consult-steps__copy"><strong data-copy-key="side.contactTitle">Contatto</strong><small>Riepilogo e invio.</small></span>
+          <span class="consult-steps__trail" aria-hidden="true"><span class="consult-steps__dot"></span><i class="fa-solid fa-chevron-right"></i></span>
         </li>
       </ol>
     </aside>
@@ -939,7 +952,7 @@
           <i class="fa-solid fa-lock" aria-hidden="true"></i>
           <span>I vostri dati sono trattati in modo riservato e utilizzati solo per questa richiesta.</span>
         </p>
-        <button class="consult-flow__next button-02" type="button" data-consult-next aria-disabled="true"><span class="inner" data-next-label>Avanti</span><span class="circle" aria-hidden="true"><span>&rarr;</span></span></button>
+        <button class="consult-flow__next button-02" type="button" data-consult-next aria-disabled="true"><div class="inner" data-next-label>Avanti</div><div class="circle" aria-hidden="true"><span>→</span></div></button>
       </div>
 
     </section>
@@ -947,7 +960,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" crossorigin="anonymous" defer></script>
-  <script src="js/main.js?v=35" defer></script>
+  <script src="js/main.js?v=36" defer></script>
   <script>
     (() => {
       const flow = document.querySelector('[data-consult-flow]');
