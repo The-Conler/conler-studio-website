@@ -20,7 +20,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Migra&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="css/style.css?v=48" />
+  <link rel="stylesheet" href="css/style.css?v=49" />
   <script>
     if (location.hash === '#brief') document.documentElement.classList.add('consult-skip-cover');
   </script>
@@ -112,10 +112,6 @@
 
   <main class="consult-flow" id="main" data-consult-flow>
     <aside class="consult-flow__side" aria-label="Stato della richiesta">
-      <a class="consult-flow__mark" href="index.html#hero" aria-label="Conler — home">
-        <img src="assets/conler-symbol-mark.png" alt="" decoding="async" />
-      </a>
-
       <div class="consult-flow__side-copy">
         <p class="eyebrow">Consulenze</p>
         <h1>Costruiamo <em>la tua richiesta</em></h1>
@@ -188,6 +184,10 @@
         <li class="consult-steps__item" data-step-id="project">
           <span class="consult-steps__icon"><i class="fa-solid fa-location-dot" aria-hidden="true"></i></span>
           <span><strong data-copy-key="side.projectTitle">Progetto</strong><small data-copy-key="side.project">Luogo e contesto.</small></span>
+        </li>
+        <li class="consult-steps__item" data-step-id="summary" hidden>
+          <span class="consult-steps__icon"><i class="fa-solid fa-table-columns" aria-hidden="true"></i></span>
+          <span><strong>Riepilogo</strong><small>Il progetto in sintesi.</small></span>
         </li>
         <li class="consult-steps__item" data-step-id="contact">
           <span class="consult-steps__icon"><i class="fa-regular fa-paper-plane" aria-hidden="true"></i></span>
@@ -765,6 +765,15 @@
         </div>
       </section>
 
+      <section class="consult-step" data-step-id="summary" aria-labelledby="consult-summary-title" hidden>
+        <div class="consult-step__head">
+          <p class="eyebrow" data-step-eyebrow>Riepilogo del brief</p>
+          <h2 id="consult-summary-title">Il progetto, in sintesi.</h2>
+          <p>Tutto quello che ci avete raccontato, in un unico posto.</p>
+        </div>
+        <div class="consult-recap" data-recap-board></div>
+      </section>
+
       <section class="consult-step" data-step-id="contact" aria-labelledby="consult-contact-title" hidden>
         <div class="consult-step__head">
           <p class="eyebrow" data-step-eyebrow>Step 09</p>
@@ -863,7 +872,7 @@
           <div class="consult-final-brief" aria-label="Riepilogo richiesta">
             <div class="consult-brief-card" data-only-cat="Associazione" hidden>
               <header class="consult-brief-card__head">
-                <h3>Il vostro brief</h3>
+                <h3>Componenti del preventivo</h3>
                 <p>Una proposta su misura, a partire da noi.</p>
               </header>
               <p class="consult-brief-card__label">Servizi selezionati</p>
@@ -938,7 +947,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" crossorigin="anonymous" defer></script>
-  <script src="js/main.js?v=33" defer></script>
+  <script src="js/main.js?v=34" defer></script>
   <script>
     (() => {
       const flow = document.querySelector('[data-consult-flow]');
@@ -1004,9 +1013,10 @@
          FLOW_BASE is the default order. BRANCHES maps a Categoria value to
          extra steps inserted right after the category step. Associazione uses
          FLOW_ASSOC: Materiali comes right after Attività; Destinazione e
-         obiettivi and Luogo are skipped (their step HTML is kept to restore later). */
+         obiettivi and Luogo are skipped (their step HTML is kept to restore later);
+         a Riepilogo step sits just before Contatti. */
       const FLOW_BASE = ['category', 'services', 'details', 'goal', 'budget', 'timeline', 'materials', 'project', 'contact'];
-      const FLOW_ASSOC = ['category', 'assoc', 'assocActivity', 'materials', 'services', 'details', 'budget', 'timeline', 'contact'];
+      const FLOW_ASSOC = ['category', 'assoc', 'assocActivity', 'materials', 'services', 'details', 'budget', 'timeline', 'summary', 'contact'];
       const BRANCHES = {
         'Associazione': ['assoc', 'assocActivity'],
       };
@@ -1327,6 +1337,7 @@
         const briefTimeline = flow.querySelector('[data-brief-timeline]');
         if (briefBudget) briefBudget.textContent = state.budget ? `${state.budget} · circa ${exactBudget}` : (state.fields.budgetExact ? `Circa ${exactBudget}` : 'Da definire');
         if (briefTimeline) briefTimeline.textContent = timelineText() || 'Da definire';
+        syncRecap();
         if (isAssoc()) {
           const f = state.fields;
           const ambiti = Array.from(state.assocAmbiti).map(v => (v === 'Altro' && f.assocAmbitoAltro.trim() ? f.assocAmbitoAltro.trim() : v));
@@ -1668,6 +1679,58 @@
         }
         return items;
       }
+
+      const SERVICE_ICONS = {
+        Video: 'fa-video',
+        Photo: 'fa-camera',
+        Website: 'fa-display',
+        'Brand Identity': 'fa-fingerprint',
+        Logo: 'fa-pen-nib',
+        'Social Media Management': 'fa-hashtag',
+        'Non sappiamo ancora cosa ci serve': 'fa-compass',
+      };
+      function recapHtml() {
+        const f = state.fields;
+        const dash = v => (v && String(v).trim()) || '—';
+        const ambiti = Array.from(state.assocAmbiti).map(v => (v === 'Altro' && f.assocAmbitoAltro.trim() ? f.assocAmbitoAltro.trim() : v));
+        const row = (label, value) => `<div><dt>${escHtml(label)}</dt><dd>${escHtml(dash(value))}</dd></div>`;
+        const card = (jump, icon, title, body) => `<article class="consult-recap__card">
+          <header>
+            <span class="consult-mini-card__icon" aria-hidden="true"><i class="fa-solid ${escHtml(icon)}"></i></span>
+            <h3>${escHtml(title)}</h3>
+            <button type="button" class="consult-linkbtn" data-jump="${escHtml(jump)}">Modifica</button>
+          </header>
+          ${body}
+        </article>`;
+        const ident = card('assoc', 'fa-people-group', 'Progetto e associazione',
+          `<dl class="consult-recap__rows">${row('Categoria', state.category)}${row('Associazione', f.assocName)}${row('Ambiti', ambiti.join(', '))}${row('Problema attuale', joinSet(state.assocPain, ''))}</dl>`);
+        const serviceRows = ACC_SECTIONS.filter(secVisible).map(sec => {
+          const icon = SERVICE_ICONS[sec.service] || 'fa-layer-group';
+          let pill;
+          if (isDeferred(sec)) pill = '<em class="consult-recap__pill is-later">Da definire</em>';
+          else {
+            const qs = secQs(sec).filter(q => q.type !== 'note');
+            pill = `<em class="consult-recap__pill">${qs.filter(answered).length}/${qs.length}</em>`;
+          }
+          return `<div class="consult-recap__service"><span class="consult-qacc__icon" aria-hidden="true"><i class="fa-solid ${escHtml(icon)}"></i></span><strong>${escHtml(sec.title)}</strong>${pill}</div>`;
+        }).join('') || '<p class="consult-q__note">Nessun servizio selezionato.</p>';
+        const services = card('services', 'fa-wand-magic-sparkles', 'Servizi selezionati',
+          `<div class="consult-recap__services">${serviceRows}</div>`);
+        const exact = f.budgetExact ? formatEuro(f.budgetExact) : '';
+        const money = card('budget', 'fa-coins', 'Budget e tempistiche',
+          `<dl class="consult-recap__rows">${row('Fascia indicata', state.budget)}${row('Importo', exact)}${row('Finanziamento', fundingText())}${row('Tempistiche', timelineText())}</dl>`);
+        const mats = Array.from(state.materials);
+        const matBody = mats.length
+          ? `<ul class="consult-recap__mats">${mats.map(v => `<li>${escHtml(v)}</li>`).join('')}</ul>`
+          : '<p class="consult-q__note">Nessun materiale selezionato.</p>';
+        const materials = card('materials', 'fa-folder-open', 'Materiali disponibili', matBody);
+        return ident + services + money + materials;
+      }
+      function syncRecap() {
+        const board = flow.querySelector('[data-recap-board]');
+        if (board) board.innerHTML = isAssoc() ? recapHtml() : '';
+      }
+
       const quoteOpen = new Set();
       function quoteHtml() {
         const items = quoteItems();
@@ -1741,6 +1804,7 @@
           const pos = ids.indexOf(step.dataset.stepId) + 1;
           if (eyebrow && pos) {
             if (isAssoc() && step.dataset.stepId === 'contact') eyebrow.textContent = 'Contatti e invio';
+            else if (isAssoc() && step.dataset.stepId === 'summary') eyebrow.textContent = 'Riepilogo del brief';
             else eyebrow.textContent = `Step ${String(pos).padStart(2, '0')}`;
           }
         });
@@ -2215,6 +2279,12 @@
       }
 
       flow.addEventListener('click', (event) => {
+        const jump = event.target.closest('[data-jump]');
+        if (jump) {
+          const n = flowIds().indexOf(jump.dataset.jump) + 1;
+          if (n > 0) goTo(n);
+          return;
+        }
         const toggle = event.target.closest('[data-edit-toggle]');
         if (toggle) {
           const box = flow.querySelector('[data-edit-fields]');

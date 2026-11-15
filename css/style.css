@@ -6338,14 +6338,14 @@ html.contact-open body {
    ========================================================================== */
 @font-face {
   font-family: "Nyght Serif";
-  src: url("../assets/fonts/NyghtSerif-Regular.woff2?v=48") format("woff2");
+  src: url("../assets/fonts/NyghtSerif-Regular.woff2?v=49") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Nyght Serif";
-  src: url("../assets/fonts/NyghtSerif-RegularItalic.woff2?v=48") format("woff2");
+  src: url("../assets/fonts/NyghtSerif-RegularItalic.woff2?v=49") format("woff2");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -6954,4 +6954,110 @@ html.consult-skip-cover body.consult-page.is-cover .consult-flow {
   .consult-page .consult-flow__bar.is-final .consult-flow__note { grid-area: note; max-width: none; padding: 0 4px 6px; }
   .consult-page .consult-flow__bar.is-final .consult-flow__back { grid-area: back; }
   .consult-page .consult-flow__bar.is-final .consult-flow__next { grid-area: next; justify-self: end; }
+}
+
+
+/* ---- Associazione recap step + always-hide skipped sidebar items / mark ---- */
+.consult-page .consult-flow__mark { display: none !important; }
+.consult-page .consult-steps__item[hidden] { display: none !important; }
+
+.consult-page .consult-recap {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  align-items: start;
+}
+.consult-page .consult-recap__card {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+  padding: clamp(16px, 1.4vw, 22px);
+  border: 1px solid var(--consult-line);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.03);
+}
+.consult-page .consult-recap__card header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.consult-page .consult-recap__card header h3 {
+  flex: 1;
+  margin: 0;
+  font-size: clamp(16px, 1.15vw, 19px);
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+.consult-page .consult-recap__card .consult-linkbtn { flex: 0 0 auto; margin: 0; }
+.consult-page .consult-recap__rows { display: grid; margin: 0; }
+.consult-page .consult-recap__rows div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(245, 245, 245, 0.1);
+}
+.consult-page .consult-recap__rows div:last-child { border-bottom: 0; padding-bottom: 0; }
+.consult-page .consult-recap__rows div:first-child { padding-top: 0; }
+.consult-page .consult-recap__rows dt {
+  color: var(--consult-muted);
+  font-size: 13px;
+  flex: 0 1 auto;
+}
+.consult-page .consult-recap__rows dd {
+  margin: 0;
+  text-align: right;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+.consult-page .consult-recap__service {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(245, 245, 245, 0.1);
+}
+.consult-page .consult-recap__service:first-child { padding-top: 0; }
+.consult-page .consult-recap__service:last-child { border-bottom: 0; padding-bottom: 0; }
+.consult-page .consult-recap__service strong {
+  flex: 1;
+  min-width: 0;
+  font-size: 14px;
+  font-weight: 550;
+  letter-spacing: -0.02em;
+}
+.consult-page .consult-recap__pill {
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 3px 9px;
+  border: 1px solid rgba(245, 245, 245, 0.16);
+  border-radius: 999px;
+  background: rgba(245, 245, 245, 0.06);
+  color: #f5f5f5;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.consult-page .consult-recap__pill.is-later {
+  color: var(--consult-muted);
+  font-weight: 550;
+}
+.consult-page .consult-recap__mats {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+}
+.consult-page .consult-recap__mats li {
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(245, 245, 245, 0.1);
+  font-size: 14px;
+}
+.consult-page .consult-recap__mats li:first-child { padding-top: 0; }
+.consult-page .consult-recap__mats li:last-child { border-bottom: 0; padding-bottom: 0; }
+
+@media (max-width: 1080px) {
+  .consult-page .consult-recap { grid-template-columns: 1fr; }
 }
