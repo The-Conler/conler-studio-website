@@ -20,7 +20,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Migra&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="css/style.css?v=61" />
+  <link rel="stylesheet" href="css/style.css?v=62" />
   <script>
     if (location.hash === '#brief') document.documentElement.classList.add('consult-skip-cover');
   </script>
@@ -882,19 +882,6 @@
 
         <div class="consult-contact-layout">
           <div class="consult-contact-cards">
-            <div class="consult-detail-block consult-mini-card" data-show-nonlegal hidden>
-              <div class="consult-mini-card__head">
-                <span class="consult-mini-card__icon" aria-hidden="true"><i class="fa-regular fa-user"></i></span>
-                <div>
-                  <h3>Chi sta compilando</h3>
-                  <p>Hai indicato un ruolo diverso da rappresentante legale: dicci come ti chiami.</p>
-                </div>
-              </div>
-              <label class="consult-field consult-field--solo">
-                <span>Il tuo nome e cognome <b class="consult-req" aria-hidden="true">*</b></span>
-                <input type="text" name="assocFiller" data-field="assocFiller" autocomplete="off" placeholder="Nome e cognome" required aria-required="true"  data-form-type="other"/>
-              </label>
-            </div>
             <div class="consult-detail-block consult-mini-card">
               <div class="consult-mini-card__head">
                 <span class="consult-mini-card__icon" aria-hidden="true"><i class="fa-regular fa-address-card"></i></span>
@@ -1065,7 +1052,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" crossorigin="anonymous" defer></script>
   <script src="js/main.js?v=38" defer></script>
   <script src="js/vendor/jspdf.umd.min.js"></script>
-  <script src="js/consult-brief-pdf.js?v=61"></script>
+  <script src="js/consult-brief-pdf.js?v=62"></script>
   <script>
 
     function textReveal06(scope = document) {
@@ -1228,8 +1215,6 @@
         assocPhoto: 'assocPhotoSubjects', assocVideoUse: 'assocVideoUses', assocSiteGoal: 'assocSiteGoals', assocChannel: 'assocSocialChannels',
       };
       const DATE_OPTION = 'Per una data o un evento specifico';
-      const LEGAL_ROLE = 'Presidente / rappresentante legale';
-      function needsFiller() { return isAssoc() && Boolean(state.assocRole) && state.assocRole !== LEGAL_ROLE; }
 
       /* ---- per-category config (data-driven) ------------------------------
          • Copy: elements with data-copy-key get the text below when that
@@ -1478,7 +1463,7 @@
           case 'project': return filled('location');
           case 'contact': {
             const people = isAssoc()
-              ? (filled('assocName') && filled('assocRep') && hasEmail(state.fields.assocEmail) && (!needsFiller() || filled('assocFiller')))
+              ? (filled('assocName') && filled('assocRep') && hasEmail(state.fields.assocEmail))
               : (filled('name') && hasEmail(state.fields.email));
             return people && state.fields.privacyAccepted === '1';
           }
@@ -1613,7 +1598,7 @@
           set('[data-summary-composition]', [f.assocSociCount.trim() && `${f.assocSociCount.trim()} soci`, f.assocPresidente.trim() && `Presidente: ${f.assocPresidente.trim()}`, f.assocTesoriere.trim() && `Tesoriere: ${f.assocTesoriere.trim()}`, f.assocSegretario.trim() && `Segretario: ${f.assocSegretario.trim()}`].filter(Boolean).join(' · ') || '-');
           setLiveValue(flow.querySelector('[data-side-assoc-ambiti]'), ambiti.length ? ambiti.join(', ') : '-', null);
           set('[data-summary-assoc]', [f.assocName.trim(), state.assocForm, state.assocRunts ? `RUNTS: ${state.assocRunts}` : ''].filter(Boolean).join(' · ') || '-');
-          set('[data-summary-assoc-rep]', [f.assocRep.trim(), f.assocEmail.trim(), needsFiller() && f.assocFiller.trim() ? `compila: ${f.assocFiller.trim()} (${state.assocRole === 'Altro' && f.assocRoleAltro.trim() ? f.assocRoleAltro.trim() : state.assocRole})` : ''].filter(Boolean).join(' · ') || '-');
+          set('[data-summary-assoc-rep]', [f.assocRep.trim(), f.assocEmail.trim()].filter(Boolean).join(' · ') || '-');
           set('[data-summary-assoc-scope]', [ambiti.join(', '), joinSet(state.assocTargets, '')].filter(Boolean).join(' → ') || '-');
           set('[data-summary-assoc-territory]', state.assocTerritorio || '-');
           set('[data-summary-assoc-pain]', joinSet(state.assocPain, '-'));
@@ -2048,11 +2033,6 @@
         const exact = state.budget === 'Non lo so ancora' ? 'Non lo so ancora' : (f.budgetExact ? formatEuro(f.budgetExact) : '');
         const money = card('budget', 'fa-coins', 'Budget e tempistiche',
           `<dl class="consult-recap__rows">${row('Fascia indicata', state.budget)}${row('Importo', exact)}${isAssoc() ? row('Finanziamento', fundingText()) : ''}${row('Tempistiche', timelineText())}</dl>`);
-        const mats = Array.from(state.materials);
-        const matBody = mats.length
-          ? `<ul class="consult-recap__mats">${mats.map(v => `<li>${escHtml(v)}</li>`).join('')}</ul>`
-          : '<p class="consult-q__note">Nessun materiale selezionato.</p>';
-        const materials = card('materials', 'fa-folder-open', 'Materiali disponibili', matBody);
         const ideaParts = [];
         [1, 2, 3].forEach(n => {
           const title = (f[`idea${n}Title`] || '').trim();
@@ -2068,8 +2048,7 @@
           ? html.replace('class="consult-recap__card"', 'class="consult-recap__card is-compact"')
           : html;
         const left = [ident, ideas, services];
-        const right = [money, pack(materials, mats.length <= 1)];
-        if (!mats.length) right[1] = pack(materials, true);
+        const right = [money];
         if (!ideaParts.length) left[1] = pack(ideas, true);
         return `<div class="consult-recap__col">${left.join('')}</div><div class="consult-recap__col">${right.join('')}</div>`;
       }
@@ -2291,7 +2270,7 @@
         const isA = isAssoc();
         const clientName = isA ? (f.assocName || '').trim() : ((f.business || '').trim() || (f.name || '').trim());
         const referente = isA
-          ? ((needsFiller() && (f.assocFiller || '').trim()) ? (f.assocFiller || '').trim() : (f.assocRep || '').trim())
+          ? (f.assocRep || '').trim()
           : (f.name || '').trim();
         const email = isA ? (f.assocEmail || '').trim() : (f.email || '').trim();
         const phone = isA ? (f.assocWhatsapp || '').trim() : (f.phone || '').trim();
@@ -2401,7 +2380,7 @@
         const names = { light: 'DMSans-Light.ttf', regular: 'DMSans-Regular.ttf', medium: 'DMSans-Medium.ttf', bold: 'DMSans-Bold.ttf' };
         const fonts = {};
         await Promise.all(Object.keys(names).map(async key => {
-          const res = await fetch(new URL(names[key] + '?v=61', base).href);
+          const res = await fetch(new URL(names[key] + '?v=62', base).href);
           if (!res.ok) throw new Error('Font mancante: ' + names[key]);
           fonts[key] = new Uint8Array(await res.arrayBuffer());
         }));
@@ -2528,10 +2507,6 @@
           });
           el.querySelectorAll('[data-option]').forEach(o => { if (SINGLE_KEYS.includes(o.dataset.option)) clearSingle(o.dataset.option); });
         });
-        flow.querySelectorAll('[data-show-nonlegal]').forEach(el => {
-          el.hidden = !needsFiller();
-          if (el.hidden && state.fields.assocFiller) state.fields.assocFiller = '';
-        });
         flow.querySelectorAll('[data-assoc-only]').forEach(el => { el.hidden = !isAssoc(); });
         syncFieldInputs();
 
@@ -2651,11 +2626,10 @@
         }
         if (id === 'contact') {
           const ok = isAssoc()
-            ? (filled('assocName') && filled('assocRep') && hasEmail(f.assocEmail) && (!needsFiller() || filled('assocFiller')))
+            ? (filled('assocName') && filled('assocRep') && hasEmail(f.assocEmail))
             : (filled('name') && hasEmail(f.email));
           if (ok) return input('privacyAccepted');
         }
-        if (id === 'contact' && isAssoc() && needsFiller() && !filled('assocFiller')) return input('assocFiller');
         if (id === 'contact' && isAssoc()) {
           const box = flow.querySelector('[data-edit-fields]');
           if (box && box.hidden) {
@@ -2992,9 +2966,7 @@
           `Materiali: ${joinSet(state.materials, '-')}`,
           '',
           '--- Contatti ---',
-          needsFiller()
-            ? `Referente (compila il modulo): ${dash(f.assocFiller)} — ruolo: ${state.assocRole === 'Altro' && f.assocRoleAltro.trim() ? f.assocRoleAltro.trim() : state.assocRole}`
-            : `Referente (rappresentante legale): ${dash(f.assocRep)}`,
+          `Referente (rappresentante legale): ${dash(f.assocRep)}`,
           `Rappresentante legale: ${dash(f.assocRep)}`,
           `Email: ${dash(f.assocEmail)}`,
           `Persona da contattare: ${dash(f.assocContactPerson)}`,
