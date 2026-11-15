@@ -13,13 +13,16 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Migra&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="css/style.css?v=45" />
+  <link rel="stylesheet" href="css/style.css?v=46" />
+  <script>
+    if (location.hash === '#brief') document.documentElement.classList.add('consult-skip-cover');
+  </script>
 </head>
-<body class="consult-page">
+<body class="consult-page is-cover">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="nav" data-nav>
@@ -78,6 +81,32 @@
     </div>
   </div>
 
+
+  <section class="consult-cover" data-consult-cover aria-label="Copertina consulenze">
+    <div class="consult-cover__media" aria-hidden="true">
+      <div class="consult-cover__glow"></div>
+      <svg class="consult-cover__grain" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <defs>
+          <filter id="consultCoverGrain" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
+            <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="4" stitchTiles="stitch" result="noise">
+              <animate attributeName="seed" values="0;1;2;3;4;5;6;7;0" dur="0.64s" repeatCount="indefinite" />
+            </feTurbulence>
+            <feColorMatrix type="saturate" values="0" />
+          </filter>
+        </defs>
+        <rect width="100%" height="100%" filter="url(#consultCoverGrain)" opacity="1"></rect>
+      </svg>
+    </div>
+    <div class="consult-cover__content">
+      <h1 class="consult-cover__title">Conler Studio</h1>
+      <p class="consult-cover__subtitle">Consulenza per la tua attività</p>
+      <button class="consult-cover__start button-02" type="button" data-consult-start>
+        <span class="inner">Inizia</span>
+        <span class="circle" aria-hidden="true"><span>&rarr;</span></span>
+      </button>
+    </div>
+  </section>
+
   <main class="consult-flow" id="main" data-consult-flow>
     <aside class="consult-flow__side" aria-label="Stato della richiesta">
       <a class="consult-flow__mark" href="index.html#hero" aria-label="Conler — home">
@@ -108,6 +137,8 @@
           <span><small>Servizi</small><strong data-side-services>-</strong></span>
           <span><small>Budget</small><strong data-side-budget>-</strong></span>
           <span data-assoc-only hidden><small>Associazione</small><strong data-side-assoc-name>-</strong></span>
+          <span data-assoc-only hidden><small>Soci</small><strong data-side-assoc-soci>-</strong></span>
+          <span data-assoc-only data-live-extra hidden><small>Organi</small><strong data-side-assoc-organi>-</strong></span>
           <span data-assoc-only hidden><small>Ambiti</small><strong data-side-assoc-ambiti>-</strong></span>
           <span data-assoc-only data-live-extra hidden><small>Timing</small><strong data-side-assoc-timing>-</strong></span>
           <span data-assoc-only data-live-extra hidden><small>Finanziamento</small><strong data-side-assoc-funding>-</strong></span>
@@ -239,11 +270,10 @@
               <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="assocForm" data-value="Non lo so"><i class="fa-solid fa-circle-question" aria-hidden="true"></i><span>Non lo so</span></button>
             </div>
             <div class="consult-detail-block__head consult-detail-block__head--sub"><h3>L&#39;associazione è iscritta al RUNTS?</h3></div>
-            <div class="consult-options consult-options--pills" role="radiogroup" aria-label="Iscrizione RUNTS">
+            <div class="consult-options consult-options--pills consult-options--runts" role="radiogroup" aria-label="Iscrizione RUNTS">
               <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="assocRunts" data-value="Sì"><i class="fa-solid fa-circle-check" aria-hidden="true"></i><span>Sì</span></button>
               <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="assocRunts" data-value="No"><i class="fa-solid fa-circle-xmark" aria-hidden="true"></i><span>No</span></button>
               <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="assocRunts" data-value="Iscrizione in corso"><i class="fa-solid fa-hourglass-half" aria-hidden="true"></i><span>Iscrizione in corso</span></button>
-              <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="assocRunts" data-value="Non lo so"><i class="fa-solid fa-circle-question" aria-hidden="true"></i><span>Non lo so</span></button>
             </div>
             <div class="consult-fields" data-reveal-single="assocRunts:Sì|Iscrizione in corso" hidden>
               <label class="consult-field">
@@ -315,6 +345,36 @@
           <div class="consult-detail-block">
             <div class="consult-detail-block__head">
               <span>01</span>
+              <h3>Composizione dell&#39;associazione</h3>
+            </div>
+            <div class="consult-fields">
+              <label class="consult-field consult-field--full">
+                <span>Da quanti soci è costituita l&#39;associazione? <b class="consult-req" aria-hidden="true">*</b></span>
+                <input type="number" name="assocSociCount" data-field="assocSociCount" min="1" step="1" inputmode="numeric" placeholder="Es. 25" required aria-required="true" />
+              </label>
+            </div>
+            <div class="consult-detail-block__head consult-detail-block__head--sub">
+              <h3>Organi obbligatori</h3>
+              <p>Indica i membri che ricoprono le cariche obbligatorie.</p>
+            </div>
+            <div class="consult-fields consult-fields--officers">
+              <label class="consult-field">
+                <span>Presidente <b class="consult-req" aria-hidden="true">*</b></span>
+                <input type="text" name="assocPresidente" data-field="assocPresidente" autocomplete="name" placeholder="Nome e cognome" required aria-required="true" />
+              </label>
+              <label class="consult-field">
+                <span>Tesoriere <b class="consult-req" aria-hidden="true">*</b></span>
+                <input type="text" name="assocTesoriere" data-field="assocTesoriere" autocomplete="name" placeholder="Nome e cognome" required aria-required="true" />
+              </label>
+              <label class="consult-field">
+                <span>Segretario <b class="consult-req" aria-hidden="true">*</b></span>
+                <input type="text" name="assocSegretario" data-field="assocSegretario" autocomplete="name" placeholder="Nome e cognome" required aria-required="true" />
+              </label>
+            </div>
+          </div>
+          <div class="consult-detail-block">
+            <div class="consult-detail-block__head">
+              <span>02</span>
               <h3>In quali ambiti opera l&#39;associazione?</h3>
               <p>Puoi selezionare più opzioni.</p>
             </div>
@@ -335,7 +395,7 @@
           </div>
           <div class="consult-detail-block">
             <div class="consult-detail-block__head">
-              <span>02</span>
+              <span>03</span>
               <h3>A chi si rivolgono principalmente le vostre attività?</h3>
               <p>Puoi selezionare più opzioni.</p>
             </div>
@@ -343,6 +403,7 @@
               <button class="consult-option" type="button" aria-pressed="false" data-option="assocTarget" data-value="Comunità locale"><i class="fa-solid fa-people-roof" aria-hidden="true"></i><span>Comunità locale</span></button>
               <button class="consult-option" type="button" aria-pressed="false" data-option="assocTarget" data-value="Giovani"><i class="fa-solid fa-user-group" aria-hidden="true"></i><span>Giovani</span></button>
               <button class="consult-option" type="button" aria-pressed="false" data-option="assocTarget" data-value="Famiglie e bambini"><i class="fa-solid fa-children" aria-hidden="true"></i><span>Famiglie e bambini</span></button>
+              <button class="consult-option" type="button" aria-pressed="false" data-option="assocTarget" data-value="Terza età"><i class="fa-solid fa-person-cane" aria-hidden="true"></i><span>Terza età</span></button>
               <button class="consult-option" type="button" aria-pressed="false" data-option="assocTarget" data-value="Turisti e visitatori"><i class="fa-solid fa-suitcase-rolling" aria-hidden="true"></i><span>Turisti e visitatori</span></button>
               <button class="consult-option" type="button" aria-pressed="false" data-option="assocTarget" data-value="Imprese e professionisti"><i class="fa-solid fa-briefcase" aria-hidden="true"></i><span>Imprese e professionisti</span></button>
               <button class="consult-option" type="button" aria-pressed="false" data-option="assocTarget" data-value="Pubblico culturale"><i class="fa-solid fa-masks-theater" aria-hidden="true"></i><span>Pubblico culturale</span></button>
@@ -351,7 +412,7 @@
           </div>
           <div class="consult-detail-block">
             <div class="consult-detail-block__head">
-              <span>03</span>
+              <span>04</span>
               <h3>Qual è il territorio in cui operate principalmente?</h3>
             </div>
             <div class="consult-options consult-options--pills" role="radiogroup" aria-label="Territorio">
@@ -363,7 +424,7 @@
           </div>
           <div class="consult-detail-block">
             <div class="consult-detail-block__head">
-              <span>06</span>
+              <span>05</span>
               <h3>Quante persone partecipano attivamente all&#39;organizzazione?</h3>
             </div>
             <div class="consult-options consult-options--pills" role="radiogroup" aria-label="Persone attive">
@@ -377,7 +438,7 @@
 
           <div class="consult-detail-block">
             <div class="consult-detail-block__head">
-              <span>05</span>
+              <span>06</span>
               <h3>Con quale frequenza organizzate attività o iniziative?</h3>
             </div>
             <div class="consult-options consult-options--pills" role="radiogroup" aria-label="Frequenza">
@@ -391,7 +452,7 @@
 
           <div class="consult-detail-block">
             <div class="consult-detail-block__head">
-              <span>04</span>
+              <span>07</span>
               <h3>Quali progetti o iniziative organizzate?</h3>
             </div>
             <label class="consult-field consult-field--full">
@@ -401,7 +462,7 @@
           </div>
           <div class="consult-detail-block">
             <div class="consult-detail-block__head">
-              <span>07 — Problema attuale</span>
+              <span>08 — Problema attuale</span>
               <h3>Qual è il problema attuale?</h3>
               <p>Seleziona le difficoltà che incontrate oggi.</p>
             </div>
@@ -819,6 +880,7 @@
             <div><span data-copy-key="sum.loc">Luogo</span><strong data-summary-location>Non inserito</strong></div>
             <div data-assoc-only hidden><span>Associazione</span><strong data-summary-assoc>-</strong></div>
             <div data-assoc-only hidden><span>Rappresentante</span><strong data-summary-assoc-rep>-</strong></div>
+            <div data-assoc-only hidden><span>Composizione</span><strong data-summary-composition>-</strong></div>
             <div data-assoc-only hidden><span>Ambiti e destinatari</span><strong data-summary-assoc-scope>-</strong></div>
             <div data-assoc-only hidden><span>Finanziamento</span><strong data-summary-funding>-</strong></div>
             <div data-assoc-only hidden><span>Dimensione e frequenza</span><strong data-summary-org>-</strong></div>
@@ -902,7 +964,7 @@
           eventTypeOther: '',
           assocName: '', assocCF: '', assocPIVA: '', assocSede: '', assocYear: '',
           assocRep: '', assocEmail: '', assocPEC: '',
-          assocAmbitoAltro: '', assocProjects: '',
+          assocAmbitoAltro: '', assocProjects: '', assocSociCount: '', assocPresidente: '', assocTesoriere: '', assocSegretario: '',
           assocRuntsNumero: '', assocRuntsSezione: '', eventDate: '', locationSame: '',
           assocWhatsapp: '', assocContactPerson: '',
           assocRoleAltro: '', assocFiller: '', assocProjectName: '',
@@ -1111,7 +1173,10 @@
         switch (id) {
           case 'category': return Boolean(state.category);
           case 'assoc': return filled('assocName') && filled('assocCF') && filled('assocSede') && filled('assocRep') && hasEmail(state.fields.assocEmail);
-          case 'assocActivity': return true;
+          case 'assocActivity': {
+            const soci = Number(state.fields.assocSociCount);
+            return Number.isFinite(soci) && soci >= 1 && filled('assocPresidente') && filled('assocTesoriere') && filled('assocSegretario');
+          }
           case 'services': return state.services.size > 0;
           case 'details': return isAssoc() ? true : Boolean(state.serviceDirection);
           case 'goal': return Boolean(state.goal) && (!isAssoc() || Boolean(state.assocDestination));
@@ -1233,6 +1298,9 @@
           const ambiti = Array.from(state.assocAmbiti).map(v => (v === 'Altro' && f.assocAmbitoAltro.trim() ? f.assocAmbitoAltro.trim() : v));
           const set = (sel, text) => { const el = flow.querySelector(sel); if (el) el.textContent = text; };
           set('[data-side-assoc-name]', f.assocName.trim() || '-');
+          set('[data-side-assoc-soci]', f.assocSociCount.trim() ? `${f.assocSociCount.trim()} soci` : '-');
+          set('[data-side-assoc-organi]', [f.assocPresidente.trim() && `Pres. ${f.assocPresidente.trim()}`, f.assocTesoriere.trim() && `Tes. ${f.assocTesoriere.trim()}`, f.assocSegretario.trim() && `Seg. ${f.assocSegretario.trim()}`].filter(Boolean).join(' · ') || '-');
+          set('[data-summary-composition]', [f.assocSociCount.trim() && `${f.assocSociCount.trim()} soci`, f.assocPresidente.trim() && `Presidente: ${f.assocPresidente.trim()}`, f.assocTesoriere.trim() && `Tesoriere: ${f.assocTesoriere.trim()}`, f.assocSegretario.trim() && `Segretario: ${f.assocSegretario.trim()}`].filter(Boolean).join(' · ') || '-');
           set('[data-side-assoc-ambiti]', ambiti.length ? ambiti.join(', ') : '-');
           set('[data-summary-assoc]', [f.assocName.trim(), state.assocForm, state.assocRunts ? `RUNTS: ${state.assocRunts}` : ''].filter(Boolean).join(' · ') || '-');
           set('[data-summary-assoc-rep]', [f.assocRep.trim(), f.assocEmail.trim(), needsFiller() && f.assocFiller.trim() ? `compila: ${f.assocFiller.trim()} (${state.assocRole === 'Altro' && f.assocRoleAltro.trim() ? f.assocRoleAltro.trim() : state.assocRole})` : ''].filter(Boolean).join(' · ') || '-');
@@ -1308,8 +1376,8 @@
           NOTE('l_note', "Con Brand Identity e Logo insieme il logo è parte del sistema di identità: nel riepilogo è un unico progetto.", () => has('Brand Identity')),
           Q('l_need', 'Di cosa avete bisogno?', 'single', ['Creare un logo da zero', 'Rinnovare il logo esistente', 'Migliorare o sistemare il logo attuale', DEF], { s: 'Esigenza' }),
           Q('l_dest', 'A cosa sarà destinato il logo?', 'single', ["All'associazione", 'A un evento o una manifestazione', 'A un progetto specifico', DEF], { s: 'Destinazione', showIf: () => !has('Brand Identity') }),
-          Q('l_where', 'Dove verrà utilizzato principalmente?', 'multi', ['Social media', 'Sito web', 'Locandine e manifesti', 'Documenti ufficiali', 'Abbigliamento e merchandise', 'Insegne e allestimenti', DEF], { s: 'Utilizzo' }),
-          Q('l_idea', "Avete già un'idea di come dovrebbe essere?", 'single', ['Sì, abbiamo una direzione precisa', 'Abbiamo qualche riferimento', 'No, vorremmo una proposta creativa', DEF], { s: 'Idea' }),
+          Q('l_where', 'Dove verrà utilizzato principalmente?', 'multi', ['Social media', 'Sito web', 'Locandine e manifesti', 'Documenti ufficiali', 'Abbigliamento e merchandise', 'Insegne e allestimenti', 'Materiale corporate', DEF], { s: 'Utilizzo' }),
+          Q('l_idea', "Avete già uno stile visivo in mente?", 'single', ['Sì, abbiamo una direzione precisa', 'Abbiamo qualche riferimento', 'No, vorremmo una proposta creativa', DEF], { s: 'Stile visivo' }),
         ] },
         { id: 'social', num: '06', service: 'Social Media Management', title: 'Social Media Management', intro: 'Definiamo il tipo di supporto e la continuità della comunicazione.', qs: [
           Q('s_support', 'Di quale supporto avete bisogno?', 'single', ['Gestione completa dei social', 'Produzione di contenuti fotografici e video', 'Strategia e piano editoriale', 'Comunicazione di un evento specifico', DEF], { s: 'Supporto' }),
@@ -1328,6 +1396,8 @@
       ];
       Object.assign(state, { ans: {} });
       const accOpen = new Set();
+      const accDeferred = new Set();
+      const DEFER_IDS = new Set(['video', 'photo', 'website', 'brand', 'logo', 'social']);
       let accSig = '';
       let accTouched = false;
       const escHtml = v => String(v).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -1346,10 +1416,17 @@
       function qVisible(q) { return !q.showIf || q.showIf(); }
       function secQs(sec) { return sec.qs.filter(qVisible); }
       function answered(q) { const v = state.ans[q.id]; return Array.isArray(v) ? v.length > 0 : Boolean(v && String(v).trim()); }
+      function canDefer(sec) { return DEFER_IDS.has(sec.id); }
+      function isDeferred(sec) { return accDeferred.has(typeof sec === 'string' ? sec : sec.id); }
+      function clearSecAnswers(sec) {
+        sec.qs.forEach(q => { if (q.id in state.ans) delete state.ans[q.id]; });
+      }
       function pruneAnswers() {
         for (let pass = 0; pass < 3; pass += 1) {
           ACC_SECTIONS.forEach(sec => {
             const vis = secVisible(sec);
+            if (!vis || !canDefer(sec)) accDeferred.delete(sec.id);
+            if (isDeferred(sec)) { clearSecAnswers(sec); return; }
             sec.qs.forEach(q => { if (q.type !== 'note' && (!vis || !qVisible(q)) && q.id in state.ans) delete state.ans[q.id]; });
           });
         }
@@ -1381,7 +1458,7 @@
         pruneAnswers();
         const secs = ACC_SECTIONS.filter(secVisible);
         if (!accTouched) { accOpen.clear(); if (secs.length) accOpen.add(secs[0].id); }
-        const sig = JSON.stringify([isAssoc(), Array.from(state.services), state.ans, Array.from(accOpen)]);
+        const sig = JSON.stringify([isAssoc(), Array.from(state.services), state.ans, Array.from(accOpen), Array.from(accDeferred)]);
         if (sig === accSig) return;
         accSig = sig;
         accEl.innerHTML = secs.map(sec => {
@@ -1389,14 +1466,31 @@
           const real = qs.filter(q => q.type !== 'note');
           const done = real.filter(answered).length;
           const open = accOpen.has(sec.id);
-          return `<section class="consult-acc${open ? ' is-open' : ''}" data-acc="${sec.id}">
+          const deferred = isDeferred(sec);
+          const badge = deferred
+            ? `<span class="consult-acc__count is-deferred">Da definire</span>`
+            : `<span class="consult-acc__count">${done}/${real.length}</span>`;
+          let body = '';
+          if (canDefer(sec)) {
+            const example = sec.id === 'brand' ? 'il sito o i contenuti' : 'la Brand Identity';
+            body += `<div class="consult-acc__defer">
+              <button type="button" class="consult-acc__defer-btn${deferred ? ' is-on' : ''}" data-acc-defer="${sec.id}" aria-pressed="${deferred}">
+                <i class="fa-regular fa-clock" aria-hidden="true"></i>
+                <span>Lo definiamo insieme dopo</span>
+              </button>
+              <p class="consult-acc__defer-help">Se non avete ancora le idee chiare, possiamo partire da un altro servizio (es. ${example}) e definire questo in seguito.</p>
+              ${deferred ? '<p class="consult-acc__defer-status">Questo servizio verrà definito insieme in una fase successiva. Puoi disattivare questa opzione per compilare le domande ora.</p>' : ''}
+            </div>`;
+          }
+          if (!deferred) body += qs.map(accQHtml).join('');
+          return `<section class="consult-acc${open ? ' is-open' : ''}${deferred ? ' is-deferred' : ''}" data-acc="${sec.id}">
             <button type="button" class="consult-acc__head" aria-expanded="${open}" data-acc-toggle="${sec.id}">
               <span class="consult-acc__num">${sec.num}</span>
               <span class="consult-acc__title"><strong>${escHtml(sec.title)}</strong><small>${escHtml(sec.intro)}</small></span>
-              <span class="consult-acc__count">${done}/${real.length}</span>
+              ${badge}
               <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
             </button>
-            <div class="consult-acc__body"${open ? '' : ' hidden'}>${qs.map(accQHtml).join('')}</div>
+            <div class="consult-acc__body"${open ? '' : ' hidden'}>${body}</div>
           </section>`;
         }).join('');
       }
@@ -1404,6 +1498,17 @@
         accEl.addEventListener('click', event => {
           const tg = event.target.closest('[data-acc-toggle]');
           if (tg) { accTouched = true; const id = tg.dataset.accToggle; if (accOpen.has(id)) accOpen.delete(id); else accOpen.add(id); render(); return; }
+          const df = event.target.closest('[data-acc-defer]');
+          if (df) {
+            accTouched = true;
+            const id = df.dataset.accDefer;
+            const sec = ACC_SECTIONS.find(s2 => s2.id === id);
+            if (accDeferred.has(id)) accDeferred.delete(id);
+            else { accDeferred.add(id); if (sec) clearSecAnswers(sec); }
+            accOpen.add(id);
+            render();
+            return;
+          }
           const btn = event.target.closest('[data-ans]');
           if (!btn) return;
           const id = btn.dataset.ans; const val = btn.dataset.value;
@@ -1428,16 +1533,34 @@
       function accSummaryLine() {
         const secs = ACC_SECTIONS.filter(secVisible);
         if (!secs.length) return 'Da definire';
-        return secs.map(sec => { const r = secQs(sec).filter(q => q.type !== 'note'); return `${sec.title} (${r.filter(answered).length}/${r.length})`; }).join(' · ');
+        return secs.map(sec => {
+          if (isDeferred(sec)) return `${sec.title} (Da definire)`;
+          const r = secQs(sec).filter(q => q.type !== 'note');
+          return `${sec.title} (${r.filter(answered).length}/${r.length})`;
+        }).join(' · ');
       }
       function accDetailLines() {
         const out = [];
         ACC_SECTIONS.filter(secVisible).forEach(sec => {
           out.push(`[${sec.title}]`);
+          if (isDeferred(sec)) {
+            out.push('- Da definire insieme in una fase successiva');
+            return;
+          }
           secQs(sec).filter(q => q.type !== 'note' && !q.id.endsWith('_other') && answered(q)).forEach(q => out.push(`- ${q.label}: ${fmtAns(q)}`));
         });
+        const phase = phaseLine();
+        if (phase) out.push('', phase);
         return out;
       }
+      function phaseLine() {
+        const secs = ACC_SECTIONS.filter(secVisible).filter(canDefer);
+        const later = secs.filter(isDeferred);
+        const first = secs.filter(s2 => !isDeferred(s2));
+        if (!later.length || !first.length) return '';
+        return `Percorso suggerito: prima ${first.map(s2 => s2.title).join(', ')}; in una fase successiva ${later.map(s2 => s2.title).join(', ')}.`;
+      }
+      const DEFERRED_LINE = 'Da definire insieme in una fase successiva';
       /* "Componenti del preventivo": unified, one-off vs continuous */
       function quoteItems() {
         const A = id => state.ans[id];
@@ -1445,31 +1568,63 @@
         const ln = (label, id) => { const q = ACC_SECTIONS.flatMap(s2 => s2.qs).find(x => x.id === id); return q && answered(q) ? `${label}: ${fmtAns(q)}` : null; };
         const items = [];
         if (has('Website')) {
-          const subs = [['w_s_iscr', 'Iscrizioni'], ['w_s_tess', 'Tesseramento'], ['w_s_don', 'Donazioni dirette'], ['w_s_tick', 'Biglietteria'], ['w_s_news', 'Frequenza news']].map(([id, l]) => ln(l, id));
-          items.push({ n: '1', kind: 'Una tantum', title: 'Realizzazione del sito', lines: [ln('Sito attuale', 'w_has'), ln('Indirizzo', 'w_url'), ln('Scopi', 'w_goal'), ln('Funzionalità', 'w_feat'), ...subs, ln('Lingue', 'w_lang')].filter(Boolean) });
+          if (isDeferred('website')) {
+            items.push({ n: '1', kind: 'Una tantum', title: 'Realizzazione del sito', lines: [DEFERRED_LINE] });
+          } else {
+            const subs = [['w_s_iscr', 'Iscrizioni'], ['w_s_tess', 'Tesseramento'], ['w_s_don', 'Donazioni dirette'], ['w_s_tick', 'Biglietteria'], ['w_s_news', 'Frequenza news']].map(([id, l]) => ln(l, id));
+            items.push({ n: '1', kind: 'Una tantum', title: 'Realizzazione del sito', lines: [ln('Sito attuale', 'w_has'), ln('Indirizzo', 'w_url'), ln('Scopi', 'w_goal'), ln('Funzionalità', 'w_feat'), ...subs, ln('Lingue', 'w_lang')].filter(Boolean) });
+          }
         }
-        const siteShoot = has('Website') && M('w_shoot').length > 0;
+        const siteShoot = has('Website') && !isDeferred('website') && M('w_shoot').length > 0;
         if (has('Photo') || has('Video') || siteShoot) {
-          const cont = A('p_days') === 'Produzione continuativa' || A('v_count') === 'Produzione continuativa';
-          const lines = [];
-          if (siteShoot) lines.push(ln('Shooting per il sito', 'w_shoot'));
-          if (has('Photo')) lines.push(ln('Foto — soggetti', 'p_what'), ln('Foto — uso', 'p_use'), ln('Foto — giornate', 'p_days'), ln('Location', has('Video') ? 'v_where' : 'p_where'));
-          if (has('Video')) lines.push(ln('Video — tipo', 'v_type'), ln('Video — destinazione', 'v_dest'), ln('Video — quantità', 'v_count'), ln('Riprese', 'v_dateq'), ln('Data riprese', 'v_date'));
-          if (has('Website') && (has('Photo') || has('Video'))) lines.push('Produzioni unificate (sito + Photo/Video): da non conteggiare due volte');
-          lines.push('Produzione gestita esclusivamente da CONLER');
-          items.push({ n: '2', kind: cont ? 'Continuativo' : 'Una tantum', title: 'Produzione dei contenuti', lines: lines.filter(Boolean) });
+          const photoOn = has('Photo') && !isDeferred('photo');
+          const videoOn = has('Video') && !isDeferred('video');
+          const photoDef = has('Photo') && isDeferred('photo');
+          const videoDef = has('Video') && isDeferred('video');
+          const onlyDeferred = (photoDef || !has('Photo')) && (videoDef || !has('Video')) && !siteShoot && (has('Photo') || has('Video'));
+          if (onlyDeferred) {
+            items.push({ n: '2', kind: 'Una tantum', title: 'Produzione dei contenuti', lines: [DEFERRED_LINE] });
+          } else {
+            const cont = A('p_days') === 'Produzione continuativa' || A('v_count') === 'Produzione continuativa';
+            const lines = [];
+            if (siteShoot) lines.push(ln('Shooting per il sito', 'w_shoot'));
+            if (photoOn) lines.push(ln('Foto — soggetti', 'p_what'), ln('Foto — uso', 'p_use'), ln('Foto — giornate', 'p_days'), ln('Location', has('Video') && videoOn ? 'v_where' : 'p_where'));
+            if (photoDef) lines.push('Photo: ' + DEFERRED_LINE);
+            if (videoOn) lines.push(ln('Video — tipo', 'v_type'), ln('Video — destinazione', 'v_dest'), ln('Video — quantità', 'v_count'), ln('Riprese', 'v_dateq'), ln('Data riprese', 'v_date'));
+            if (videoDef) lines.push('Video: ' + DEFERRED_LINE);
+            if (has('Website') && !isDeferred('website') && (has('Photo') || has('Video'))) lines.push('Produzioni unificate (sito + Photo/Video): da non conteggiare due volte');
+            if (photoOn || videoOn || siteShoot) lines.push('Produzione gestita esclusivamente da CONLER');
+            items.push({ n: '2', kind: cont ? 'Continuativo' : 'Una tantum', title: 'Produzione dei contenuti', lines: lines.filter(Boolean) });
+          }
         }
-        if (has('Website') && A('w_freq')) {
+        if (has('Website') && !isDeferred('website') && A('w_freq')) {
           items.push({ n: '3', kind: 'Continuativo', title: 'Gestione del sito', lines: [ln('Aggiornamenti', 'w_freq'), 'Gestione e manutenzione affidate esclusivamente a CONLER'].filter(Boolean) });
         }
         if (has('Brand Identity') || has('Logo')) {
           const both = has('Brand Identity') && has('Logo');
-          items.push({ n: '4', kind: 'Una tantum', title: both ? 'Identità visiva (Brand Identity + Logo: un unico progetto)' : (has('Logo') ? 'Logo' : 'Brand Identity'),
-            lines: [ln('Punto di partenza', 'b_start'), ln('Destinazione', 'b_dest'), ln('Applicazioni', 'b_apps'), ln('Direzione', 'b_dir'), ln('Logo — esigenza', 'l_need'), ln('Logo — destinazione', 'l_dest'), ln('Logo — utilizzo', 'l_where'), ln('Logo — idea', 'l_idea')].filter(Boolean) });
+          const bDef = has('Brand Identity') && isDeferred('brand');
+          const lDef = has('Logo') && isDeferred('logo');
+          const title = both ? 'Identità visiva (Brand Identity + Logo: un unico progetto)' : (has('Logo') ? 'Logo' : 'Brand Identity');
+          let lines;
+          if ((has('Brand Identity') ? bDef : true) && (has('Logo') ? lDef : true)) {
+            lines = [DEFERRED_LINE];
+          } else {
+            lines = [];
+            if (has('Brand Identity') && bDef) lines.push('Brand Identity: ' + DEFERRED_LINE);
+            else if (has('Brand Identity')) lines.push(ln('Punto di partenza', 'b_start'), ln('Destinazione', 'b_dest'), ln('Applicazioni', 'b_apps'), ln('Direzione', 'b_dir'));
+            if (has('Logo') && lDef) lines.push('Logo: ' + DEFERRED_LINE);
+            else if (has('Logo')) lines.push(ln('Logo — esigenza', 'l_need'), ln('Logo — destinazione', 'l_dest'), ln('Logo — utilizzo', 'l_where'), ln('Logo — Stile visivo', 'l_idea'));
+            lines = lines.filter(Boolean);
+          }
+          items.push({ n: '4', kind: 'Una tantum', title, lines });
         }
         if (has('Social Media Management')) {
-          const once = A('s_dur') === 'Per un evento o una campagna';
-          items.push({ n: '5', kind: once ? 'Una tantum' : 'Continuativo', title: 'Social Media Management', lines: [ln('Supporto', 's_support'), ln('Piattaforme', 's_plat'), ln('Situazione attuale', 's_now'), ln('Durata', 's_dur'), ln('Contenuti', 's_cont'), 'Produzione foto/video gestita da CONLER'].filter(Boolean) });
+          if (isDeferred('social')) {
+            items.push({ n: '5', kind: 'Continuativo', title: 'Social Media Management', lines: [DEFERRED_LINE] });
+          } else {
+            const once = A('s_dur') === 'Per un evento o una campagna';
+            items.push({ n: '5', kind: once ? 'Una tantum' : 'Continuativo', title: 'Social Media Management', lines: [ln('Supporto', 's_support'), ln('Piattaforme', 's_plat'), ln('Situazione attuale', 's_now'), ln('Durata', 's_dur'), ln('Contenuti', 's_cont'), 'Produzione foto/video gestita da CONLER'].filter(Boolean) });
+          }
         }
         if (has('Non sappiamo ancora cosa ci serve')) {
           items.push({ n: '6', kind: 'Una tantum', title: 'Consulenza guidata CONLER', lines: [ln('Situazione', 'g_sit'), ln('Esigenza', 'g_need'), ln('Direzione creativa', 'g_dir'), ln('Note', 'g_free')].filter(Boolean) });
@@ -1479,11 +1634,13 @@
       function quoteHtml() {
         const items = quoteItems();
         if (!items.length) return '<p class="consult-q__note">Nessun servizio selezionato.</p>';
-        return ['Una tantum', 'Continuativo'].map(kind => {
+        const groups = ['Una tantum', 'Continuativo'].map(kind => {
           const list = items.filter(i => i.kind === kind);
           if (!list.length) return '';
           return `<div class="consult-quote__group"><h5>${kind === 'Continuativo' ? 'Continuativi' : 'Una tantum'}</h5>` + list.map(i => `<div class="consult-quote__item"><strong>${i.n}) ${escHtml(i.title)}</strong>${i.lines.map(l => `<span>${escHtml(l)}</span>`).join('')}</div>`).join('') + '</div>';
         }).join('');
+        const phase = phaseLine();
+        return groups + (phase ? `<p class="consult-quote__phase">${escHtml(phase)}</p>` : '');
       }
       function quoteLines() {
         const items = quoteItems();
@@ -1494,6 +1651,8 @@
           out.push(kind === 'Continuativo' ? 'CONTINUATIVI' : 'UNA TANTUM');
           list.forEach(i => { out.push(`${i.n}) ${i.title}`); i.lines.forEach(l => out.push(`   - ${l}`)); });
         });
+        const phase = phaseLine();
+        if (phase) out.push(phase);
         out.push('');
         return out;
       }
@@ -1600,6 +1759,12 @@
           if (key) return input(key);
           return input('assocEmail');
         }
+        if (id === 'assocActivity') {
+          const soci = Number(f.assocSociCount);
+          if (!Number.isFinite(soci) || soci < 1) return input('assocSociCount');
+          const key = ['assocPresidente', 'assocTesoriere', 'assocSegretario'].find(k => !String(f[k]).trim());
+          if (key) return input(key);
+        }
         if (id === 'project') return input('location');
         if (id === 'goal' && isAssoc()) {
           const key = state.assocDestination ? 'goal' : 'assocDestination';
@@ -1639,7 +1804,8 @@
           label.classList.add('is-attention');
           target.focus({ preventScroll: true });
         } else if (target.matches('input, textarea')) {
-          if (target.type === 'email' || !target.value.trim()) target.classList.add('is-invalid');
+          const badNumber = target.type === 'number' && !(Number(target.value) >= Number(target.min || 1));
+          if (target.type === 'email' || !target.value.trim() || badNumber) target.classList.add('is-invalid');
           ensureVisible(target);
           target.focus({ preventScroll: true });
         } else {
@@ -1713,6 +1879,7 @@
         Object.values(SET_OPTIONS).forEach(name => { data[name] = Array.from(state[name]); });
         SINGLE_KEYS.forEach(key => { data[key] = state[key]; });
         data.ans = state.ans;
+        data.deferred = Array.from(accDeferred);
         try {
           localStorage.setItem(STORE_KEY, JSON.stringify(data));
           if (flash) showNote('Bozza salvata');
@@ -1726,6 +1893,7 @@
         let data;
         try { data = JSON.parse(localStorage.getItem(STORE_KEY) || 'null'); } catch (error) { data = null; }
         if (!data || typeof data !== 'object') return false;
+        if (data.assocRunts === 'Non lo so') data.assocRunts = '';
         const options = Array.from(flow.querySelectorAll('[data-option]'));
         SINGLE_KEYS.forEach(key => {
           if (!data[key]) return;
@@ -1752,6 +1920,11 @@
             else if (typeof v2 === 'string') state.ans[k2] = v2;
           });
         }
+        accDeferred.clear();
+        (Array.isArray(data.deferred) ? data.deferred : []).forEach(id => {
+          if (DEFER_IDS.has(id)) accDeferred.add(id);
+        });
+        ACC_SECTIONS.forEach(sec => { if (isDeferred(sec)) clearSecAnswers(sec); });
         syncDetailBlocks();
         let step = Math.max(flowIds().indexOf(data.stepId) + 1, 1);
         while (step > 1 && !canReach(step)) step -= 1;
@@ -1871,6 +2044,10 @@
           `Ruolo di chi compila: ${state.assocRole === 'Altro' && f.assocRoleAltro.trim() ? `Altro (${f.assocRoleAltro.trim()})` : dash(state.assocRole)}`,
           `Email associazione: ${dash(f.assocEmail)}`,
           `PEC: ${dash(f.assocPEC)}`,
+          `Numero soci: ${dash(f.assocSociCount)}`,
+          `Presidente: ${dash(f.assocPresidente)}`,
+          `Tesoriere: ${dash(f.assocTesoriere)}`,
+          `Segretario: ${dash(f.assocSegretario)}`,
           `Ambiti: ${ambiti.length ? ambiti.join(', ') : '-'}`,
           `Destinatari: ${joinSet(state.assocTargets, '-')}`,
           `Territorio: ${dash(state.assocTerritorio)}`,
@@ -2022,6 +2199,97 @@
       const restored = restoreDraft();
       render();
       if (restored) showNote('Bozza ripristinata');
+    })();
+
+    (function initConsultCover() {
+      const page = document.body;
+      const cover = document.querySelector('[data-consult-cover]');
+      const flow = document.querySelector('[data-consult-flow]');
+      const start = document.querySelector('[data-consult-start]');
+      if (!page || !cover || !flow || !start) return;
+
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let transitioning = false;
+
+      function skipCover() {
+        return document.documentElement.classList.contains('consult-skip-cover') || location.hash === '#brief';
+      }
+
+      function settleBuilder() {
+        page.classList.remove('is-cover', 'is-entering-brief', 'is-entering-cover');
+        cover.classList.remove('is-leaving');
+        cover.setAttribute('hidden', '');
+        flow.style.pointerEvents = '';
+        transitioning = false;
+      }
+
+      function settleCover() {
+        page.classList.add('is-cover');
+        page.classList.remove('is-entering-brief', 'is-entering-cover');
+        cover.classList.remove('is-leaving');
+        cover.removeAttribute('hidden');
+        flow.style.pointerEvents = 'none';
+        transitioning = false;
+      }
+
+      function afterTransition(onDone) {
+        if (reduced) { onDone(); return; }
+        let done = false;
+        const finish = () => { if (done) return; done = true; onDone(); };
+        const onEnd = (event) => {
+          if (event.target !== cover && event.target !== flow) return;
+          if (event.propertyName === 'opacity' || event.propertyName === 'filter') {
+            cover.removeEventListener('transitionend', onEnd);
+            flow.removeEventListener('transitionend', onEnd);
+            finish();
+          }
+        };
+        cover.addEventListener('transitionend', onEnd);
+        flow.addEventListener('transitionend', onEnd);
+        setTimeout(finish, 1100);
+      }
+
+      function goToBuilder(push) {
+        if (transitioning) return;
+        if (!page.classList.contains('is-cover') && cover.hasAttribute('hidden')) return;
+        transitioning = true;
+        cover.removeAttribute('hidden');
+        page.classList.add('is-entering-brief');
+        cover.classList.add('is-leaving');
+        cover.style.pointerEvents = 'none';
+        flow.style.pointerEvents = '';
+        if (push && location.hash !== '#brief') {
+          history.pushState({ consult: 'brief' }, '', '#brief');
+        }
+        if (reduced) { settleBuilder(); return; }
+        afterTransition(settleBuilder);
+      }
+
+      function goToCover() {
+        if (transitioning) return;
+        transitioning = true;
+        cover.removeAttribute('hidden');
+        page.classList.add('is-entering-cover');
+        page.classList.remove('is-entering-brief');
+        cover.classList.remove('is-leaving');
+        cover.style.pointerEvents = '';
+        flow.style.pointerEvents = 'none';
+        if (reduced) { settleCover(); return; }
+        afterTransition(settleCover);
+      }
+
+      if (skipCover()) {
+        settleBuilder();
+      } else {
+        settleCover();
+      }
+
+      start.addEventListener('click', () => goToBuilder(true));
+
+      window.addEventListener('popstate', () => {
+        if (location.hash === '#brief') goToBuilder(false);
+        else goToCover();
+      });
     })();
   </script>
 </body>

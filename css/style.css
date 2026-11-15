@@ -6328,3 +6328,418 @@ html.contact-open body {
 .consult-page .consult-quote__group h5{margin:0;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;opacity:.6}
 .consult-page .consult-quote__item{display:grid;gap:3px;font-size:.88rem;padding-left:12px;border-left:2px solid rgba(255,255,255,.14)}
 .consult-page .consult-quote__item span{opacity:.72}
+
+/* ==========================================================================
+   Consulenze cover, sidebar fit, Nyght Serif, RUNTS row
+   Nyght Serif by Maksym Kobuzan / Tunera Type Foundry, SIL OFL 1.1
+   Grain look adapted from Details: VWLAB (https://www.details.so/inspo/vwlab-gsiukq)
+   — recorded full-screen grain + soft gradient; source WebGL was unusable —
+   and Supersolid (https://www.details.so/inspo/supersolid-049d68) dark grain overlay.
+   ========================================================================== */
+@font-face {
+  font-family: "Nyght Serif";
+  src: url("../assets/fonts/NyghtSerif-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Nyght Serif";
+  src: url("../assets/fonts/NyghtSerif-RegularItalic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+.consult-page.is-cover {
+  overflow: hidden;
+}
+.consult-page.is-cover .nav,
+.consult-page.is-cover .menu {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.consult-cover {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: #0b0b0b;
+  color: #f5f5f5;
+  opacity: 1;
+  filter: blur(0);
+  pointer-events: auto;
+  transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.consult-cover.is-leaving,
+.consult-page.is-entering-brief .consult-cover {
+  opacity: 0;
+  filter: blur(5px);
+  pointer-events: none;
+  z-index: 40;
+}
+.consult-page.is-entering-brief .consult-flow {
+  z-index: 50;
+}
+.consult-page.is-entering-cover .consult-cover {
+  z-index: 50;
+  opacity: 1;
+  filter: blur(0);
+  pointer-events: auto;
+}
+.consult-page.is-entering-cover .consult-flow {
+  z-index: 40;
+  opacity: 0;
+  filter: blur(5px);
+  pointer-events: none;
+}
+
+.consult-page .consult-flow {
+  background-color: #0b0b0b;
+  opacity: 1;
+  filter: blur(0);
+  transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.consult-page.is-cover:not(.is-entering-brief) .consult-flow {
+  opacity: 0;
+  filter: blur(5px);
+  pointer-events: none;
+}
+html.consult-skip-cover body.consult-page {
+  overflow: auto;
+}
+html.consult-skip-cover .consult-cover {
+  display: none;
+}
+html.consult-skip-cover body.consult-page.is-cover .nav,
+html.consult-skip-cover body.consult-page.is-cover .menu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+html.consult-skip-cover body.consult-page.is-cover .consult-flow {
+  opacity: 1;
+  filter: none;
+  pointer-events: auto;
+}
+
+.consult-cover__media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: #0b0b0b;
+}
+.consult-cover__glow {
+  position: absolute;
+  inset: -30%;
+  background:
+    radial-gradient(ellipse 58% 48% at 72% 18%, rgba(245, 245, 245, 0.1), transparent 58%),
+    radial-gradient(ellipse 50% 42% at 18% 86%, rgba(245, 245, 245, 0.06), transparent 60%),
+    radial-gradient(ellipse 36% 32% at 48% 48%, rgba(255, 255, 255, 0.035), transparent 70%);
+  animation: consult-cover-glow 22s ease-in-out infinite alternate;
+}
+.consult-cover__grain {
+  position: absolute;
+  inset: -20%;
+  width: 140%;
+  height: 140%;
+  opacity: 0.22;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+@keyframes consult-cover-glow {
+  0% { transform: translate(-4%, 2%) scale(1); }
+  100% { transform: translate(5%, -3%) scale(1.08); }
+}
+
+.consult-cover__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 18px;
+  max-width: 920px;
+  padding: 0 16px;
+}
+.consult-cover__title {
+  margin: 0;
+  font-family: "DM Sans", var(--font-sans);
+  font-weight: 500;
+  font-size: clamp(42px, 8.2vw, 96px);
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  color: #f5f5f5;
+}
+.consult-cover__subtitle {
+  margin: 0 0 10px;
+  font-family: "DM Sans", var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(14px, 1.5vw, 18px);
+  letter-spacing: 0.06em;
+  color: rgba(245, 245, 245, 0.64);
+}
+.consult-cover__start.button-02 {
+  margin-top: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .consult-cover,
+  .consult-page .consult-flow {
+    transition: none;
+    filter: none !important;
+  }
+  .consult-cover__glow,
+  .consult-cover__grain animate {
+    animation: none !important;
+  }
+  .consult-cover__grain animate {
+    display: none;
+  }
+}
+
+/* Sidebar: one-line title + compact fit at laptop heights */
+.consult-page .consult-flow__side {
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-bottom: 20px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(245, 245, 245, 0.22) transparent;
+}
+.consult-page .consult-flow__side-copy h1 {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: baseline;
+  gap: 0.3em;
+  max-width: none !important;
+  margin: 0;
+  white-space: nowrap;
+  font-family: "DM Sans", var(--font-sans);
+  font-weight: 500;
+  font-size: clamp(14px, 1.02vw, 17px);
+  line-height: 1.15;
+  letter-spacing: -0.04em;
+}
+.consult-page .consult-flow__side-copy h1 em {
+  font-family: "Nyght Serif", "Cormorant Garamond", var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+}
+.consult-page .consult-flow__side-copy p:not(.eyebrow) {
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 1.25;
+}
+.consult-page .consult-flow__mark {
+  width: 20px;
+  height: 28px;
+  margin-bottom: 6px;
+}
+.consult-page .consult-progress,
+.consult-page .consult-live-summary {
+  margin-top: 6px;
+  padding: 7px 8px;
+  border-radius: 13px;
+}
+.consult-page .consult-progress__head,
+.consult-page .consult-live-summary__label {
+  margin-bottom: 5px;
+  font-size: 10px;
+}
+.consult-page .consult-live-summary__grid {
+  gap: 2px;
+}
+.consult-page .consult-live-summary__grid span {
+  align-items: baseline;
+  min-width: 0;
+  font-size: 11px;
+  gap: 8px;
+}
+.consult-page .consult-live-summary__grid strong {
+  max-width: min(18ch, 58%);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.consult-page .consult-live-summary__grid span.is-prominent {
+  margin: 1px -4px;
+  padding: 4px 6px;
+  align-items: flex-start;
+}
+.consult-page .consult-live-summary__grid span.is-prominent strong {
+  max-width: min(20ch, 62%);
+  overflow: visible;
+  text-overflow: unset;
+  white-space: normal;
+  line-height: 1.25;
+}
+.consult-page .consult-steps {
+  gap: 2px;
+  padding-top: 6px;
+  padding-bottom: 4px;
+}
+.consult-page .consult-steps__icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  font-size: 11px;
+}
+.consult-page .consult-steps__item {
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 6px;
+}
+.consult-page .consult-steps__item.is-active .consult-steps__icon {
+  outline-offset: 2px;
+}
+.consult-page .consult-steps__item strong {
+  font-size: 11px;
+  line-height: 1.2;
+}
+.consult-page .consult-steps__item small {
+  font-size: 9px;
+  line-height: 1.15;
+}
+
+@media (min-width: 1081px) and (max-height: 860px) {
+  .consult-page .consult-flow__mark { display: none; }
+  .consult-page .consult-flow__side-copy p:not(.eyebrow) {
+    font-size: 11px;
+    line-height: 1.2;
+  }
+  .consult-page .consult-steps__item small { display: none; }
+  .consult-page .consult-steps { gap: 1px; }
+}
+
+@media (max-width: 1080px) {
+  .consult-page .consult-flow__side-copy h1 {
+    font-size: clamp(18px, 3.4vw, 26px);
+  }
+  .consult-page .consult-flow__side {
+    overflow: visible;
+    padding-bottom: 12px;
+  }
+}
+@media (max-width: 520px) {
+  .consult-page .consult-flow__side-copy h1 {
+    flex-wrap: wrap;
+    white-space: normal;
+  }
+  .consult-cover__title { font-size: clamp(36px, 14vw, 56px); }
+}
+
+/* STEP 02 RUNTS: three equal buttons in one row */
+.consult-page .consult-options--runts,
+.consult-page .consult-options--pills.consult-options--runts {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: none;
+}
+.consult-page .consult-options--runts .consult-option {
+  min-width: 0;
+  justify-content: center;
+  text-align: center;
+  padding-inline: 8px;
+}
+.consult-page .consult-options--runts .consult-option span {
+  text-wrap: balance;
+}
+@media (max-width: 480px) {
+  .consult-page .consult-options--runts .consult-option {
+    min-height: 52px;
+    padding-inline: 6px;
+  }
+  .consult-page .consult-options--runts .consult-option span { font-size: 12px; }
+}
+
+/* STEP 03: officer fields + even pill labels */
+.consult-page .consult-fields--officers {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 4px;
+}
+@media (max-width: 760px) {
+  .consult-page .consult-fields--officers { grid-template-columns: 1fr; }
+}
+
+.consult-page .consult-options--pills {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  align-items: stretch;
+}
+.consult-page .consult-options--pills .consult-option {
+  min-height: 56px;
+  align-items: center;
+}
+.consult-page .consult-options--pills .consult-option span {
+  flex: 1 1 auto;
+  min-width: 0;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+  hyphens: none;
+  line-height: 1.25;
+}
+.consult-page .consult-options--runts,
+.consult-page .consult-options--pills.consult-options--runts {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/* STEP 05: defer a service to a later phase */
+.consult-page .consult-acc.is-deferred { border-color: rgba(245,245,245,.18); }
+.consult-page .consult-acc__count.is-deferred {
+  background: rgba(245,245,245,.1);
+  border-color: rgba(245,245,245,.28);
+  color: #f5f5f5;
+  letter-spacing: .04em;
+  text-transform: none;
+  font-weight: 500;
+}
+.consult-page .consult-acc__defer { display: grid; gap: 8px; padding: 2px 0 6px; }
+.consult-page .consult-acc__defer-btn {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  max-width: 100%;
+  padding: 9px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(245,245,245,.28);
+  cursor: pointer;
+  color: #f5f5f5;
+  font-size: .9rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+.consult-page .consult-acc__defer-btn:hover { background: rgba(245,245,245,.08); }
+.consult-page .consult-acc__defer-btn:focus-visible { outline: 2px solid rgba(245,245,245,.55); outline-offset: 3px; }
+.consult-page .consult-acc__defer-btn.is-on {
+  background: #f5f5f5;
+  color: #131313;
+  border-color: #f5f5f5;
+}
+.consult-page .consult-acc__defer-help { margin: 0; max-width: 62ch; font-size: .82rem; line-height: 1.4; opacity: .65; }
+.consult-page .consult-acc__defer-status {
+  margin: 4px 0 0;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(245,245,245,.06);
+  font-size: .9rem;
+  line-height: 1.4;
+}
+.consult-page .consult-quote__phase {
+  margin: 4px 0 0;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(245,245,245,.05);
+  font-size: .86rem;
+  line-height: 1.45;
+  opacity: .85;
+}
