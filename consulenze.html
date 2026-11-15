@@ -20,7 +20,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Migra&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="css/style.css?v=51" />
+  <link rel="stylesheet" href="css/style.css?v=52" />
   <script>
     if (location.hash === '#brief') document.documentElement.classList.add('consult-skip-cover');
   </script>
@@ -665,7 +665,7 @@
           <p data-copy-key="budget.sub">Va bene anche una stima. Serve solo per proporti una soluzione realistica.</p>
         </div>
 
-        <div class="consult-options consult-options--services" role="radiogroup" aria-label="Budget">
+        <div class="consult-options consult-options--services consult-options--budget" role="radiogroup" aria-label="Budget">
           <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="budget" data-value="Sotto €1.000"><i class="fa-solid fa-seedling" aria-hidden="true"></i><span>Sotto €1.000</span></button>
           <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="budget" data-value="€1.000 - €2.500"><i class="fa-solid fa-layer-group" aria-hidden="true"></i><span>€1.000 - €2.500</span></button>
           <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="budget" data-value="€2.500 - €5.000"><i class="fa-solid fa-gem" aria-hidden="true"></i><span>€2.500 - €5.000</span></button>
@@ -696,7 +696,7 @@
             <span>Finanziamento</span>
             <h3>Come verrà finanziato il progetto?</h3>
           </div>
-            <div class="consult-options consult-options--pills" role="radiogroup" aria-label="Finanziamento">
+            <div class="consult-options consult-options--pills consult-options--funding-source" role="radiogroup" aria-label="Finanziamento">
               <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="assocFunding" data-value="Fondi propri dell&#39;associazione"><i class="fa-solid fa-piggy-bank" aria-hidden="true"></i><span>Fondi propri dell&#39;associazione</span></button>
               <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="assocFunding" data-value="Contributo o finanziamento pubblico"><i class="fa-solid fa-landmark" aria-hidden="true"></i><span>Contributo o finanziamento pubblico</span></button>
               <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="assocFunding" data-value="Sponsorizzazioni private"><i class="fa-solid fa-handshake" aria-hidden="true"></i><span>Sponsorizzazioni private</span></button>
@@ -709,7 +709,7 @@
             <span>Stato del finanziamento</span>
             <h3>Il finanziamento è già stato approvato?</h3>
           </div>
-            <div class="consult-options consult-options--pills" role="radiogroup" aria-label="Stato del finanziamento">
+            <div class="consult-options consult-options--pills consult-options--funding-status" role="radiogroup" aria-label="Stato del finanziamento">
               <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="assocApproval" data-value="Sì, è stato approvato"><i class="fa-solid fa-circle-check" aria-hidden="true"></i><span>Sì, è stato approvato</span></button>
               <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="assocApproval" data-value="Abbiamo presentato domanda"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i><span>Abbiamo presentato domanda</span></button>
               <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="assocApproval" data-value="Stiamo preparando la candidatura"><i class="fa-solid fa-file-signature" aria-hidden="true"></i><span>Stiamo preparando la candidatura</span></button>
@@ -960,7 +960,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" crossorigin="anonymous" defer></script>
-  <script src="js/main.js?v=36" defer></script>
+  <script src="js/main.js?v=37" defer></script>
   <script>
     (() => {
       const flow = document.querySelector('[data-consult-flow]');
