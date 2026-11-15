@@ -20,7 +20,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Migra&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="css/style.css?v=63" />
+  <link rel="stylesheet" href="css/style.css?v=64" />
   <script>
     if (location.hash === '#brief') document.documentElement.classList.add('consult-skip-cover');
   </script>
@@ -242,7 +242,7 @@
     <section class="consult-flow__panel" aria-live="polite">
       <div class="consult-flow__top">
         <span class="consult-flow__saved" data-saved-note role="status">Bozza salvata</span>
-        <button class="consult-flow__exit" type="button" data-consult-save>Salva ed esci</button>
+        <button class="consult-flow__exit" type="button" data-consult-save>Esci</button>
       </div>
 
       <section class="consult-step is-active" data-step-id="category" aria-labelledby="consult-category-title">
@@ -1053,7 +1053,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" crossorigin="anonymous" defer></script>
   <script src="js/main.js?v=38" defer></script>
   <script src="js/vendor/jspdf.umd.min.js"></script>
-  <script src="js/consult-brief-pdf.js?v=63"></script>
+  <script src="js/consult-brief-pdf.js?v=64"></script>
   <script>
 
     function textReveal06(scope = document) {
@@ -2383,7 +2383,7 @@
         const names = { light: 'DMSans-Light.ttf', regular: 'DMSans-Regular.ttf', medium: 'DMSans-Medium.ttf', bold: 'DMSans-Bold.ttf' };
         const fonts = {};
         await Promise.all(Object.keys(names).map(async key => {
-          const res = await fetch(new URL(names[key] + '?v=63', base).href);
+          const res = await fetch(new URL(names[key] + '?v=64', base).href);
           if (!res.ok) throw new Error('Font mancante: ' + names[key]);
           fonts[key] = new Uint8Array(await res.arrayBuffer());
         }));
@@ -2404,7 +2404,7 @@
         document.querySelectorAll('[data-consult-pdf]').forEach(btn => btn.setAttribute('aria-busy', 'true'));
         try {
           const fonts = await loadBriefFonts();
-          const data = collectBriefData();
+          const data = sentBrief || collectBriefData();
           window.ConlerBriefPdf.download(data, { jsPDF: window.jspdf.jsPDF, fonts });
         } catch (err) {
           console.error(err);
@@ -2428,6 +2428,8 @@
         window.location.href = `mailto:conlerstudio@gmail.com?subject=${subject}&body=${body}`;
       }
       function showThanksThenMail() {
+        try { sentBrief = collectBriefData(); } catch (error) { /* keep any previous snapshot */ }
+        clearDraftStorage();
         const thanks = document.querySelector('[data-consult-thanks]');
         const page = document.body;
         if (!thanks) { openMailto(); return; }
@@ -2790,12 +2792,13 @@
         });
       });
 
-      /* ---- draft: save / restore (localStorage) ---- */
+      /* ---- no persisted draft: always start empty ---- */
       const STORE_KEY = 'conler-consulenze-draft-v1';
       const SINGLE_KEYS = ['assocForm', 'assocRunts', 'assocTerritorio', 'assocRole', 'assocSize', 'assocFrequency', 'assocDestination', 'assocApproval', 'assocPhotoScope', 'assocVideoCount', 'assocSiteState', 'assocBrandUse', 'assocLogoUse', 'assocSocialDuration', 'assocFunding', 'category', 'goal', 'budget', 'timeline', 'websiteBooking', 'eventType', 'comuneFocus', 'videoType', 'socialMode', 'serviceDirection'];
       const savedNote = flow.querySelector('[data-saved-note]');
       const saveButton = flow.querySelector('[data-consult-save]');
       let noteTimer = 0;
+      var sentBrief = null;
 
       function showNote(text) {
         if (!savedNote) return;
@@ -2805,77 +2808,19 @@
         noteTimer = setTimeout(() => savedNote.classList.remove('is-visible'), 2600);
       }
 
-      function saveDraft(flash) {
-        const data = { stepId: currentId(), fields: Object.assign({}, state.fields) };
-        delete data.fields.privacyAccepted;
-        delete data.fields.marketingConsent;
-        Object.values(SET_OPTIONS).forEach(name => { data[name] = Array.from(state[name]); });
-        SINGLE_KEYS.forEach(key => { data[key] = state[key]; });
-        data.ans = state.ans;
-        data.deferred = Array.from(accDeferred);
-        try {
-          localStorage.setItem(STORE_KEY, JSON.stringify(data));
-          if (flash) showNote('Bozza salvata');
-          return true;
-        } catch (error) {
-          return false;
-        }
+      function clearDraftStorage() {
+        try { localStorage.removeItem(STORE_KEY); } catch (error) { /* ignore quota / private mode */ }
       }
 
-      function restoreDraft() {
-        let data;
-        try { data = JSON.parse(localStorage.getItem(STORE_KEY) || 'null'); } catch (error) { data = null; }
-        if (!data || typeof data !== 'object') return false;
-        if (data.assocRunts === 'Non lo so') data.assocRunts = '';
-        const options = Array.from(flow.querySelectorAll('[data-option]'));
-        SINGLE_KEYS.forEach(key => {
-          if (key === 'budget') return;
-          if (!data[key]) return;
-          const match = options.find(o => o.dataset.option === key && o.dataset.value === data[key]);
-          if (match) selectSingle(match);
-        });
-        if (typeof data.budget === 'string' && data.budget) state.budget = data.budget;
-        Object.entries(SET_OPTIONS).map(([optionName, setName]) => [setName, optionName]).forEach(([setName, optionName]) => {
-          (Array.isArray(data[setName]) ? data[setName] : []).forEach(value => {
-            const match = options.find(o => o.dataset.option === optionName && o.dataset.value === value);
-            if (match) toggleSet(match, setName);
-          });
-        });
-        if (data.fields && typeof data.fields === 'object') {
-          Object.keys(state.fields).forEach(key => {
-            if (typeof data.fields[key] !== 'string') return;
-            state.fields[key] = data.fields[key];
-            const input = flow.querySelector(`[data-field="${key}"]`);
-            if (input) input.value = data.fields[key];
-          });
-        }
-        if (data.ans && typeof data.ans === 'object') {
-          Object.entries(data.ans).forEach(([k2, v2]) => {
-            if (Array.isArray(v2)) state.ans[k2] = v2.filter(x => typeof x === 'string');
-            else if (typeof v2 === 'string') state.ans[k2] = v2;
-          });
-        }
-        accDeferred.clear();
-        (Array.isArray(data.deferred) ? data.deferred : []).forEach(id => {
-          if (DEFER_IDS.has(id)) accDeferred.add(id);
-        });
-        ACC_SECTIONS.forEach(sec => { if (isDeferred(sec)) clearSecAnswers(sec); });
-        syncDetailBlocks();
-        let idx = flowIds().indexOf(data.stepId);
-        if (idx < 0 && data.stepId === 'goal') idx = flowIds().indexOf('budget');
-        if (idx < 0 && data.stepId === 'project') idx = flowIds().indexOf('contact');
-        if (idx < 0 && data.stepId === 'summary') idx = flowIds().indexOf('contact');
-        let step = Math.max(idx + 1, 1);
-        while (step > 1 && !canReach(step)) step -= 1;
-        state.step = step;
-        return SINGLE_KEYS.some(key => data[key]) || state.services.size > 0 || Boolean(state.fields.name || state.fields.description || state.fields.assocName);
+      function saveDraft() {
+        clearDraftStorage();
+        return false;
       }
 
       if (saveButton) {
         saveButton.addEventListener('click', () => {
-          saveDraft(true);
-          showNote('Bozza salvata — a presto!');
-          setTimeout(() => { window.location.href = 'index.html'; }, 700);
+          clearDraftStorage();
+          window.location.href = 'index.html';
         });
       }
 
@@ -3148,9 +3093,8 @@
         }
       });
 
-      const restored = restoreDraft();
+      clearDraftStorage();
       render();
-      if (restored) showNote('Bozza ripristinata');
       window.addEventListener('resize', () => { layoutPercorso(true); });
     })();
 
