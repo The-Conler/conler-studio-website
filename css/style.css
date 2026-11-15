@@ -6338,14 +6338,14 @@ html.contact-open body {
    ========================================================================== */
 @font-face {
   font-family: "Nyght Serif";
-  src: url("../assets/fonts/NyghtSerif-Regular.woff2?v=52") format("woff2");
+  src: url("../assets/fonts/NyghtSerif-Regular.woff2?v=53") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Nyght Serif";
-  src: url("../assets/fonts/NyghtSerif-RegularItalic.woff2?v=52") format("woff2");
+  src: url("../assets/fonts/NyghtSerif-RegularItalic.woff2?v=53") format("woff2");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -7533,4 +7533,34 @@ html:has(body.consult-page.is-cover) {
 }
 @media (max-width: 520px) {
   .consult-page .consult-options--budget { grid-template-columns: 1fr; }
+}
+
+
+/* Unified Riepilogo + Contatti for every category */
+.consult-page .consult-contact-cards {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  grid-area: form;
+}
+.consult-page .consult-package[hidden],
+.consult-page .consult-summary[hidden] { display: none !important; }
+
+@media (min-width: 1024px) {
+  .consult-page [data-step-id="summary"] .consult-step__head,
+  .consult-page [data-step-id="contact"] .consult-step__head { margin-bottom: 10px; }
+  .consult-page .consult-recap { gap: 10px; }
+  .consult-page .consult-recap__card { padding: 14px 16px; gap: 8px; }
+  .consult-page .consult-recap__card header h3 { font-size: 16px; }
+  .consult-page .consult-contact-layout { gap: 12px 14px; }
+  .consult-page .consult-mini-card { padding: 12px 14px; gap: 8px; }
+  .consult-page .consult-brief-card { padding: 16px 18px; gap: 10px; }
+  .consult-page .consult-consent { gap: 6px; }
+}
+@media (min-width: 1024px) and (max-height: 820px) {
+  .consult-page [data-step-id="summary"] .consult-step__head h2,
+  .consult-page [data-step-id="contact"] .consult-step__head h2 { font-size: clamp(22px, 2vw, 30px); }
+  .consult-page .consult-qacc summary { padding: 8px 0; }
+  .consult-page .consult-brief-card__stats { padding-top: 10px; margin-top: 0; }
+  .consult-page .consult-mini-card__head h3 { font-size: 15px; }
 }

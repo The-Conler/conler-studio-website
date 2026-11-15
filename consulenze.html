@@ -20,7 +20,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Migra&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="css/style.css?v=52" />
+  <link rel="stylesheet" href="css/style.css?v=53" />
   <script>
     if (location.hash === '#brief') document.documentElement.classList.add('consult-skip-cover');
   </script>
@@ -790,12 +790,12 @@
       <section class="consult-step" data-step-id="contact" aria-labelledby="consult-contact-title" hidden>
         <div class="consult-step__head">
           <p class="eyebrow" data-step-eyebrow>Step 09</p>
-          <h2 id="consult-contact-title" data-copy-key="contact.title">Lasciaci i tuoi contatti.</h2>
-          <p data-copy-key="contact.sub">Compila i dati essenziali e controlla il riepilogo prima di inviare la richiesta.</p>
+          <h2 id="consult-contact-title" data-copy-key="contact.title">Un ultimo passo.</h2>
+          <p data-copy-key="contact.sub">Controllate i vostri dati e inviate la richiesta.</p>
         </div>
 
         <div class="consult-contact-layout">
-          <div class="consult-assoc-contact" data-only-cat="Associazione" hidden>
+          <div class="consult-contact-cards">
             <div class="consult-detail-block consult-mini-card" data-show-nonlegal hidden>
               <div class="consult-mini-card__head">
                 <span class="consult-mini-card__icon" aria-hidden="true"><i class="fa-regular fa-user"></i></span>
@@ -814,27 +814,50 @@
                 <span class="consult-mini-card__icon" aria-hidden="true"><i class="fa-regular fa-address-card"></i></span>
                 <div>
                   <h3>I vostri dati</h3>
-                  <p>Li abbiamo presi da quanto scritto nello step 02. Potete modificarli.</p>
+                  <p data-only-cat="Associazione" hidden>Li abbiamo presi da quanto scritto nello step 02. Potete modificarli.</p>
+                  <p data-hide-cat="Associazione">Potete controllare e modificare i vostri dati.</p>
                 </div>
               </div>
-              <dl class="consult-assoc-card">
+              <dl class="consult-assoc-card" data-only-cat="Associazione" hidden>
                 <div><dt>Associazione</dt><dd data-contact-assoc-name>-</dd></div>
                 <div><dt>Rappresentante legale</dt><dd data-contact-assoc-rep>-</dd></div>
                 <div><dt>Email</dt><dd data-contact-assoc-email>-</dd></div>
               </dl>
+              <dl class="consult-assoc-card" data-hide-cat="Associazione">
+                <div><dt>Nome attività</dt><dd data-contact-business>—</dd></div>
+                <div><dt>Nome</dt><dd data-contact-name>—</dd></div>
+                <div><dt>Email</dt><dd data-contact-email>—</dd></div>
+                <div><dt>Telefono</dt><dd data-contact-phone>—</dd></div>
+              </dl>
               <button class="consult-linkbtn" type="button" data-edit-toggle aria-expanded="false">Modifica</button>
               <div class="consult-fields" data-edit-fields hidden>
-                <label class="consult-field consult-field--full">
+                <label class="consult-field consult-field--full" data-only-cat="Associazione" hidden>
                   <span>Denominazione dell'associazione</span>
                   <input type="text" data-field="assocName" autocomplete="organization" />
                 </label>
-                <label class="consult-field">
+                <label class="consult-field" data-only-cat="Associazione" hidden>
                   <span>Rappresentante legale</span>
                   <input type="text" data-field="assocRep" autocomplete="name" />
                 </label>
-                <label class="consult-field">
+                <label class="consult-field" data-only-cat="Associazione" hidden>
                   <span>Email</span>
                   <input type="email" data-field="assocEmail" autocomplete="email" />
+                </label>
+                <label class="consult-field" data-hide-cat="Associazione">
+                  <span>Nome</span>
+                  <input type="text" name="name" data-field="name" autocomplete="name" placeholder="Il tuo nome" required />
+                </label>
+                <label class="consult-field" data-hide-cat="Associazione">
+                  <span>Nome attività</span>
+                  <input type="text" name="business" data-field="business" autocomplete="organization" placeholder="Nome brand / attività" />
+                </label>
+                <label class="consult-field" data-hide-cat="Associazione">
+                  <span>Email</span>
+                  <input type="email" name="email" data-field="email" autocomplete="email" placeholder="nome@email.com" required />
+                </label>
+                <label class="consult-field" data-hide-cat="Associazione">
+                  <span>Telefono</span>
+                  <input type="tel" name="phone" data-field="phone" autocomplete="tel" placeholder="+39 ..." />
                 </label>
               </div>
             </div>
@@ -846,7 +869,7 @@
                   <p>Facoltative: servono solo per contattarvi più facilmente.</p>
                 </div>
               </div>
-              <div class="consult-fields">
+              <div class="consult-fields" data-only-cat="Associazione" hidden>
                 <label class="consult-field">
                   <span>Numero WhatsApp (facoltativo)</span>
                   <input type="tel" name="assocWhatsapp" data-field="assocWhatsapp" autocomplete="tel" placeholder="+39 ..." />
@@ -856,36 +879,19 @@
                   <input type="text" name="assocContactPerson" data-field="assocContactPerson" placeholder="Nome e cognome" />
                 </label>
               </div>
+              <div class="consult-fields" data-hide-cat="Associazione">
+                <label class="consult-field consult-field--full">
+                  <span>Instagram o sito web (facoltativo)</span>
+                  <input type="text" name="website" data-field="website" placeholder="@profilo oppure https://" />
+                </label>
+              </div>
             </div>
           </div>
 
-          <div class="consult-fields" data-hide-cat="Associazione">
-            <label class="consult-field">
-              <span>Nome</span>
-              <input type="text" name="name" data-field="name" autocomplete="name" placeholder="Il tuo nome" required />
-            </label>
-            <label class="consult-field">
-              <span>Nome attività</span>
-              <input type="text" name="business" data-field="business" autocomplete="organization" placeholder="Nome brand / attività" />
-            </label>
-            <label class="consult-field">
-              <span>Email</span>
-              <input type="email" name="email" data-field="email" autocomplete="email" placeholder="nome@email.com" required />
-            </label>
-            <label class="consult-field">
-              <span>Telefono / WhatsApp</span>
-              <input type="tel" name="phone" data-field="phone" autocomplete="tel" placeholder="+39 ..." />
-            </label>
-            <label class="consult-field consult-field--full">
-              <span>Instagram o sito web</span>
-              <input type="text" name="website" data-field="website" placeholder="@profilo oppure https://" />
-            </label>
-          </div>
-
           <div class="consult-final-brief" aria-label="Riepilogo richiesta">
-            <div class="consult-brief-card" data-only-cat="Associazione" hidden>
+            <div class="consult-brief-card">
               <header class="consult-brief-card__head">
-                <h3>Componenti del preventivo</h3>
+                <h3>Il vostro brief</h3>
                 <p>Una proposta su misura, a partire da noi.</p>
               </header>
               <p class="consult-brief-card__label">Servizi selezionati</p>
@@ -901,13 +907,12 @@
                 </div>
               </div>
             </div>
-            <div class="consult-package" data-hide-cat="Associazione">
+            <div class="consult-package" hidden>
               <span>Pacchetto consigliato</span>
               <strong data-package-title>Creative Starter</strong>
               <p data-package-text>Una base chiara per definire progetto, contenuti e prossimi passi.</p>
             </div>
-
-            <div class="consult-summary consult-summary--final" data-hide-cat="Associazione">
+            <div class="consult-summary consult-summary--final" hidden>
               <div class="consult-summary__header">
                 <span>Project brief</span>
                 <strong data-brief-title>Richiesta Conler</strong>
@@ -916,11 +921,11 @@
             <div><span>Categoria</span><strong data-summary-category>Non selezionata</strong></div>
             <div><span>Servizi</span><strong data-summary-services>Nessun servizio selezionato</strong></div>
             <div><span>Dettagli</span><strong data-summary-details>Da definire</strong></div>
-            <div data-hide-cat="Associazione"><span data-copy-key="sum.goal">Obiettivo</span><strong data-summary-goal>Non selezionato</strong></div>
+            <div><span data-copy-key="sum.goal">Obiettivo</span><strong data-summary-goal>Non selezionato</strong></div>
             <div><span>Budget</span><strong data-summary-budget>Non selezionato</strong></div>
             <div><span>Timeline</span><strong data-summary-timeline>Non selezionata</strong></div>
             <div><span>Materiali</span><strong data-summary-materials>Nessun materiale selezionato</strong></div>
-            <div data-hide-cat="Associazione"><span data-copy-key="sum.loc">Luogo</span><strong data-summary-location>Non inserito</strong></div>
+            <div><span data-copy-key="sum.loc">Luogo</span><strong data-summary-location>Non inserito</strong></div>
             <div data-assoc-only hidden><span>Associazione</span><strong data-summary-assoc>-</strong></div>
             <div data-assoc-only hidden><span>Rappresentante</span><strong data-summary-assoc-rep>-</strong></div>
             <div data-assoc-only hidden><span>Composizione</span><strong data-summary-composition>-</strong></div>
@@ -960,7 +965,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" crossorigin="anonymous" defer></script>
-  <script src="js/main.js?v=37" defer></script>
+  <script src="js/main.js?v=38" defer></script>
   <script>
     (() => {
       const flow = document.querySelector('[data-consult-flow]');
@@ -1028,7 +1033,7 @@
          FLOW_ASSOC: Materiali comes right after Attività; Destinazione e
          obiettivi and Luogo are skipped (their step HTML is kept to restore later);
          a Riepilogo step sits just before Contatti. */
-      const FLOW_BASE = ['category', 'services', 'details', 'goal', 'budget', 'timeline', 'materials', 'project', 'contact'];
+      const FLOW_BASE = ['category', 'services', 'details', 'goal', 'budget', 'timeline', 'materials', 'project', 'summary', 'contact'];
       const FLOW_ASSOC = ['category', 'assoc', 'assocActivity', 'materials', 'services', 'details', 'budget', 'timeline', 'summary', 'contact'];
       const BRANCHES = {
         'Associazione': ['assoc', 'assocActivity'],
@@ -1345,7 +1350,7 @@
         if (briefTitle) briefTitle.textContent = state.category ? `${state.category} · ${state.goal || 'Consulenza'}` : 'Richiesta Conler';
 
         const quoteEl = flow.querySelector('[data-quote-list]');
-        if (quoteEl && isAssoc()) quoteEl.innerHTML = quoteHtml();
+        if (quoteEl) quoteEl.innerHTML = quoteHtml();
         const briefBudget = flow.querySelector('[data-brief-budget]');
         const briefTimeline = flow.querySelector('[data-brief-timeline]');
         if (briefBudget) briefBudget.textContent = state.budget ? `${state.budget} · circa ${exactBudget}` : (state.fields.budgetExact ? `Circa ${exactBudget}` : 'Da definire');
@@ -1379,6 +1384,22 @@
         const recommended = getPackage();
         if (packageTitle) packageTitle.textContent = recommended.title;
         if (packageText) packageText.textContent = recommended.text;
+
+        (function syncDefaultContact() {
+          const f = state.fields;
+          const set = (sel, text) => { const el = flow.querySelector(sel); if (el) el.textContent = text; };
+          set('[data-contact-name]', f.name.trim() || '—');
+          set('[data-contact-business]', f.business.trim() || '—');
+          set('[data-contact-email]', f.email.trim() || '—');
+          set('[data-contact-phone]', f.phone.trim() || '—');
+          const editBox = flow.querySelector('[data-edit-fields]');
+          const toggle = flow.querySelector('[data-edit-toggle]');
+          if (!isAssoc() && editBox && toggle && (!String(f.name).trim() || !hasEmail(f.email))) {
+            editBox.hidden = false;
+            toggle.setAttribute('aria-expanded', 'true');
+            toggle.textContent = 'Chiudi modifica';
+          }
+        }());
       }
 
       /* ======================================================================
@@ -1620,7 +1641,40 @@
       }
       const DEFERRED_LINE = 'Da definire insieme in una fase successiva';
       /* "Componenti del preventivo": unified, one-off vs continuous */
+      function defaultServiceLines(name) {
+        const lines = [];
+        if (name === 'Website' && state.websiteBooking) lines.push(`Sito: ${state.websiteBooking}`);
+        if (name === 'Video' && state.videoType) lines.push(`Video: ${state.videoType}`);
+        if (name === 'Social Media Management' && state.socialMode) lines.push(`Social: ${state.socialMode}`);
+        if (name === 'Guidami / proposta Conler' && state.serviceDirection) lines.push(`Direzione: ${state.serviceDirection}`);
+        if (state.eventType && (name === 'Video' || name === 'Photo' || name === 'Social Media Management')) {
+          const extra = state.fields.eventTypeOther.trim();
+          lines.push(`Evento: ${state.eventType}${extra ? ` (${extra})` : ''}`);
+        }
+        if (state.comuneFocus && ['Website', 'Video', 'Photo', 'Social Media Management', 'Brand Identity'].includes(name)) {
+          lines.push(`Focus Comune: ${state.comuneFocus}`);
+        }
+        return lines;
+      }
+      function defaultQuoteItems() {
+        const items = [];
+        let n = 1;
+        state.services.forEach(name => {
+          const lines = defaultServiceLines(name);
+          if (state.serviceDirection && name !== 'Guidami / proposta Conler') lines.push(`Direzione: ${state.serviceDirection}`);
+          items.push({
+            n: String(n++),
+            kind: 'Una tantum',
+            title: name,
+            short: name,
+            icon: SERVICE_ICONS[name] || 'fa-layer-group',
+            lines,
+          });
+        });
+        return items;
+      }
       function quoteItems() {
+        if (!isAssoc()) return defaultQuoteItems();
         const A = id => state.ans[id];
         const M = id => state.ans[id] || [];
         const ln = (label, id) => { const q = ACC_SECTIONS.flatMap(s2 => s2.qs).find(x => x.id === id); return q && answered(q) ? `${label}: ${fmtAns(q)}` : null; };
@@ -1701,6 +1755,7 @@
         Logo: 'fa-pen-nib',
         'Social Media Management': 'fa-hashtag',
         'Non sappiamo ancora cosa ci serve': 'fa-compass',
+        'Guidami / proposta Conler': 'fa-compass',
       };
       function recapHtml() {
         const f = state.fields;
@@ -1715,9 +1770,12 @@
           </header>
           ${body}
         </article>`;
-        const ident = card('assoc', 'fa-people-group', 'Progetto e associazione',
-          `<dl class="consult-recap__rows">${row('Categoria', state.category)}${row('Associazione', f.assocName)}${row('Ambiti', ambiti.join(', '))}${row('Problema attuale', joinSet(state.assocPain, ''))}</dl>`);
-        const serviceRows = ACC_SECTIONS.filter(secVisible).map(sec => {
+        const ident = isAssoc()
+          ? card('assoc', 'fa-people-group', 'Progetto e associazione',
+              `<dl class="consult-recap__rows">${row('Categoria', state.category)}${row('Associazione', f.assocName)}${row('Ambiti', ambiti.join(', '))}${row('Problema attuale', joinSet(state.assocPain, ''))}</dl>`)
+          : card('goal', 'fa-bullseye', 'Progetto e obiettivi',
+              `<dl class="consult-recap__rows">${row('Categoria', state.category)}${row('Obiettivo', state.goal)}${row('Destinazione', f.location)}</dl>`);
+        const serviceRows = (isAssoc() ? ACC_SECTIONS.filter(secVisible).map(sec => {
           const icon = SERVICE_ICONS[sec.service] || 'fa-layer-group';
           let pill;
           if (isDeferred(sec)) pill = '<em class="consult-recap__pill is-later">Da definire</em>';
@@ -1726,12 +1784,23 @@
             pill = `<em class="consult-recap__pill">${qs.filter(answered).length}/${qs.length}</em>`;
           }
           return `<div class="consult-recap__service"><span class="consult-qacc__icon" aria-hidden="true"><i class="fa-solid ${escHtml(icon)}"></i></span><strong>${escHtml(sec.title)}</strong>${pill}</div>`;
-        }).join('') || '<p class="consult-q__note">Nessun servizio selezionato.</p>';
+        }).join('') : Array.from(state.services).map(name => {
+          const icon = SERVICE_ICONS[name] || 'fa-layer-group';
+          const keys = ({
+            Website: [state.websiteBooking],
+            Video: [state.videoType],
+            'Social Media Management': [state.socialMode],
+          })[name];
+          const pill = keys
+            ? `<em class="consult-recap__pill">${keys.filter(Boolean).length}/${keys.length}</em>`
+            : '<em class="consult-recap__pill">Selezionato</em>';
+          return `<div class="consult-recap__service"><span class="consult-qacc__icon" aria-hidden="true"><i class="fa-solid ${escHtml(icon)}"></i></span><strong>${escHtml(name)}</strong>${pill}</div>`;
+        }).join('')) || '<p class="consult-q__note">Nessun servizio selezionato.</p>';
         const services = card('services', 'fa-wand-magic-sparkles', 'Servizi selezionati',
           `<div class="consult-recap__services">${serviceRows}</div>`);
         const exact = f.budgetExact ? formatEuro(f.budgetExact) : '';
         const money = card('budget', 'fa-coins', 'Budget e tempistiche',
-          `<dl class="consult-recap__rows">${row('Fascia indicata', state.budget)}${row('Importo', exact)}${row('Finanziamento', fundingText())}${row('Tempistiche', timelineText())}</dl>`);
+          `<dl class="consult-recap__rows">${row('Fascia indicata', state.budget)}${row('Importo', exact)}${isAssoc() ? row('Finanziamento', fundingText()) : ''}${row('Tempistiche', timelineText())}</dl>`);
         const mats = Array.from(state.materials);
         const matBody = mats.length
           ? `<ul class="consult-recap__mats">${mats.map(v => `<li>${escHtml(v)}</li>`).join('')}</ul>`
@@ -1741,7 +1810,7 @@
       }
       function syncRecap() {
         const board = flow.querySelector('[data-recap-board]');
-        if (board) board.innerHTML = isAssoc() ? recapHtml() : '';
+        if (board) board.innerHTML = recapHtml();
       }
 
       const quoteOpen = new Set();
@@ -1816,8 +1885,8 @@
           const eyebrow = step.querySelector('[data-step-eyebrow]');
           const pos = ids.indexOf(step.dataset.stepId) + 1;
           if (eyebrow && pos) {
-            if (isAssoc() && step.dataset.stepId === 'contact') eyebrow.textContent = 'Contatti e invio';
-            else if (isAssoc() && step.dataset.stepId === 'summary') eyebrow.textContent = 'Riepilogo del brief';
+            if (step.dataset.stepId === 'contact') eyebrow.textContent = 'Contatti e invio';
+            else if (step.dataset.stepId === 'summary') eyebrow.textContent = 'Riepilogo del brief';
             else eyebrow.textContent = `Step ${String(pos).padStart(2, '0')}`;
           }
         });
@@ -1868,7 +1937,7 @@
         next.setAttribute('aria-disabled', String(!canContinue()));
         if (nextLabel) nextLabel.textContent = state.step === total() ? 'Invia richiesta' : 'Avanti';
         const privacyNote = flow.querySelector('[data-consult-privacy-note]');
-        const finalBar = isAssoc() && activeId === 'contact';
+        const finalBar = activeId === 'contact';
         if (privacyNote) privacyNote.hidden = !finalBar;
         const barEl = flow.querySelector('.consult-flow__bar');
         if (barEl) barEl.classList.toggle('is-final', finalBar);
