@@ -133,7 +133,7 @@
         <span class="consult-live-summary__label">Brief live</span>
         <div class="consult-live-summary__grid">
           <span><small>Categoria</small><strong data-side-category>-</strong></span>
-          <span data-assoc-only class="is-prominent" hidden><small>Destinazione</small><strong data-side-destination>-</strong></span>
+          <span class="is-prominent" hidden data-skip-assoc-goal><small>Destinazione</small><strong data-side-destination>-</strong></span>
           <span><small>Servizi</small><strong data-side-services>-</strong></span>
           <span><small>Budget</small><strong data-side-budget>-</strong></span>
           <span data-assoc-only hidden><small>Associazione</small><strong data-side-assoc-name>-</strong></span>
@@ -869,11 +869,11 @@
                 <span>Project brief</span>
                 <strong data-brief-title>Richiesta Conler</strong>
               </div>
-            <div data-assoc-only class="is-prominent" hidden><span>Destinazione progetto</span><strong data-summary-destination>-</strong></div>
+            <div class="is-prominent" hidden data-skip-assoc-goal><span>Destinazione progetto</span><strong data-summary-destination>-</strong></div>
             <div><span>Categoria</span><strong data-summary-category>Non selezionata</strong></div>
             <div><span>Servizi</span><strong data-summary-services>Nessun servizio selezionato</strong></div>
             <div><span>Dettagli</span><strong data-summary-details>Da definire</strong></div>
-            <div><span data-copy-key="sum.goal">Obiettivo</span><strong data-summary-goal>Non selezionato</strong></div>
+            <div data-hide-cat="Associazione"><span data-copy-key="sum.goal">Obiettivo</span><strong data-summary-goal>Non selezionato</strong></div>
             <div><span>Budget</span><strong data-summary-budget>Non selezionato</strong></div>
             <div><span>Timeline</span><strong data-summary-timeline>Non selezionata</strong></div>
             <div><span>Materiali</span><strong data-summary-materials>Nessun materiale selezionato</strong></div>
@@ -1121,6 +1121,8 @@
         const ids = FLOW_BASE.slice();
         const extra = BRANCHES[state.category] || [];
         ids.splice(1, 0, ...extra);
+        // Associazione skips the Destinazione e obiettivi step; HTML is kept to restore it later.
+        if (state.category === 'Associazione') return ids.filter(id => id !== 'goal');
         return ids;
       }
       function total() { return flowIds().length; }
@@ -1179,7 +1181,7 @@
           }
           case 'services': return state.services.size > 0;
           case 'details': return isAssoc() ? true : Boolean(state.serviceDirection);
-          case 'goal': return Boolean(state.goal) && (!isAssoc() || Boolean(state.assocDestination));
+          case 'goal': return Boolean(state.goal);
           case 'budget': return Boolean(state.budget);
           case 'timeline': return Boolean(state.timeline);
           case 'materials': return state.materials.size > 0;
@@ -1669,6 +1671,8 @@
         flow.querySelectorAll('[data-field="location"]').forEach(el => { el.readOnly = isAssoc() && state.fields.locationSame === '1'; });
 
         const ids = flowIds();
+        if (state.step > ids.length) state.step = ids.length;
+        if (state.step < 1) state.step = 1;
         const activeId = ids[state.step - 1];
         steps.forEach(step => {
           const active = step.dataset.stepId === activeId;
@@ -1926,7 +1930,9 @@
         });
         ACC_SECTIONS.forEach(sec => { if (isDeferred(sec)) clearSecAnswers(sec); });
         syncDetailBlocks();
-        let step = Math.max(flowIds().indexOf(data.stepId) + 1, 1);
+        let idx = flowIds().indexOf(data.stepId);
+        if (idx < 0 && data.stepId === 'goal') idx = flowIds().indexOf('budget');
+        let step = Math.max(idx + 1, 1);
         while (step > 1 && !canReach(step)) step -= 1;
         state.step = step;
         return SINGLE_KEYS.some(key => data[key]) || state.services.size > 0 || Boolean(state.fields.name || state.fields.description || state.fields.assocName);
@@ -2076,14 +2082,12 @@
           '',
           ...assocLines(),
           '--- Brief ---',
-          `Destinazione progetto: ${destinationText() || '-'}`,
           `Categoria: ${state.category}`,
           `Servizi: ${joinSet(state.services, '-')}`,
           `Dettagli: ${getDetailText()}`,
           ...accDetailLines(),
           '',
           ...quoteLines(),
-          `Risultato atteso: ${dash(state.goal)}`,
           `Budget: ${state.budget ? `${state.budget} · circa ${exact}` : `circa ${exact}`}`,
           `Finanziamento: ${fundingText() || '-'}`,
           `Timing: ${timelineText() || '-'}`,
