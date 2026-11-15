@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="280" height="72" viewBox="0 0 280 72" role="img" aria-label="CCN Gadoni">
+  <rect width="280" height="72" fill="none"/>
+  <text x="140" y="39" text-anchor="middle" fill="#0f0f0f" font-family="Inter, Helvetica, Arial, sans-serif" font-size="28" font-weight="700" letter-spacing=".4">CCN Gadoni</text>
+  <path d="M84 52h112" stroke="#0f0f0f" stroke-width="2" stroke-linecap="round" opacity=".6"/>
+</svg>

@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Abu Dhabi Desert Challenge — Conler</title>
+  <meta name="description" content="Abu Dhabi Desert Challenge — logistics, video production, and storytelling by Conler." />
+  <meta name="theme-color" content="#0b0b0b" />
+  <link rel="canonical" href="https://theconler.com/work-abu-dhabi.html" />
+  <link rel="icon" href="assets/conler-logo.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="assets/conler-logo.svg" />
+  <link rel="manifest" href="manifest.json" />
+  <meta property="og:title" content="Abu Dhabi Desert Challenge — Conler" />
+  <meta property="og:description" content="Abu Dhabi Desert Challenge — logistics, video production, and storytelling by Conler." />
+  <meta property="og:image" content="https://theconler.com/wp-content/uploads/2025/05/IMG_3946-scaled.jpg" />
+  <meta property="og:url" content="https://theconler.com/work-abu-dhabi.html" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Abu Dhabi Desert Challenge — Conler" />
+  <meta name="twitter:description" content="Abu Dhabi Desert Challenge — logistics, video production, and storytelling by Conler." />
+  <meta name="twitter:image" content="https://theconler.com/wp-content/uploads/2025/05/IMG_3946-scaled.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Migra&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css?v=31" />
+
+  <style>
+    /* ── Hero ── */
+    .project-hero {
+      position: relative;
+      background-color: #0f0f0f;
+      padding: 160px 0 80px;
+      text-align: center;
+      animation: fadeInUp 1s ease-out both;
+    }
+
+    @keyframes fadeInUp {
+      0%   { opacity: 0; transform: translateY(40px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .project-hero__cards {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 36px;
+    }
+
+    .lift-card {
+      overflow: hidden;
+      border-radius: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.3);
+      transition: transform .4s ease, box-shadow .4s ease;
+      flex-shrink: 0;
+    }
+
+    .lift-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 16px 40px rgba(0,0,0,.4);
+    }
+
+    .lift-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .lift-card--side   { width: 240px; height: 380px; }
+    .lift-card--center { width: 360px; height: 500px; box-shadow: 0 12px 40px rgba(0,0,0,.4); }
+
+    .project-hero__title {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Migra', serif;
+      font-size: clamp(40px, 6vw, 90px);
+      color: #fff;
+      font-weight: 400;
+      margin: 0;
+      pointer-events: none;
+      white-space: nowrap;
+      text-shadow: 0 6px 20px rgba(0,0,0,.7);
+    }
+
+    .project-hero__tags {
+      margin-top: 80px;
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .tag-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background-color: #1a1a1a;
+      color: #fff;
+      padding: 10px 24px;
+      border-radius: 24px;
+      font-size: 16px;
+      font-family: 'Inter', sans-serif;
+      transition: transform .3s ease;
+    }
+
+    .tag-badge:hover { transform: scale(1.05); }
+
+    /* ── Back link ── */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,.5);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      text-decoration: none;
+      padding: 60px 60px 0;
+      transition: color .2s;
+    }
+
+    .back-link:hover { color: #fff; }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .project-hero { padding: 120px 16px 60px; }
+
+      .project-hero__cards {
+        gap: 12px;
+        align-items: center;
+      }
+
+      .lift-card--side   { width: 28vw; height: 44vw; }
+      .lift-card--center { width: 40vw; height: 58vw; }
+
+      .project-hero__title { font-size: clamp(22px, 5vw, 48px); }
+
+      .project-hero__tags { margin-top: 48px; }
+
+      .back-link { padding: 40px 24px 0; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="nav" data-nav>
+    <a class="nav__brand" href="index.html#hero" aria-label="Conler — home">
+      <img src="assets/conler-logo.svg" alt="Conler" decoding="async" />
+      <span>Conler</span>
+      <small>est. Sardinia</small>
+    </a>
+
+    <nav class="nav__links" aria-label="Section navigation">
+      <a href="work.html">Work</a>
+      <a href="about.html">About</a>
+      <a href="index.html#services">Services</a>
+      <a href="#contact" data-contact-trigger>Contact</a>
+    </nav>
+
+    <div class="nav__meta" aria-hidden="true">
+      <span class="nav__time" data-clock></span>
+      <span class="nav__dot"></span>
+      <span>Cagliari, IT</span>
+    </div>
+
+    <button class="nav__toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu" data-menu-toggle>
+      <span class="nav__toggle-label">
+        <span data-menu-label-open>Menu</span>
+        <span data-menu-label-close>Close</span>
+      </span>
+      <span class="nav__toggle-icon" aria-hidden="true">
+        <span></span>
+        <span></span>
+      </span>
+    </button>
+  </header>
+
+  <div class="menu" id="menu" aria-hidden="true" data-menu>
+    <div class="menu__inner">
+      <div class="menu__header">
+        <a class="menu__brand" href="index.html#hero" aria-label="Conler — home">
+          <img src="assets/conler-logo.svg" alt="Conler" decoding="async" />
+          <span>Conler</span>
+        </a>
+        <button class="menu__close" type="button" aria-label="Close menu" data-menu-close>
+          <span class="menu__close-icon" aria-hidden="true"></span>
+        </button>
+      </div>
+      <nav class="menu__nav" aria-label="Primary">
+        <ul class="menu__list">
+          <li><a href="work.html" data-menu-link><span class="menu__label"><span class="menu__label-base">Work</span></span><span class="menu__arrow" aria-hidden="true">↗</span></a></li>
+          <li><a href="about.html" data-menu-link><span class="menu__label"><span class="menu__label-base">About</span></span><span class="menu__arrow" aria-hidden="true">↗</span></a></li>
+          <li><a href="index.html#services" data-menu-link><span class="menu__label"><span class="menu__label-base">Services</span></span><span class="menu__arrow" aria-hidden="true">↗</span></a></li>
+          <li><a href="#contact" data-menu-link data-contact-trigger><span class="menu__label"><span class="menu__label-base">Contact</span></span><span class="menu__arrow" aria-hidden="true">↗</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <main id="main">
+    <a class="back-link" href="work.html">← Back to Work</a>
+
+    <section class="project-hero" aria-label="Abu Dhabi Desert Challenge">
+
+      <div class="project-hero__cards">
+        <div class="lift-card lift-card--side">
+          <img src="https://theconler.com/wp-content/uploads/2025/05/A7405498-rotated.jpg" alt="Abu Dhabi Desert Challenge" loading="eager" decoding="async" />
+        </div>
+        <div class="lift-card lift-card--center">
+          <img src="https://theconler.com/wp-content/uploads/2025/05/IMG_3946-scaled.jpg" alt="Abu Dhabi Desert Challenge" loading="eager" decoding="async" />
+        </div>
+        <div class="lift-card lift-card--side">
+          <img src="https://theconler.com/wp-content/uploads/2025/05/A7405495-rotated.jpg" alt="Abu Dhabi Desert Challenge" loading="eager" decoding="async" />
+        </div>
+      </div>
+
+      <h1 class="project-hero__title">Abu Dhabi Desert Challenge</h1>
+
+      <div class="project-hero__tags">
+        <span class="tag-badge">
+          <img src="https://theconler.com/wp-content/uploads/2025/05/IMG_7897.png" alt="Abu Dhabi Desert Challenge logo" style="height:24px;border-radius:50%;" />
+          @AbuDhabiDesertChallenge
+        </span>
+        <span class="tag-badge">logistics</span>
+        <span class="tag-badge">video production</span>
+        <span class="tag-badge">storytelling</span>
+      </div>
+
+    </section>
+
+    <!-- Brief -->
+    <div style="background-color:#0f0f0f;color:#fff;padding:120px 40px;font-family:'Inter',sans-serif;">
+      <div style="max-width:1600px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:100px;flex-wrap:wrap;">
+
+        <div style="flex:1.2;min-width:300px;text-align:left;">
+          <h2 style="font-family:'Migra',serif;font-size:20px;font-weight:400;margin-bottom:40px;">Brief</h2>
+          <p style="font-size:16px;line-height:1.8;margin-bottom:28px;">
+            In April 2024, we partnered with Impeco and W2RC to create exclusive behind-the-scenes content for the <strong>Abu Dhabi Desert Challenge</strong>. The focus: the complex logistics of transporting racing motorcycles to the desert.
+          </p>
+          <p style="font-size:16px;line-height:1.8;margin-bottom:28px;">
+            Our role included conducting interviews with key logistics personnel, documenting the entire transport process, and handling all editing and post-production. The final video, published on the event's official channels, showcased the precision and teamwork required to prepare for such a high-stakes rally.
+          </p>
+          <p style="font-size:16px;line-height:1.8;">
+            This collaboration highlighted the often unseen efforts that make world-class motorsport possible, building engagement and offering viewers a new perspective on the challenge beyond the race itself.
+          </p>
+        </div>
+
+        <div style="flex:1;min-width:300px;text-align:right;">
+          <h1 style="font-family:'Inter',sans-serif;font-size:48px;font-weight:400;line-height:1.2;margin:0;">
+            <span style="display:inline-block;margin-right:20px;">—</span>
+            Revealing the journey behind the race.
+          </h1>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="legal-footer">
+    <a class="legal-footer__brand" href="index.html#hero" aria-label="Conler — home">
+      <img src="assets/conler-logo.svg" alt="Conler" decoding="async" />
+      <span>Conler</span>
+    </a>
+
+    <div class="legal-footer__links">
+      <a href="https://www.instagram.com/theconler/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.facebook.com/people/TheConler/100092535591763/" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://youtu.be/S4mnPDaNaEc?si=ot1k649NoV4xLrwT" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="https://www.linkedin.com/in/theconler" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="privacy.html" class="privacy-button">Privacyverklaring</a>
+      <a href="terms.html" class="privacy-button">Terms &amp; Conditions</a>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" crossorigin="anonymous" defer></script>
+  <script src="js/main.js?v=31" defer></script>
+</body>
+</html>

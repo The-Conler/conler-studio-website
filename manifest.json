@@ -1,0 +1,24 @@
+{
+  "name": "Conler",
+  "short_name": "Conler",
+  "description": "Creative production studio for film, webdesign, photography, brand identity, and social content.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#e4e4e4",
+  "theme_color": "#e4e4e4",
+  "icons": [
+    {
+      "src": "assets/conler-logo.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/conler-logo.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

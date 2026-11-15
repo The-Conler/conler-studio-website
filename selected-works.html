@@ -1,0 +1,898 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Selected Works — Conler</title>
+  <meta name="description" content="Selected works by Conler — film, photography, and creative production." />
+  <meta name="theme-color" content="#000" />
+  <link rel="icon" href="assets/conler-logo.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Migra&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css?v=31" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: #000;
+      color: #fff;
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1;
+      height: 100%;
+      cursor: none;
+      overflow: hidden;
+    }
+
+    /* ── Cursor ── */
+    .cursor {
+      position: fixed;
+      width: 28px;
+      height: 28px;
+      border: 1px solid rgba(255,255,255,.55);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 180ms ease, height 180ms ease, border-color 180ms ease;
+      will-change: left, top;
+    }
+    .cursor.is-hover { width: 12px; height: 12px; border-color: #fff; }
+
+    /* ── Page shell — fixed full-height ── */
+    .page {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ── Main split ── */
+    .split {
+      flex: 1;
+      display: grid;
+      grid-template-columns: minmax(260px, 36%) 1fr;
+      overflow: hidden;
+      min-height: 0;
+    }
+
+    /* ══════════════════════════════
+       LEFT PANEL
+    ══════════════════════════════ */
+    .left-panel {
+      border-right: 1px solid rgba(255,255,255,.1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .sw-panel {
+      padding: 100px 28px 28px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .sw-label {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 24px;
+      letter-spacing: .01em;
+    }
+
+    .sw-list { list-style: none; }
+
+    .sw-item { border-top: 1px solid rgba(255,255,255,.1); }
+    .sw-item:last-child { border-bottom: 1px solid rgba(255,255,255,.1); }
+
+    .sw-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 13px 0;
+      text-decoration: none;
+      color: rgba(255,255,255,.55);
+      gap: 12px;
+      transition: color 140ms ease;
+      cursor: none;
+    }
+
+    .sw-row:hover,
+    .sw-row.is-active { color: #fff; }
+
+    .sw-row--static {
+      color: rgba(255,255,255,.25);
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .sw-row--highlight {
+      color: rgba(255,255,255,.9);
+      text-decoration: none;
+    }
+
+    .sw-row--highlight:hover,
+    .sw-row--highlight.is-active { color: #fff; }
+
+    .sw-list--muted .sw-item {
+      border-top-color: rgba(255,255,255,.06);
+    }
+
+    .sw-list--muted .sw-item:last-child {
+      border-bottom-color: rgba(255,255,255,.06);
+    }
+
+    .sw-row__name {
+      font-size: 13px;
+      font-weight: 400;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sw-row__year {
+      font-size: 13px;
+      color: inherit;
+      font-variant-numeric: tabular-nums;
+      flex-shrink: 0;
+    }
+
+    /* ── Wordmark bottom-left ── */
+    .wordmark {
+      overflow: hidden;
+      line-height: .82;
+      pointer-events: none;
+      user-select: none;
+      flex-shrink: 0;
+    }
+
+    .wordmark__text {
+      font-family: 'Migra', serif;
+      font-size: clamp(80px, 10vw, 160px);
+      font-weight: 400;
+      color: #fff;
+      letter-spacing: -.02em;
+      display: block;
+      padding-left: 20px;
+    }
+
+    /* ══════════════════════════════
+       RIGHT PANEL
+    ══════════════════════════════ */
+    .right-panel {
+      overflow-y: auto;
+      overflow-x: hidden;
+      position: relative;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* placeholder shown before any project is selected */
+    .right-empty {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: rgba(255,255,255,.12);
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    /* project detail */
+    .project-detail {
+      display: none;
+      padding: 100px 48px 60px;
+    }
+
+    .project-detail.is-visible { display: block; }
+
+    .detail__title {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(22px, 3vw, 38px);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 28px;
+    }
+
+    .detail__desc {
+      font-size: 13px;
+      line-height: 1.8;
+      color: rgba(255,255,255,.75);
+      margin-bottom: 24px;
+      max-width: 620px;
+    }
+
+    .detail__link {
+      display: inline-block;
+      color: #fff;
+      font-size: 13px;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      margin-bottom: 40px;
+      transition: opacity 150ms ease;
+    }
+    .detail__link:hover { opacity: .6; }
+
+    .detail__services {
+      list-style: none;
+      border-top: 1px solid rgba(255,255,255,.12);
+      margin-bottom: 48px;
+    }
+
+    .detail__service {
+      font-size: 13px;
+      padding: 11px 0;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.8);
+    }
+
+    .detail__subservices {
+      list-style: none;
+      margin-top: 8px;
+      padding-left: 16px;
+      border-left: 1px solid rgba(255,255,255,.15);
+    }
+
+    .detail__subservices li {
+      font-size: 11px;
+      color: rgba(255,255,255,.45);
+      padding: 4px 0;
+      letter-spacing: .04em;
+    }
+
+    /* section label */
+    .detail__section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.35);
+      margin: 48px 0 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+
+    /* colour palette swatches */
+    .detail__palette {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 36px;
+    }
+
+    .detail__palette span {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    /* images — mixed grid */
+    .detail__images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .detail__images img,
+    .detail__images video {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 4px;
+    }
+
+    /* landscape images & video span full width */
+    .detail__images .full,
+    .detail__images video {
+      grid-column: 1 / -1;
+    }
+
+    .detail__section-label,
+    .detail__images p {
+      grid-column: 1 / -1;
+    }
+
+    .detail__images img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 4px;
+    }
+
+    /* ── Bottom bar ── */
+    .bottombar {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      align-items: center;
+      padding: 12px 28px;
+      border-top: 1px solid rgba(255,255,255,.1);
+      font-size: 11px;
+      color: rgba(255,255,255,.4);
+      flex-shrink: 0;
+    }
+
+    .bottombar__center { text-align: center; line-height: 1.6; }
+    .bottombar__center a { color: rgba(255,255,255,.6); text-decoration: none; }
+    .bottombar__center a:hover { color: #fff; }
+    .bottombar__right { text-align: right; font-variant-numeric: tabular-nums; line-height: 1.6; }
+
+    /* ── Responsive ── */
+    @media (max-width: 700px) {
+      html, body { overflow: auto; }
+      .page { height: auto; overflow: visible; }
+      .split { grid-template-columns: 1fr; overflow: visible; }
+      .left-panel { border-right: none; overflow: visible; }
+      .right-panel { overflow: visible; }
+      .project-detail { padding: 28px 20px 40px; }
+      .detail__images { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+
+  <div class="page">
+
+    <!-- Nav -->
+    <header class="nav" data-nav>
+      <a class="nav__brand" href="index.html#hero" aria-label="Conler — home">
+        <img src="assets/conler-logo.svg" alt="Conler" decoding="async" />
+        <span>Conler</span>
+        <small>est. Sardinia</small>
+      </a>
+      <nav class="nav__links" aria-label="Section navigation">
+        <a href="work.html">Work</a>
+        <a href="about.html">About</a>
+        <a href="index.html#services">Services</a>
+        <a href="#contact" data-contact-trigger>Contact</a>
+      </nav>
+      <div class="nav__meta" aria-hidden="true">
+        <span class="nav__time" data-clock></span>
+        <span class="nav__dot"></span>
+        <span>Cagliari, IT</span>
+      </div>
+      <button class="nav__toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu" data-menu-toggle>
+        <span class="nav__toggle-label">
+          <span data-menu-label-open>Menu</span>
+          <span data-menu-label-close>Close</span>
+        </span>
+        <span class="nav__toggle-icon" aria-hidden="true"><span></span><span></span></span>
+      </button>
+    </header>
+
+    <div class="menu" id="menu" aria-hidden="true" data-menu>
+      <div class="menu__inner">
+        <div class="menu__header">
+          <a class="menu__brand" href="index.html#hero" aria-label="Conler — home">
+            <img src="assets/conler-logo.svg" alt="Conler" decoding="async" />
+            <span>Conler</span>
+          </a>
+          <button class="menu__close" type="button" aria-label="Close menu" data-menu-close>
+            <span class="menu__close-icon" aria-hidden="true"></span>
+          </button>
+        </div>
+        <nav class="menu__nav" aria-label="Primary">
+          <ul class="menu__list">
+            <li><a href="work.html" data-menu-link><span class="menu__label"><span class="menu__label-base">Work</span></span><span class="menu__arrow" aria-hidden="true">↗</span></a></li>
+            <li><a href="about.html" data-menu-link><span class="menu__label"><span class="menu__label-base">About</span></span><span class="menu__arrow" aria-hidden="true">↗</span></a></li>
+            <li><a href="index.html#services" data-menu-link><span class="menu__label"><span class="menu__label-base">Services</span></span><span class="menu__arrow" aria-hidden="true">↗</span></a></li>
+            <li><a href="#contact" data-menu-link data-contact-trigger><span class="menu__label"><span class="menu__label-base">Contact</span></span><span class="menu__arrow" aria-hidden="true">↗</span></a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Split body -->
+    <div class="split">
+
+      <!-- LEFT: list + wordmark -->
+      <div class="left-panel">
+
+        <div class="sw-panel">
+          <p class="sw-label">Selected Works</p>
+          <ol class="sw-list" role="list">
+
+            <li class="sw-item">
+              <a class="sw-row" href="#" data-id="sorelle-carboni">
+                <span class="sw-row__name">Sorelle Carboni</span>
+                <span class="sw-row__year">2025 — ongoing</span>
+              </a>
+            </li>
+
+            <li class="sw-item">
+              <a class="sw-row" href="#" data-id="ccn-gadoni">
+                <span class="sw-row__name">Centro Commerciale Naturale Gadoni</span>
+                <span class="sw-row__year">2024 — ongoing</span>
+              </a>
+            </li>
+
+            <li class="sw-item">
+              <a class="sw-row" href="#" data-id="abu-dhabi">
+                <span class="sw-row__name">Abu Dhabi Desert Challenge</span>
+                <span class="sw-row__year">2024</span>
+              </a>
+            </li>
+
+            <li class="sw-item">
+              <a class="sw-row" href="#" data-id="nachtwacht">
+                <span class="sw-row__name">NachtWacht Festival</span>
+                <span class="sw-row__year">2025</span>
+              </a>
+            </li>
+
+            <li class="sw-item">
+              <a class="sw-row" href="#" data-id="boghes">
+                <span class="sw-row__name">Coro Boghes De Gaudionu</span>
+                <span class="sw-row__year">2024 — ongoing</span>
+              </a>
+            </li>
+
+          </ol>
+
+          <p class="sw-label" style="margin-top: 48px;">Other Works</p>
+          <ol class="sw-list sw-list--muted" role="list">
+
+            <li class="sw-item">
+              <span class="sw-row sw-row--static">
+                <span class="sw-row__name">Beerbagia Festival</span>
+                <span class="sw-row__year">2026</span>
+              </span>
+            </li>
+
+            <li class="sw-item">
+              <span class="sw-row sw-row--static">
+                <span class="sw-row__name">Comune Di Belvì</span>
+                <span class="sw-row__year">2026</span>
+              </span>
+            </li>
+
+            <li class="sw-item">
+              <span class="sw-row sw-row--static">
+                <span class="sw-row__name">Centro Commerciale Naturale Tonara</span>
+                <span class="sw-row__year">2025</span>
+              </span>
+            </li>
+
+            <li class="sw-item">
+              <span class="sw-row sw-row--static">
+                <span class="sw-row__name">Gustus e Cantons in Beranu</span>
+                <span class="sw-row__year">2025</span>
+              </span>
+            </li>
+
+            <li class="sw-item">
+              <span class="sw-row sw-row--static">
+                <span class="sw-row__name">Pro Loco Gadoni</span>
+                <span class="sw-row__year">2025</span>
+              </span>
+            </li>
+
+            <li class="sw-item">
+              <a class="sw-row sw-row--highlight" href="#" data-id="snelle-jellie">
+                <span class="sw-row__name">Snelle Jellie</span>
+                <span class="sw-row__year">2025</span>
+              </a>
+            </li>
+
+            <li class="sw-item">
+              <a class="sw-row sw-row--highlight" href="#" data-id="boghes">
+                <span class="sw-row__name">Coro Boghes De Gaudionu</span>
+                <span class="sw-row__year">2024 — ongoing</span>
+              </a>
+            </li>
+
+            <li class="sw-item">
+              <span class="sw-row sw-row--static">
+                <span class="sw-row__name">Autunno in Barbagia Gadoni</span>
+                <span class="sw-row__year">2025</span>
+              </span>
+            </li>
+
+            <li class="sw-item">
+              <span class="sw-row sw-row--static">
+                <span class="sw-row__name">Autunno in Barbagia Tonara</span>
+                <span class="sw-row__year">2025</span>
+              </span>
+            </li>
+
+            <li class="sw-item">
+              <span class="sw-row sw-row--static">
+                <span class="sw-row__name">Sardinia Discovery Travel</span>
+                <span class="sw-row__year">2024 — ongoing</span>
+              </span>
+            </li>
+
+            <li class="sw-item">
+              <span class="sw-row sw-row--static">
+                <span class="sw-row__name">Sa Burra Guesthouse</span>
+                <span class="sw-row__year">2024 — ongoing</span>
+              </span>
+            </li>
+
+            <li class="sw-item">
+              <span class="sw-row sw-row--static">
+                <span class="sw-row__name">Comune Di Gadoni</span>
+                <span class="sw-row__year">2024 — ongoing</span>
+              </span>
+            </li>
+
+            <li class="sw-item">
+              <span class="sw-row sw-row--static">
+                <span class="sw-row__name">Centro Commerciale Naturale Tonara</span>
+                <span class="sw-row__year">2024</span>
+              </span>
+            </li>
+
+            <li class="sw-item">
+              <span class="sw-row sw-row--static">
+                <span class="sw-row__name">Impeco</span>
+                <span class="sw-row__year">2024</span>
+              </span>
+            </li>
+
+            <li class="sw-item">
+              <span class="sw-row sw-row--static">
+                <span class="sw-row__name">Sardinia Circuit</span>
+                <span class="sw-row__year">2024</span>
+              </span>
+            </li>
+
+            <li class="sw-item">
+              <span class="sw-row sw-row--static">
+                <span class="sw-row__name">Guida e Vai Sicurezza</span>
+                <span class="sw-row__year">2024</span>
+              </span>
+            </li>
+
+            <li class="sw-item">
+              <span class="sw-row sw-row--static">
+                <span class="sw-row__name">Autunno in Barbagia Gadoni</span>
+                <span class="sw-row__year">2024</span>
+              </span>
+            </li>
+
+            <li class="sw-item">
+              <span class="sw-row sw-row--static">
+                <span class="sw-row__name">Autunno in Barbagia Tonara</span>
+                <span class="sw-row__year">2024</span>
+              </span>
+            </li>
+
+          </ol>
+        </div>
+
+        <div class="wordmark" aria-hidden="true">
+          <span class="wordmark__text">Conler</span>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: detail panels -->
+      <div class="right-panel" id="rightPanel">
+
+        <div class="right-empty" id="rightEmpty">— select a project</div>
+
+        <!-- Sorelle Carboni -->
+        <div class="project-detail" id="detail-sorelle-carboni">
+          <h2 class="detail__title">Sorelle Carboni</h2>
+          <p class="detail__desc">
+            Sorelle Carboni is an affittacamere and B&amp;B nestled in Tonara, a mountain village in the heart of Sardinia's Barbagia region. The brand identity was built to reflect the deep roots of the family and the land — drawing from Sardinian folk tradition, carpet motifs, and the warmth of genuine hospitality.<br /><br />
+            We developed a complete brand system: a rich colour palette of terracotta, sage, teal, and cream, alongside a custom icon library that weaves together Sardinian textile symbols, local nature, and the essence of home.<br /><br />
+            The project extended into a fully hand-coded website built from scratch in HTML, CSS and JavaScript with GSAP animations, designed to carry the same warmth and identity into the digital experience.
+          </p>
+          <ul class="detail__services">
+            <li class="detail__service">Brand Image
+              <ul class="detail__subservices">
+                <li>Visual Identity</li>
+                <li>Iconografia</li>
+                <li>Colour Palette</li>
+                <li>Photography</li>
+                <li>Video</li>
+                <li>Tone of Voice</li>
+              </ul>
+            </li>
+            <li class="detail__service">Ricerca di Mercato e Positioning</li>
+            <li class="detail__service">Web Development
+              <ul class="detail__subservices">
+                <li>Custom HTML CSS JS</li>
+                <li>GSAP Animations</li>
+                <li>Scroll Animations</li>
+                <li>Full coded website</li>
+              </ul>
+            </li>
+          </ul>
+
+          <!-- Colour palette -->
+          <div class="detail__palette">
+            <span style="background:#FEF1D7;" title="#FEF1D7"></span>
+            <span style="background:#99C2AA;" title="#99C2AA"></span>
+            <span style="background:#2A525F;" title="#2A525F"></span>
+            <span style="background:#C35F41;" title="#C35F41"></span>
+            <span style="background:#8F1934;" title="#8F1934"></span>
+            <span style="background:#281515;" title="#281515"></span>
+          </div>
+
+          <div class="detail__images">
+            <img src="assets/sorelle-carboni-hero.jpg" alt="Sorelle Carboni — Le nostre radici, la tua esperienza" loading="lazy" class="full" />
+            <img src="assets/sorelle-carboni-past-present.jpg" alt="Sorelle Carboni — passato e presente" loading="lazy" class="full" />
+            <img src="assets/sorelle-carboni-branches.jpg" alt="Sorelle Carboni — radici" loading="lazy" />
+            <img src="assets/sorelle-carboni-pastry.jpg" alt="Sorelle Carboni — ci prendiamo cura del tuo buongiorno" loading="lazy" />
+            <img src="assets/sorelle-carboni-mask.jpg" alt="Sorelle Carboni — maschera tradizionale sarda" loading="lazy" class="full" />
+            <p class="detail__section-label">Iconografia</p>
+            <img src="assets/sorelle-carboni-icons-color.png" alt="Sorelle Carboni — icon set colori" loading="lazy" />
+            <img src="assets/sorelle-carboni-iconography.png" alt="Sorelle Carboni — iconografia" loading="lazy" style="background:#fff;" />
+          </div>
+          <a class="detail__link" href="work-sorelle-carboni.html">View full case study →</a>
+        </div>
+
+        <!-- CCN Gadoni -->
+        <div class="project-detail" id="detail-ccn-gadoni">
+          <h2 class="detail__title">Centro Commerciale Naturale Gadoni</h2>
+          <p class="detail__desc">
+            Description for Centro Commerciale Naturale Gadoni coming soon.
+          </p>
+          <ul class="detail__services">
+            <li class="detail__service">Video Production</li>
+            <li class="detail__service">Storytelling</li>
+          </ul>
+          <div class="detail__images">
+            <img src="https://theconler.com/wp-content/uploads/2025/05/IMG_7286.jpg" alt="CCN Gadoni" loading="lazy" />
+            <img src="https://theconler.com/wp-content/uploads/2025/05/IMG_7287.jpg" alt="CCN Gadoni" loading="lazy" />
+          </div>
+        </div>
+
+        <!-- Abu Dhabi -->
+        <div class="project-detail" id="detail-abu-dhabi">
+          <h2 class="detail__title">Abu Dhabi Desert Challenge</h2>
+          <p class="detail__desc">
+            In April 2024, we partnered with Impeco and W2RC to create exclusive behind-the-scenes content for the Abu Dhabi Desert Challenge. The focus: the complex logistics of transporting racing motorcycles to the desert.<br /><br />
+            Our role included conducting interviews with key logistics personnel, documenting the entire transport process, and handling all editing and post-production. The final video showcased the precision and teamwork required to prepare for such a high-stakes rally.
+          </p>
+          <a class="detail__link" href="work-abu-dhabi.html">View full project →</a>
+          <ul class="detail__services">
+            <li class="detail__service">Logistics</li>
+            <li class="detail__service">Video Production</li>
+            <li class="detail__service">Storytelling</li>
+            <li class="detail__service">Post-Production</li>
+          </ul>
+          <div class="detail__images">
+            <video src="assets/abu-dhabi-video.mov" controls playsinline style="width:100%;border-radius:4px;display:block;margin-bottom:12px;"></video>
+            <img src="assets/abu-dhabi-1.jpg" alt="Abu Dhabi Desert Challenge" loading="lazy" />
+            <img src="assets/abu-dhabi-2.jpg" alt="Abu Dhabi Desert Challenge" loading="lazy" />
+            <img src="assets/abu-dhabi-3.jpg" alt="Abu Dhabi Desert Challenge" loading="lazy" />
+            <img src="assets/abu-dhabi-4.jpg" alt="Abu Dhabi Desert Challenge" loading="lazy" />
+            <img src="assets/abu-dhabi-5.jpg" alt="Abu Dhabi Desert Challenge" loading="lazy" />
+            <img src="assets/abu-dhabi-6.jpg" alt="Abu Dhabi Desert Challenge" loading="lazy" />
+          </div>
+        </div>
+
+        <!-- Coro Boghes De Gaudionu -->
+        <div class="project-detail" id="detail-boghes">
+          <h2 class="detail__title">Coro Boghes De Gaudionu</h2>
+          <ul class="detail__services">
+            <li class="detail__service">Photography</li>
+          </ul>
+          <div class="detail__images">
+            <img src="assets/boghes-2.jpg" alt="Coro Boghes De Gaudionu" loading="lazy" />
+            <img src="assets/boghes-3.jpg" alt="Coro Boghes De Gaudionu" loading="lazy" />
+            <img src="assets/boghes-4.jpg" alt="Coro Boghes De Gaudionu" loading="lazy" />
+            <img src="assets/boghes-5.jpg" alt="Coro Boghes De Gaudionu" loading="lazy" />
+            <img src="assets/boghes-6.jpg" alt="Coro Boghes De Gaudionu" loading="lazy" />
+            <img src="assets/boghes-1.jpg" alt="Coro Boghes De Gaudionu" loading="lazy" class="full" />
+          </div>
+        </div>
+
+        <!-- Snelle Jellie -->
+        <div class="project-detail" id="detail-snelle-jellie">
+          <h2 class="detail__title">Snelle Jellie</h2>
+          <ul class="detail__services">
+            <li class="detail__service">Photography</li>
+            <li class="detail__service">Videography</li>
+          </ul>
+          <div class="detail__images">
+            <video
+              src="assets/snelle-jellie.mp4"
+              controls
+              playsinline
+              style="width:100%;border-radius:4px;display:block;margin-bottom:12px;"
+            ></video>
+          </div>
+        </div>
+
+        <!-- NachtWacht Festival -->
+        <div class="project-detail" id="detail-nachtwacht">
+          <h2 class="detail__title">NachtWacht Festival</h2>
+          <ul class="detail__services">
+            <li class="detail__service">Photography</li>
+            <li class="detail__service">Videomaking</li>
+            <li class="detail__service">Aftermovie Official</li>
+          </ul>
+          <div class="detail__images">
+            <video
+              src="assets/nachtwacht-aftermovie.mp4"
+              controls
+              playsinline
+              style="width:100%;border-radius:4px;display:block;margin-bottom:12px;"
+            ></video>
+            <img src="assets/nachtwacht-1.jpg" alt="NachtWacht Festival" loading="lazy" />
+            <img src="assets/nachtwacht-2.jpg" alt="NachtWacht Festival" loading="lazy" />
+            <img src="assets/nachtwacht-3.jpg" alt="NachtWacht Festival" loading="lazy" />
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <footer class="bottombar">
+      <span>© 2026</span>
+      <div class="bottombar__center">
+        GENERAL INQUIRIES<br />
+        <a href="mailto:info@theconler.com">info@theconler.com</a>
+      </div>
+      <div class="bottombar__right" id="datetime"></div>
+    </footer>
+
+  </div>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" crossorigin="anonymous"></script>
+
+  <script src="js/main.js?v=31" defer></script>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+
+      const rightPanel = document.getElementById('rightPanel');
+
+      // ═══════════════════════════════════════
+      // 2. PAGE LOAD — wordmark rises + rows stagger in
+      // ═══════════════════════════════════════
+      const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+
+      tl.from('.wordmark__text', {
+        yPercent: 100,
+        duration: 1.6,
+        delay: 0.05
+      });
+
+      tl.from('.sw-item', {
+        y: 24,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.08,
+        ease: 'power3.out'
+      }, '-=1.2');
+
+      tl.from('.sw-label', {
+        opacity: 0,
+        y: 10,
+        duration: 0.5
+      }, '-=0.9');
+
+      // ═══════════════════════════════════════
+      // 3. CURSOR
+      // ═══════════════════════════════════════
+      const cursor = document.getElementById('cursor');
+      let cx = 0, cy = 0, tx = 0, ty = 0;
+      document.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
+      (function loop() {
+        cx += (tx - cx) * 0.28;
+        cy += (ty - cy) * 0.28;
+        cursor.style.left = cx + 'px';
+        cursor.style.top  = cy + 'px';
+        requestAnimationFrame(loop);
+      })();
+      document.querySelectorAll('a, button').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('is-hover'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('is-hover'));
+      });
+
+      // ═══════════════════════════════════════
+      // 4. PROJECT CLICK — staggered content reveal
+      // ═══════════════════════════════════════
+      const rows       = document.querySelectorAll('.sw-row[data-id]');
+      const details    = document.querySelectorAll('.project-detail');
+      const rightEmpty = document.getElementById('rightEmpty');
+
+      rows.forEach(row => {
+        row.addEventListener('click', e => {
+          e.preventDefault();
+          const id = row.dataset.id;
+
+          rows.forEach(r => r.classList.remove('is-active'));
+          row.classList.add('is-active');
+
+          rightEmpty.style.display = 'none';
+          details.forEach(d => { d.classList.remove('is-visible'); });
+
+          const target = document.getElementById('detail-' + id);
+          if (!target) return;
+
+          target.classList.add('is-visible');
+          rightPanel.scrollTop = 0;
+
+          // Kill any previous animation on this panel
+          gsap.killTweensOf(target.querySelectorAll(
+            '.detail__title, .detail__desc, .detail__link, .detail__service, .detail__images img'
+          ));
+
+          // Set starting state
+          gsap.set(target.querySelectorAll('.detail__title, .detail__desc, .detail__link'), {
+            opacity: 0, y: 20
+          });
+          gsap.set(target.querySelectorAll('.detail__service'), {
+            opacity: 0, x: -12
+          });
+          gsap.set(target.querySelectorAll('.detail__images img'), {
+            clipPath: 'inset(100% 0% 0% 0%)',
+            opacity: 1
+          });
+
+          const ptl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+          // Title
+          ptl.to(target.querySelector('.detail__title'), {
+            opacity: 1, y: 0, duration: 0.55
+          });
+          // Description
+          ptl.to(target.querySelector('.detail__desc'), {
+            opacity: 1, y: 0, duration: 0.5
+          }, '-=0.3');
+          // Link (optional)
+          if (target.querySelector('.detail__link')) {
+            ptl.to(target.querySelector('.detail__link'), {
+              opacity: 1, y: 0, duration: 0.4
+            }, '-=0.3');
+          }
+          // Services stagger
+          ptl.to(target.querySelectorAll('.detail__service'), {
+            opacity: 1, x: 0, duration: 0.35, stagger: 0.07
+          }, '-=0.2');
+          // Palette swatches
+          if (target.querySelectorAll('.detail__palette span').length) {
+            gsap.set(target.querySelectorAll('.detail__palette span'), { opacity: 0, scale: 0.5 });
+            ptl.to(target.querySelectorAll('.detail__palette span'), {
+              opacity: 1, scale: 1, duration: 0.3, stagger: 0.06, ease: 'back.out(1.4)'
+            }, '-=0.1');
+          }
+          // Images wipe up via clip-path
+          ptl.to(target.querySelectorAll('.detail__images img'), {
+            clipPath: 'inset(0% 0% 0% 0%)',
+            duration: 0.9,
+            stagger: 0.12,
+            ease: 'power4.out'
+          }, '-=0.1');
+        });
+      });
+
+      // ═══════════════════════════════════════
+      // 5. CLOCK
+      // ═══════════════════════════════════════
+      const dt = document.getElementById('datetime');
+      function tick() {
+        const now  = new Date();
+        const date = now.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric' }).replace(/\//g, '.');
+        const time = now.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        dt.innerHTML = date + '<br>' + time;
+      }
+      tick();
+      setInterval(tick, 1000);
+
+    });
+  </script>
+
+</body>
+</html>

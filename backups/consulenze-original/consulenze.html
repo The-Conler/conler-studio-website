@@ -1,0 +1,782 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Consulenze — Conler</title>
+  <meta name="description" content="Scegli la tua categoria e i servizi creativi di cui hai bisogno: video, foto, sito web, brand identity, logo e social media management." />
+  <meta name="theme-color" content="#0b0b0b" />
+  <link rel="canonical" href="https://theconler.com/consulenze.html" />
+  <link rel="icon" href="assets/conler-logo.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="assets/conler-logo.svg" />
+  <link rel="manifest" href="manifest.json" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Migra&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css?v=35" />
+</head>
+<body class="consult-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="nav" data-nav>
+    <a class="nav__brand" href="index.html#hero" aria-label="Conler — home">
+      <img src="assets/conler-symbol-mark.png" alt="Conler" decoding="async" />
+      <span>Conler</span>
+      <small>est. Sardinia</small>
+    </a>
+
+    <nav class="nav__links" aria-label="Section navigation">
+      <a href="index.html#work">Work</a>
+      <a href="about.html">About</a>
+      <a href="index.html#services">Services</a>
+      <a href="consulenze.html" aria-current="page">Consulenze</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+
+    <div class="nav__meta" aria-hidden="true">
+      <span class="nav__time" data-clock></span>
+      <span class="nav__dot"></span>
+      <span>Cagliari, IT</span>
+    </div>
+
+    <button class="nav__toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu" data-menu-toggle>
+      <span class="nav__toggle-label">
+        <span data-menu-label-open>Menu</span>
+        <span data-menu-label-close>Close</span>
+      </span>
+      <span class="nav__toggle-icon" aria-hidden="true">
+        <span></span>
+        <span></span>
+      </span>
+    </button>
+  </header>
+
+  <div class="menu" id="menu" aria-hidden="true" data-menu>
+    <div class="menu__inner">
+      <div class="menu__header">
+        <a class="menu__brand" href="index.html#hero" aria-label="Conler — home">
+          <img src="assets/conler-symbol-mark.png" alt="Conler" decoding="async" />
+          <span>Conler</span>
+        </a>
+        <button class="menu__close" type="button" aria-label="Close menu" data-menu-close>
+          <span class="menu__close-icon" aria-hidden="true"></span>
+        </button>
+      </div>
+      <nav class="menu__nav" aria-label="Primary">
+        <ul class="menu__list">
+          <li><a href="index.html#work" data-menu-link><span class="menu__label"><span class="menu__label-base">Work</span></span><span class="menu__arrow" aria-hidden="true">↗</span></a></li>
+          <li><a href="about.html" data-menu-link><span class="menu__label"><span class="menu__label-base">About</span></span><span class="menu__arrow" aria-hidden="true">↗</span></a></li>
+          <li><a href="index.html#services" data-menu-link><span class="menu__label"><span class="menu__label-base">Services</span></span><span class="menu__arrow" aria-hidden="true">↗</span></a></li>
+          <li><a href="consulenze.html" data-menu-link><span class="menu__label"><span class="menu__label-base">Consulenze</span></span><span class="menu__arrow" aria-hidden="true">↗</span></a></li>
+          <li><a href="index.html#contact" data-menu-link><span class="menu__label"><span class="menu__label-base">Contact</span></span><span class="menu__arrow" aria-hidden="true">↗</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <main class="consult-flow" id="main" data-consult-flow>
+    <aside class="consult-flow__side" aria-label="Stato della richiesta">
+      <a class="consult-flow__mark" href="index.html#hero" aria-label="Conler — home">
+        <img src="assets/conler-symbol-mark.png" alt="" decoding="async" />
+      </a>
+
+      <div class="consult-flow__side-copy">
+        <p class="eyebrow">Consulenze</p>
+        <h1>Costruiamo la tua richiesta</h1>
+        <p>Seleziona prima chi sei, poi scegli i servizi che ti servono. Il preventivo parte da qui.</p>
+      </div>
+
+      <div class="consult-progress" aria-label="Avanzamento richiesta">
+        <div class="consult-progress__head">
+          <span>Progress</span>
+          <strong data-progress-label>13%</strong>
+        </div>
+        <span class="consult-progress__track" aria-hidden="true">
+          <span data-progress-fill></span>
+        </span>
+      </div>
+
+      <div class="consult-live-summary" aria-label="Riepilogo live">
+        <span class="consult-live-summary__label">Brief live</span>
+        <div class="consult-live-summary__grid">
+          <span><small>Categoria</small><strong data-side-category>-</strong></span>
+          <span><small>Servizi</small><strong data-side-services>-</strong></span>
+          <span><small>Budget</small><strong data-side-budget>-</strong></span>
+        </div>
+      </div>
+
+      <ol class="consult-steps" aria-label="Passaggi">
+        <li class="consult-steps__item is-active" data-step-indicator="1">
+          <span class="consult-steps__icon"><i class="fa-solid fa-layer-group" aria-hidden="true"></i></span>
+          <span><strong>Categoria</strong><small>Che tipo di realtà sei?</small></span>
+        </li>
+        <li class="consult-steps__item" data-step-indicator="2">
+          <span class="consult-steps__icon"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i></span>
+          <span><strong>Servizi</strong><small>Cosa vuoi creare?</small></span>
+        </li>
+        <li class="consult-steps__item" data-step-indicator="3">
+          <span class="consult-steps__icon"><i class="fa-solid fa-sliders" aria-hidden="true"></i></span>
+          <span><strong>Dettagli</strong><small>Domande su misura.</small></span>
+        </li>
+        <li class="consult-steps__item" data-step-indicator="4">
+          <span class="consult-steps__icon"><i class="fa-solid fa-bullseye" aria-hidden="true"></i></span>
+          <span><strong>Obiettivo</strong><small>Cosa vuoi ottenere?</small></span>
+        </li>
+        <li class="consult-steps__item" data-step-indicator="5">
+          <span class="consult-steps__icon"><i class="fa-solid fa-coins" aria-hidden="true"></i></span>
+          <span><strong>Budget</strong><small>Che investimento immagini?</small></span>
+        </li>
+        <li class="consult-steps__item" data-step-indicator="6">
+          <span class="consult-steps__icon"><i class="fa-regular fa-clock" aria-hidden="true"></i></span>
+          <span><strong>Timing</strong><small>Quando ti serve?</small></span>
+        </li>
+        <li class="consult-steps__item" data-step-indicator="7">
+          <span class="consult-steps__icon"><i class="fa-solid fa-folder-open" aria-hidden="true"></i></span>
+          <span><strong>Materiali</strong><small>Cosa hai già?</small></span>
+        </li>
+        <li class="consult-steps__item" data-step-indicator="8">
+          <span class="consult-steps__icon"><i class="fa-solid fa-location-dot" aria-hidden="true"></i></span>
+          <span><strong>Progetto</strong><small>Luogo e contesto.</small></span>
+        </li>
+        <li class="consult-steps__item" data-step-indicator="9">
+          <span class="consult-steps__icon"><i class="fa-regular fa-paper-plane" aria-hidden="true"></i></span>
+          <span><strong>Contatto</strong><small>Riepilogo e invio.</small></span>
+        </li>
+      </ol>
+    </aside>
+
+    <section class="consult-flow__panel" aria-live="polite">
+      <div class="consult-flow__top">
+        <a class="consult-flow__exit" href="index.html">Salva ed esci</a>
+      </div>
+
+      <section class="consult-step is-active" data-consult-step="1" aria-labelledby="consult-category-title">
+        <div class="consult-step__head">
+          <p class="eyebrow">Step 01</p>
+          <h2 id="consult-category-title">Quale categoria descrive meglio la tua attività?</h2>
+          <p>Scegli una sola opzione. La useremo per modellare la consulenza intorno al tuo settore.</p>
+        </div>
+
+        <div class="consult-options consult-options--categories" role="radiogroup" aria-label="Categoria attività">
+          <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="category" data-value="Comune"><i class="fa-solid fa-landmark" aria-hidden="true"></i><span>Comune</span></button>
+          <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="category" data-value="Associazione"><i class="fa-solid fa-people-group" aria-hidden="true"></i><span>Associazione</span></button>
+          <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="category" data-value="Evento"><i class="fa-solid fa-calendar-days" aria-hidden="true"></i><span>Evento</span></button>
+          <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="category" data-value="Evento Culturale"><i class="fa-solid fa-masks-theater" aria-hidden="true"></i><span>Evento Culturale</span></button>
+          <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="category" data-value="B&B"><i class="fa-solid fa-mug-saucer" aria-hidden="true"></i><span>B&amp;B</span></button>
+          <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="category" data-value="Hotel"><i class="fa-solid fa-hotel" aria-hidden="true"></i><span>Hotel</span></button>
+          <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="category" data-value="Affittacamere"><i class="fa-solid fa-key" aria-hidden="true"></i><span>Affittacamere</span></button>
+          <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="category" data-value="Associazione sportiva"><i class="fa-solid fa-medal" aria-hidden="true"></i><span>Associazione sportiva</span></button>
+          <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="category" data-value="Agenzia di viaggi"><i class="fa-solid fa-plane-departure" aria-hidden="true"></i><span>Agenzia di viaggi</span></button>
+          <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="category" data-value="Attività di edilizia"><i class="fa-solid fa-helmet-safety" aria-hidden="true"></i><span>Attività di edilizia</span></button>
+          <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="category" data-value="Ristorazione"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span>Ristorazione</span></button>
+          <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="category" data-value="Ristorante"><i class="fa-solid fa-bowl-food" aria-hidden="true"></i><span>Ristorante</span></button>
+        </div>
+      </section>
+
+      <section class="consult-step" data-consult-step="2" aria-labelledby="consult-services-title" hidden>
+        <div class="consult-step__head">
+          <p class="eyebrow">Step 02</p>
+          <h2 id="consult-services-title">Quali servizi ti servono?</h2>
+          <p>Puoi selezionare più opzioni. Li combineremo in una proposta coerente.</p>
+        </div>
+
+        <div class="consult-options consult-options--services" aria-label="Servizi richiesti">
+          <button class="consult-option" type="button" aria-pressed="false" data-option="service" data-value="Video"><i class="fa-solid fa-video" aria-hidden="true"></i><span>Video</span><small>Reel, spot, aftermovie.</small></button>
+          <button class="consult-option" type="button" aria-pressed="false" data-option="service" data-value="Photo"><i class="fa-solid fa-camera" aria-hidden="true"></i><span>Photo</span><small>Interni, eventi, dettagli.</small></button>
+          <button class="consult-option" type="button" aria-pressed="false" data-option="service" data-value="Website"><i class="fa-solid fa-display" aria-hidden="true"></i><span>Website</span><small>Sito, richieste, booking.</small></button>
+          <button class="consult-option" type="button" aria-pressed="false" data-option="service" data-value="Brand Identity"><i class="fa-solid fa-fingerprint" aria-hidden="true"></i><span>Brand Identity</span><small>Direzione visiva completa.</small></button>
+          <button class="consult-option" type="button" aria-pressed="false" data-option="service" data-value="Logo"><i class="fa-solid fa-pen-nib" aria-hidden="true"></i><span>Logo</span><small>Segno e sistema base.</small></button>
+          <button class="consult-option" type="button" aria-pressed="false" data-option="service" data-value="Social Media Management"><i class="fa-solid fa-hashtag" aria-hidden="true"></i><span>Social Media Management</span><small>Piano, contenuti, gestione.</small></button>
+          <button class="consult-option" type="button" aria-pressed="false" data-option="service" data-value="Guidami / proposta Conler"><i class="fa-solid fa-compass" aria-hidden="true"></i><span>Guidami / proposta Conler</span><small>Se vuoi che definiamo noi la direzione.</small></button>
+        </div>
+      </section>
+
+      <section class="consult-step" data-consult-step="3" aria-labelledby="consult-details-title" hidden>
+        <div class="consult-step__head">
+          <p class="eyebrow">Step 03</p>
+          <h2 id="consult-details-title">Rendiamo il brief più preciso.</h2>
+          <p>Ti mostriamo solo le domande utili in base a categoria e servizi selezionati.</p>
+        </div>
+
+        <div class="consult-detail-stack">
+          <div class="consult-detail-block" data-detail-block="website">
+            <div class="consult-detail-block__head">
+              <span>Website</span>
+              <h3>Come vuoi gestire le richieste dal sito?</h3>
+              <p>Con un sito proprietario puoi ridurre le commissioni delle piattaforme esterne: invece di perdere circa il 20%, puntiamo a portare il costo operativo intorno al 2%.</p>
+            </div>
+            <div class="consult-options consult-options--compact" role="radiogroup" aria-label="Prenotazione sito">
+              <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="websiteBooking" data-value="Prenotazione diretta"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i><span>Prenotazione diretta</span></button>
+              <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="websiteBooking" data-value="Richiesta prima di confermare"><i class="fa-solid fa-comment-dots" aria-hidden="true"></i><span>Su richiesta</span></button>
+              <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="websiteBooking" data-value="Lo scegliamo insieme"><i class="fa-solid fa-handshake" aria-hidden="true"></i><span>Lo scegliamo insieme</span></button>
+            </div>
+          </div>
+
+          <div class="consult-detail-block" data-detail-block="event">
+            <div class="consult-detail-block__head">
+              <span>Evento</span>
+              <h3>Che tipo di evento è?</h3>
+            </div>
+            <div class="consult-options consult-options--compact" role="radiogroup" aria-label="Tipologia evento">
+              <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="eventType" data-value="Concerto / Festival"><i class="fa-solid fa-music" aria-hidden="true"></i><span>Concerto / Festival</span></button>
+              <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="eventType" data-value="Evento culturale"><i class="fa-solid fa-masks-theater" aria-hidden="true"></i><span>Evento culturale</span></button>
+              <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="eventType" data-value="Evento sportivo"><i class="fa-solid fa-medal" aria-hidden="true"></i><span>Evento sportivo</span></button>
+              <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="eventType" data-value="Altro"><i class="fa-solid fa-pen" aria-hidden="true"></i><span>Altro</span></button>
+            </div>
+            <label class="consult-field consult-field--solo">
+              <span>Se vuoi, specifica il tipo di evento</span>
+              <input type="text" name="eventTypeOther" data-field="eventTypeOther" placeholder="Es. sagra, mostra, inaugurazione, conferenza" />
+            </label>
+          </div>
+
+          <div class="consult-detail-block" data-detail-block="comune">
+            <div class="consult-detail-block__head">
+              <span>Comune</span>
+              <h3>Su cosa dobbiamo concentrarci?</h3>
+            </div>
+            <div class="consult-options consult-options--compact" role="radiogroup" aria-label="Focus Comune">
+              <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="comuneFocus" data-value="Turismo e territorio"><i class="fa-solid fa-map-location-dot" aria-hidden="true"></i><span>Turismo e territorio</span></button>
+              <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="comuneFocus" data-value="Evento / manifestazione"><i class="fa-solid fa-calendar-days" aria-hidden="true"></i><span>Evento / manifestazione</span></button>
+              <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="comuneFocus" data-value="Comunicazione istituzionale"><i class="fa-solid fa-landmark" aria-hidden="true"></i><span>Comunicazione istituzionale</span></button>
+              <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="comuneFocus" data-value="Lo scegliamo insieme"><i class="fa-solid fa-handshake" aria-hidden="true"></i><span>Lo scegliamo insieme</span></button>
+            </div>
+          </div>
+
+          <div class="consult-detail-block" data-detail-block="video">
+            <div class="consult-detail-block__head">
+              <span>Video</span>
+              <h3>Che formato immagini?</h3>
+            </div>
+            <div class="consult-options consult-options--compact" role="radiogroup" aria-label="Formato video">
+              <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="videoType" data-value="Reel / social"><i class="fa-solid fa-mobile-screen" aria-hidden="true"></i><span>Reel / social</span></button>
+              <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="videoType" data-value="Aftermovie"><i class="fa-solid fa-film" aria-hidden="true"></i><span>Aftermovie</span></button>
+              <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="videoType" data-value="Spot promozionale"><i class="fa-solid fa-bullhorn" aria-hidden="true"></i><span>Spot promozionale</span></button>
+              <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="videoType" data-value="Carta bianca"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i><span>Carta bianca</span></button>
+            </div>
+          </div>
+
+          <div class="consult-detail-block" data-detail-block="social">
+            <div class="consult-detail-block__head">
+              <span>Social media</span>
+              <h3>Di che tipo di supporto hai bisogno?</h3>
+            </div>
+            <div class="consult-options consult-options--compact" role="radiogroup" aria-label="Supporto social media">
+              <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="socialMode" data-value="Gestione completa"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i><span>Gestione completa</span></button>
+              <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="socialMode" data-value="Solo contenuti"><i class="fa-solid fa-photo-film" aria-hidden="true"></i><span>Solo contenuti</span></button>
+              <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="socialMode" data-value="Piano editoriale"><i class="fa-solid fa-list-check" aria-hidden="true"></i><span>Piano editoriale</span></button>
+              <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="socialMode" data-value="Ne parliamo più avanti"><i class="fa-regular fa-comments" aria-hidden="true"></i><span>Ne parliamo più avanti</span></button>
+            </div>
+          </div>
+
+          <div class="consult-detail-block" data-detail-block="direction">
+            <div class="consult-detail-block__head">
+              <span>Direzione creativa</span>
+              <h3>Quanto vuoi guidare la direzione?</h3>
+            </div>
+            <div class="consult-options consult-options--compact" role="radiogroup" aria-label="Direzione creativa">
+              <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="serviceDirection" data-value="Ho idee precise"><i class="fa-solid fa-thumbtack" aria-hidden="true"></i><span>Ho idee precise</span></button>
+              <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="serviceDirection" data-value="Carta bianca"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i><span>Carta bianca</span></button>
+              <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="serviceDirection" data-value="Lo scegliamo insieme"><i class="fa-solid fa-handshake" aria-hidden="true"></i><span>Lo scegliamo insieme</span></button>
+              <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="serviceDirection" data-value="Ne parliamo più avanti"><i class="fa-regular fa-comments" aria-hidden="true"></i><span>Ne parliamo più avanti</span></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="consult-step" data-consult-step="4" aria-labelledby="consult-goal-title" hidden>
+        <div class="consult-step__head">
+          <p class="eyebrow">Step 04</p>
+          <h2 id="consult-goal-title">Qual è l'obiettivo principale?</h2>
+          <p>Scegli la direzione più importante. Ci aiuta a capire il tipo di risultato che vuoi ottenere.</p>
+        </div>
+
+        <div class="consult-options consult-options--services" role="radiogroup" aria-label="Obiettivo progetto">
+          <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="goal" data-value="Aumentare prenotazioni"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i><span>Aumentare prenotazioni</span></button>
+          <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="goal" data-value="Promuovere un evento"><i class="fa-solid fa-bullhorn" aria-hidden="true"></i><span>Promuovere un evento</span></button>
+          <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="goal" data-value="Lanciare un nuovo brand"><i class="fa-solid fa-rocket" aria-hidden="true"></i><span>Lanciare un nuovo brand</span></button>
+          <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="goal" data-value="Migliorare presenza online"><i class="fa-solid fa-chart-line" aria-hidden="true"></i><span>Migliorare presenza online</span></button>
+          <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="goal" data-value="Vendere di più"><i class="fa-solid fa-bag-shopping" aria-hidden="true"></i><span>Vendere di più</span></button>
+          <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="goal" data-value="Raccontare una storia"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span>Raccontare una storia</span></button>
+        </div>
+      </section>
+
+      <section class="consult-step" data-consult-step="5" aria-labelledby="consult-budget-title" hidden>
+        <div class="consult-step__head">
+          <p class="eyebrow">Step 05</p>
+          <h2 id="consult-budget-title">Che budget vuoi considerare?</h2>
+          <p>Va bene anche una stima. Serve solo per proporti una soluzione realistica.</p>
+        </div>
+
+        <div class="consult-options consult-options--services" role="radiogroup" aria-label="Budget">
+          <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="budget" data-value="Sotto €1.000"><i class="fa-solid fa-seedling" aria-hidden="true"></i><span>Sotto €1.000</span></button>
+          <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="budget" data-value="€1.000 - €2.500"><i class="fa-solid fa-layer-group" aria-hidden="true"></i><span>€1.000 - €2.500</span></button>
+          <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="budget" data-value="€2.500 - €5.000"><i class="fa-solid fa-gem" aria-hidden="true"></i><span>€2.500 - €5.000</span></button>
+          <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="budget" data-value="€5.000+"><i class="fa-solid fa-crown" aria-hidden="true"></i><span>€5.000+</span></button>
+          <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="budget" data-value="Non lo so ancora"><i class="fa-regular fa-circle-question" aria-hidden="true"></i><span>Non lo so ancora</span></button>
+        </div>
+
+        <div class="consult-budget-slider" aria-label="Importo preciso indicativo">
+          <div class="consult-budget-slider__head">
+            <span>Importo indicativo</span>
+            <strong data-budget-output>€2.500</strong>
+          </div>
+          <input type="range" min="500" max="10000" step="100" value="2500" data-field="budgetExact" aria-label="Scegli un budget indicativo preciso" />
+          <div class="consult-budget-slider__scale" aria-hidden="true">
+            <span>€500</span>
+            <span>€10.000+</span>
+          </div>
+          <div class="consult-budget-slider__labels" aria-hidden="true">
+            <span>Starter</span>
+            <span>Growth</span>
+            <span>Full Brand</span>
+            <span>Premium</span>
+          </div>
+          <p class="consult-budget-slider__note" data-budget-note>Growth: abbastanza spazio per creare una soluzione curata e concreta.</p>
+        </div>
+      </section>
+
+      <section class="consult-step" data-consult-step="6" aria-labelledby="consult-timeline-title" hidden>
+        <div class="consult-step__head">
+          <p class="eyebrow">Step 06</p>
+          <h2 id="consult-timeline-title">Quando ti serve?</h2>
+          <p>Indicaci l'urgenza così possiamo capire se il progetto va pianificato subito.</p>
+        </div>
+
+        <div class="consult-options consult-options--services" role="radiogroup" aria-label="Timeline">
+          <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="timeline" data-value="Il prima possibile"><i class="fa-solid fa-bolt" aria-hidden="true"></i><span>Il prima possibile</span></button>
+          <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="timeline" data-value="Entro 1 mese"><i class="fa-regular fa-calendar" aria-hidden="true"></i><span>Entro 1 mese</span></button>
+          <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="timeline" data-value="1-3 mesi"><i class="fa-solid fa-calendar-days" aria-hidden="true"></i><span>1-3 mesi</span></button>
+          <button class="consult-option" type="button" role="radio" aria-checked="false" data-option="timeline" data-value="Flessibile"><i class="fa-solid fa-water" aria-hidden="true"></i><span>Flessibile</span></button>
+        </div>
+      </section>
+
+      <section class="consult-step" data-consult-step="7" aria-labelledby="consult-materials-title" hidden>
+        <div class="consult-step__head">
+          <p class="eyebrow">Step 07</p>
+          <h2 id="consult-materials-title">Cosa hai già?</h2>
+          <p>Seleziona tutto quello che esiste già. C'è anche l'opzione se hai qualcosa ma vuoi cambiarlo o sentire una proposta.</p>
+        </div>
+
+        <div class="consult-options consult-options--services" aria-label="Materiali esistenti">
+          <button class="consult-option" type="button" aria-pressed="false" data-option="material" data-value="Logo esistente"><i class="fa-solid fa-pen-nib" aria-hidden="true"></i><span>Ho già un logo</span></button>
+          <button class="consult-option" type="button" aria-pressed="false" data-option="material" data-value="Foto/video esistenti"><i class="fa-solid fa-images" aria-hidden="true"></i><span>Ho foto o video</span></button>
+          <button class="consult-option" type="button" aria-pressed="false" data-option="material" data-value="Colori o brand esistenti"><i class="fa-solid fa-palette" aria-hidden="true"></i><span>Ho colori o brand</span></button>
+          <button class="consult-option" type="button" aria-pressed="false" data-option="material" data-value="Sito web esistente"><i class="fa-solid fa-globe" aria-hidden="true"></i><span>Ho già un sito</span></button>
+          <button class="consult-option" type="button" aria-pressed="false" data-option="material" data-value="Ho qualcosa ma voglio cambiarlo o sentire una proposta"><i class="fa-solid fa-comments" aria-hidden="true"></i><span>Ho qualcosa, ma voglio cambiarlo o sentire una proposta</span></button>
+          <button class="consult-option" type="button" aria-pressed="false" data-option="material" data-value="Parto da zero"><i class="fa-regular fa-circle" aria-hidden="true"></i><span>Parto da zero</span></button>
+        </div>
+      </section>
+
+      <section class="consult-step" data-consult-step="8" aria-labelledby="consult-project-title" hidden>
+        <div class="consult-step__head">
+          <p class="eyebrow">Step 08</p>
+          <h2 id="consult-project-title">Dove si trova il progetto?</h2>
+          <p>Aggiungi il luogo e, se vuoi, qualche riga libera sul progetto. La descrizione non è obbligatoria.</p>
+        </div>
+
+        <div class="consult-fields">
+          <label class="consult-field">
+            <span>Comune / città</span>
+            <input type="text" name="location" data-field="location" autocomplete="address-level2" placeholder="Es. Cagliari, Tonara, Gadoni" required />
+          </label>
+          <label class="consult-field consult-field--full">
+            <span>Descrizione progetto <small>opzionale</small></span>
+            <textarea name="description" data-field="description" rows="5" placeholder="Raccontaci cosa hai in mente, cosa non funziona ora, o che atmosfera vuoi creare."></textarea>
+          </label>
+        </div>
+      </section>
+
+      <section class="consult-step" data-consult-step="9" aria-labelledby="consult-contact-title" hidden>
+        <div class="consult-step__head">
+          <p class="eyebrow">Step 09</p>
+          <h2 id="consult-contact-title">Lasciaci i tuoi contatti.</h2>
+          <p>Compila i dati essenziali e controlla il riepilogo prima di inviare la richiesta.</p>
+        </div>
+
+        <div class="consult-contact-layout">
+          <div class="consult-fields">
+            <label class="consult-field">
+              <span>Nome</span>
+              <input type="text" name="name" data-field="name" autocomplete="name" placeholder="Il tuo nome" required />
+            </label>
+            <label class="consult-field">
+              <span>Nome attività</span>
+              <input type="text" name="business" data-field="business" autocomplete="organization" placeholder="Nome brand / attività" />
+            </label>
+            <label class="consult-field">
+              <span>Email</span>
+              <input type="email" name="email" data-field="email" autocomplete="email" placeholder="nome@email.com" required />
+            </label>
+            <label class="consult-field">
+              <span>Telefono / WhatsApp</span>
+              <input type="tel" name="phone" data-field="phone" autocomplete="tel" placeholder="+39 ..." />
+            </label>
+            <label class="consult-field consult-field--full">
+              <span>Instagram o sito web</span>
+              <input type="text" name="website" data-field="website" placeholder="@profilo oppure https://" />
+            </label>
+          </div>
+
+          <div class="consult-final-brief" aria-label="Riepilogo richiesta">
+            <div class="consult-package">
+              <span>Pacchetto consigliato</span>
+              <strong data-package-title>Creative Starter</strong>
+              <p data-package-text>Una base chiara per definire progetto, contenuti e prossimi passi.</p>
+            </div>
+
+            <div class="consult-summary consult-summary--final">
+              <div class="consult-summary__header">
+                <span>Project brief</span>
+                <strong data-brief-title>Richiesta Conler</strong>
+              </div>
+            <div><span>Categoria</span><strong data-summary-category>Non selezionata</strong></div>
+            <div><span>Servizi</span><strong data-summary-services>Nessun servizio selezionato</strong></div>
+            <div><span>Dettagli</span><strong data-summary-details>Da definire</strong></div>
+            <div><span>Obiettivo</span><strong data-summary-goal>Non selezionato</strong></div>
+            <div><span>Budget</span><strong data-summary-budget>Non selezionato</strong></div>
+            <div><span>Timeline</span><strong data-summary-timeline>Non selezionata</strong></div>
+            <div><span>Materiali</span><strong data-summary-materials>Nessun materiale selezionato</strong></div>
+            <div><span>Luogo</span><strong data-summary-location>Non inserito</strong></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="consult-flow__bar">
+        <button class="consult-flow__back" type="button" data-consult-back hidden>Indietro</button>
+        <button class="consult-flow__next" type="button" data-consult-next disabled>Avanti</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" crossorigin="anonymous" defer></script>
+  <script src="js/main.js?v=31" defer></script>
+  <script>
+    (() => {
+      const flow = document.querySelector('[data-consult-flow]');
+      if (!flow) return;
+
+      const state = {
+        step: 1,
+        category: '',
+        services: new Set(),
+        websiteBooking: '',
+        eventType: '',
+        comuneFocus: '',
+        videoType: '',
+        socialMode: '',
+        serviceDirection: '',
+        goal: '',
+        budget: '',
+        timeline: '',
+        materials: new Set(),
+        fields: {
+          location: '',
+          description: '',
+          name: '',
+          business: '',
+          email: '',
+          phone: '',
+          website: '',
+          budgetExact: '2500',
+          eventTypeOther: '',
+        },
+      };
+
+      const FINAL_STEP = 9;
+      const steps = Array.from(flow.querySelectorAll('[data-consult-step]'));
+      const indicators = Array.from(flow.querySelectorAll('[data-step-indicator]'));
+      const detailBlocks = Array.from(flow.querySelectorAll('[data-detail-block]'));
+      const next = flow.querySelector('[data-consult-next]');
+      const back = flow.querySelector('[data-consult-back]');
+      const summaries = {
+        category: flow.querySelector('[data-summary-category]'),
+        services: flow.querySelector('[data-summary-services]'),
+        details: flow.querySelector('[data-summary-details]'),
+        goal: flow.querySelector('[data-summary-goal]'),
+        budget: flow.querySelector('[data-summary-budget]'),
+        timeline: flow.querySelector('[data-summary-timeline]'),
+        materials: flow.querySelector('[data-summary-materials]'),
+        location: flow.querySelector('[data-summary-location]'),
+      };
+
+      const budgetOutput = flow.querySelector('[data-budget-output]');
+      const budgetNote = flow.querySelector('[data-budget-note]');
+      const progressLabel = flow.querySelector('[data-progress-label]');
+      const progressFill = flow.querySelector('[data-progress-fill]');
+      const sideSummary = {
+        category: flow.querySelector('[data-side-category]'),
+        services: flow.querySelector('[data-side-services]'),
+        budget: flow.querySelector('[data-side-budget]'),
+      };
+      const briefTitle = flow.querySelector('[data-brief-title]');
+      const packageTitle = flow.querySelector('[data-package-title]');
+      const packageText = flow.querySelector('[data-package-text]');
+
+      function hasEmail(value) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+      }
+
+      function canContinue() {
+        if (state.step === 1) return Boolean(state.category);
+        if (state.step === 2) return state.services.size > 0;
+        if (state.step === 3) return Boolean(state.serviceDirection);
+        if (state.step === 4) return Boolean(state.goal);
+        if (state.step === 5) return Boolean(state.budget);
+        if (state.step === 6) return Boolean(state.timeline);
+        if (state.step === 7) return state.materials.size > 0;
+        if (state.step === 8) return Boolean(state.fields.location.trim());
+        if (state.step === 9) return Boolean(state.fields.name.trim()) && hasEmail(state.fields.email);
+        return true;
+      }
+
+      function joinSet(set, fallback) {
+        return set.size ? Array.from(set).join(', ') : fallback;
+      }
+
+      function formatEuro(value) {
+        const number = Number(value) || 0;
+        return new Intl.NumberFormat('it-IT', {
+          style: 'currency',
+          currency: 'EUR',
+          maximumFractionDigits: 0,
+        }).format(number);
+      }
+
+      function getBudgetNote(value) {
+        const amount = Number(value) || 0;
+        if (amount < 1000) return 'Starter: utile per chiarire una direzione o partire con un intervento mirato.';
+        if (amount < 2500) return 'Growth: abbastanza spazio per creare una soluzione curata e concreta.';
+        if (amount < 5000) return 'Full Brand: ideale quando vuoi un sistema completo, non solo un singolo pezzo.';
+        return 'Premium: pensato per un lancio o una presenza completa, con più produzione e strategia.';
+      }
+
+      function getDetailText() {
+        const details = [];
+        if (state.websiteBooking) details.push(`Sito: ${state.websiteBooking}`);
+        if (state.eventType) {
+          const eventDetail = state.fields.eventTypeOther.trim();
+          details.push(`Evento: ${state.eventType}${eventDetail ? ` (${eventDetail})` : ''}`);
+        }
+        if (state.comuneFocus) details.push(`Comune: ${state.comuneFocus}`);
+        if (state.videoType) details.push(`Video: ${state.videoType}`);
+        if (state.socialMode) details.push(`Social: ${state.socialMode}`);
+        if (state.serviceDirection) details.push(`Direzione: ${state.serviceDirection}`);
+        return details.join(' · ') || 'Da definire';
+      }
+
+      function getPackage() {
+        const services = state.services;
+        const category = state.category.toLowerCase();
+        if (services.has('Website') && services.has('Photo') && (category.includes('hotel') || category.includes('b&b') || category.includes('affittacamere'))) {
+          return {
+            title: 'Hospitality Launch Kit',
+            text: 'Foto, sito e messaggio pensati per trasformare visite in richieste e prenotazioni.',
+          };
+        }
+        if (services.has('Video') && (category.includes('evento') || category.includes('associazione'))) {
+          return {
+            title: 'Event Visibility Kit',
+            text: 'Un pacchetto per raccontare l’energia dell’evento prima, durante e dopo.',
+          };
+        }
+        if (services.has('Brand Identity') || services.has('Logo')) {
+          return {
+            title: 'Brand Foundation Kit',
+            text: 'Direzione visiva, identità e materiali base per rendere il progetto riconoscibile.',
+          };
+        }
+        if (services.has('Social Media Management')) {
+          return {
+            title: 'Social Growth Kit',
+            text: 'Un sistema di contenuti e gestione social per mantenere presenza e coerenza.',
+          };
+        }
+        return {
+          title: 'Creative Starter',
+          text: 'Una base chiara per definire progetto, contenuti e prossimi passi.',
+        };
+      }
+
+      function syncSummary() {
+        if (summaries.category) summaries.category.textContent = state.category || 'Non selezionata';
+        if (summaries.services) summaries.services.textContent = joinSet(state.services, 'Nessun servizio selezionato');
+        if (summaries.goal) summaries.goal.textContent = state.goal || 'Non selezionato';
+        const exactBudget = formatEuro(state.fields.budgetExact);
+        if (budgetOutput) budgetOutput.textContent = exactBudget;
+        if (budgetNote) budgetNote.textContent = getBudgetNote(state.fields.budgetExact);
+        if (summaries.budget) summaries.budget.textContent = state.budget ? `${state.budget} · circa ${exactBudget}` : `Circa ${exactBudget}`;
+        if (summaries.details) summaries.details.textContent = getDetailText();
+        if (summaries.timeline) summaries.timeline.textContent = state.timeline || 'Non selezionata';
+        if (summaries.materials) summaries.materials.textContent = joinSet(state.materials, 'Nessun materiale selezionato');
+        if (summaries.location) summaries.location.textContent = state.fields.location.trim() || 'Non inserito';
+
+        if (sideSummary.category) sideSummary.category.textContent = state.category || '-';
+        if (sideSummary.services) sideSummary.services.textContent = state.services.size ? `${state.services.size} selezionati` : '-';
+        if (sideSummary.budget) sideSummary.budget.textContent = state.budget ? exactBudget : '-';
+        if (briefTitle) briefTitle.textContent = state.category ? `${state.category} · ${state.goal || 'Consulenza'}` : 'Richiesta Conler';
+
+        const recommended = getPackage();
+        if (packageTitle) packageTitle.textContent = recommended.title;
+        if (packageText) packageText.textContent = recommended.text;
+      }
+
+      function render() {
+        syncDetailBlocks();
+
+        steps.forEach(step => {
+          const active = Number(step.dataset.consultStep) === state.step;
+          step.hidden = !active;
+          step.classList.toggle('is-active', active);
+        });
+
+        indicators.forEach(item => {
+          const step = Number(item.dataset.stepIndicator);
+          item.classList.toggle('is-active', step === state.step);
+          item.classList.toggle('is-complete', step < state.step);
+        });
+
+        syncSummary();
+        const progress = Math.round((state.step / FINAL_STEP) * 100);
+        if (progressLabel) progressLabel.textContent = `${progress}%`;
+        if (progressFill) progressFill.style.width = `${progress}%`;
+        back.hidden = state.step === 1;
+        next.disabled = !canContinue();
+        next.textContent = state.step === FINAL_STEP ? 'Invia richiesta' : 'Avanti';
+      }
+
+      function selectSingle(option) {
+        const key = option.dataset.option;
+        state[key] = option.dataset.value;
+        flow.querySelectorAll(`[data-option="${key}"]`).forEach(item => {
+          const selected = item === option;
+          item.classList.toggle('is-selected', selected);
+          item.setAttribute('aria-checked', String(selected));
+        });
+      }
+
+      function clearSingle(key) {
+        if (!state[key]) return;
+        state[key] = '';
+        flow.querySelectorAll(`[data-option="${key}"]`).forEach(item => {
+          item.classList.remove('is-selected');
+          item.setAttribute('aria-checked', 'false');
+        });
+      }
+
+      function syncDetailBlocks() {
+        detailBlocks.forEach(block => {
+          const type = block.dataset.detailBlock;
+          const isEventCategory = state.category === 'Evento' || state.category === 'Evento Culturale';
+          const show = type === 'direction'
+            || (type === 'website' && state.services.has('Website'))
+            || (type === 'event' && isEventCategory)
+            || (type === 'comune' && state.category === 'Comune')
+            || (type === 'video' && state.services.has('Video'))
+            || (type === 'social' && state.services.has('Social Media Management'));
+          block.hidden = !show;
+          if (!show && type === 'website') clearSingle('websiteBooking');
+          if (!show && type === 'event') {
+            clearSingle('eventType');
+            state.fields.eventTypeOther = '';
+            const field = flow.querySelector('[data-field="eventTypeOther"]');
+            if (field) field.value = '';
+          }
+          if (!show && type === 'comune') clearSingle('comuneFocus');
+          if (!show && type === 'video') clearSingle('videoType');
+          if (!show && type === 'social') clearSingle('socialMode');
+        });
+      }
+
+      function toggleSet(option, setName) {
+        const value = option.dataset.value;
+        const set = state[setName];
+        if (set.has(value)) set.delete(value);
+        else set.add(value);
+        const selected = set.has(value);
+        option.classList.toggle('is-selected', selected);
+        option.setAttribute('aria-pressed', String(selected));
+      }
+
+      function buildEmailBody() {
+        const recommended = getPackage();
+        return [
+          'Nuova richiesta consulenza Conler',
+          '',
+          `Pacchetto consigliato: ${recommended.title}`,
+          `Categoria: ${state.category}`,
+          `Servizi: ${joinSet(state.services, '-')}`,
+          `Dettagli: ${getDetailText()}`,
+          `Booking sito: ${state.websiteBooking || '-'}`,
+          `Tipo evento: ${state.eventType || '-'}${state.fields.eventTypeOther ? ` (${state.fields.eventTypeOther})` : ''}`,
+          `Focus Comune: ${state.comuneFocus || '-'}`,
+          `Formato video: ${state.videoType || '-'}`,
+          `Social media: ${state.socialMode || '-'}`,
+          `Direzione creativa: ${state.serviceDirection || '-'}`,
+          `Obiettivo: ${state.goal}`,
+          `Budget: ${state.budget}`,
+          `Importo indicativo: ${formatEuro(state.fields.budgetExact)}`,
+          `Timeline: ${state.timeline}`,
+          `Materiali: ${joinSet(state.materials, '-')}`,
+          `Luogo: ${state.fields.location}`,
+          `Descrizione: ${state.fields.description || '-'}`,
+          '',
+          `Nome: ${state.fields.name}`,
+          `Attività: ${state.fields.business || '-'}`,
+          `Email: ${state.fields.email}`,
+          `Telefono/WhatsApp: ${state.fields.phone || '-'}`,
+          `Instagram/Sito: ${state.fields.website || '-'}`,
+        ].join('\n');
+      }
+
+      flow.addEventListener('click', (event) => {
+        const option = event.target.closest('[data-option]');
+        if (!option) return;
+
+        if (['category', 'goal', 'budget', 'timeline', 'websiteBooking', 'eventType', 'comuneFocus', 'videoType', 'socialMode', 'serviceDirection'].includes(option.dataset.option)) {
+          selectSingle(option);
+        }
+
+        if (option.dataset.option === 'service') toggleSet(option, 'services');
+        if (option.dataset.option === 'material') toggleSet(option, 'materials');
+
+        render();
+      });
+
+      flow.addEventListener('input', (event) => {
+        const field = event.target.closest('[data-field]');
+        if (!field) return;
+        state.fields[field.dataset.field] = field.value;
+        render();
+      });
+
+      next.addEventListener('click', () => {
+        if (!canContinue()) return;
+        if (state.step < FINAL_STEP) {
+          state.step += 1;
+          render();
+          return;
+        }
+
+        const subject = encodeURIComponent('Richiesta consulenza Conler');
+        const body = encodeURIComponent(buildEmailBody());
+        window.location.href = `mailto:conlerevents@gmail.com?subject=${subject}&body=${body}`;
+      });
+
+      back.addEventListener('click', () => {
+        if (state.step > 1) {
+          state.step -= 1;
+          render();
+        }
+      });
+
+      render();
+    })();
+  </script>
+</body>
+</html>
