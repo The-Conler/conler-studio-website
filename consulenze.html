@@ -974,10 +974,11 @@
 
       /* ---- data-driven flow ----------------------------------------------
          FLOW_BASE is the default order. BRANCHES maps a Categoria value to
-         extra steps inserted right after the category step. To give another
-         category its own steps: add a <section data-step-id="x"> (+ sidebar
-         <li data-step-id="x" hidden>) and list "x" here. */
+         extra steps inserted right after the category step. Associazione uses
+         FLOW_ASSOC: Materiali comes right after Attività, and Destinazione e
+         obiettivi is skipped (the goal step HTML is kept to restore later). */
       const FLOW_BASE = ['category', 'services', 'details', 'goal', 'budget', 'timeline', 'materials', 'project', 'contact'];
+      const FLOW_ASSOC = ['category', 'assoc', 'assocActivity', 'materials', 'services', 'details', 'budget', 'timeline', 'project', 'contact'];
       const BRANCHES = {
         'Associazione': ['assoc', 'assocActivity'],
       };
@@ -1118,11 +1119,10 @@
       }
 
       function flowIds() {
+        if (state.category === 'Associazione') return FLOW_ASSOC.slice();
         const ids = FLOW_BASE.slice();
         const extra = BRANCHES[state.category] || [];
         ids.splice(1, 0, ...extra);
-        // Associazione skips the Destinazione e obiettivi step; HTML is kept to restore it later.
-        if (state.category === 'Associazione') return ids.filter(id => id !== 'goal');
         return ids;
       }
       function total() { return flowIds().length; }
@@ -1703,6 +1703,13 @@
         flow.querySelectorAll('[data-assoc-only]').forEach(el => { el.hidden = !isAssoc(); });
         syncFieldInputs();
 
+        const stepList = indicators[0] && indicators[0].parentElement;
+        if (stepList) {
+          ids.forEach(id => {
+            const item = indicators.find(el => el.dataset.stepId === id);
+            if (item) stepList.appendChild(item);
+          });
+        }
         indicators.forEach(item => {
           const step = ids.indexOf(item.dataset.stepId) + 1;
           item.hidden = step === 0;
