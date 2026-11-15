@@ -20,7 +20,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Migra&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="css/style.css?v=62" />
+  <link rel="stylesheet" href="css/style.css?v=63" />
   <script>
     if (location.hash === '#brief') document.documentElement.classList.add('consult-skip-cover');
   </script>
@@ -1041,6 +1041,7 @@
         <p class="consult-flow__hint" data-consult-step-hint hidden></p>
         <div class="consult-flow__actions">
           <button type="button" class="consult-pdf-btn" data-consult-pdf aria-label="Scarica il brief in PDF">Scarica PDF</button>
+          <span id="consult-next-help" class="visually-hidden" data-next-help></span>
           <button class="consult-flow__next button-02" type="button" data-consult-next aria-disabled="true"><div class="inner" data-next-label>Avanti</div><div class="circle" aria-hidden="true"><span data-next-arrow>→</span><span class="consult-send-spin" data-next-spin hidden></span><span class="consult-send-check" data-next-check hidden>✓</span></div></button>
         </div>
       </div>
@@ -1052,7 +1053,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" crossorigin="anonymous" defer></script>
   <script src="js/main.js?v=38" defer></script>
   <script src="js/vendor/jspdf.umd.min.js"></script>
-  <script src="js/consult-brief-pdf.js?v=62"></script>
+  <script src="js/consult-brief-pdf.js?v=63"></script>
   <script>
 
     function textReveal06(scope = document) {
@@ -1477,11 +1478,11 @@
 
       function formatEuro(value) {
         const number = Number(value) || 0;
-        return new Intl.NumberFormat('it-IT', {
-          style: 'currency',
-          currency: 'EUR',
+        const formatted = new Intl.NumberFormat('it-IT', {
           maximumFractionDigits: 0,
+          minimumFractionDigits: 0,
         }).format(number);
+        return `€${formatted}`;
       }
 
       function budgetBand(amount) {
@@ -1626,10 +1627,13 @@
           set('[data-contact-phone]', f.phone.trim() || '—');
           const editBox = flow.querySelector('[data-edit-fields]');
           const toggle = flow.querySelector('[data-edit-toggle]');
-          if (!isAssoc() && editBox && toggle && (!String(f.name).trim() || !hasEmail(f.email))) {
-            editBox.hidden = false;
-            toggle.setAttribute('aria-expanded', 'true');
-            toggle.textContent = 'Chiudi modifica';
+          if (editBox && toggle) {
+            const autoOpen = !isAssoc() && currentId() === 'contact' && (!String(f.name).trim() || !hasEmail(f.email));
+            if (autoOpen) {
+              editBox.hidden = false;
+              toggle.setAttribute('aria-expanded', 'true');
+              toggle.textContent = 'Chiudi modifica';
+            }
           }
         }());
       }
@@ -2047,8 +2051,8 @@
         const pack = (html, compact) => compact
           ? html.replace('class="consult-recap__card"', 'class="consult-recap__card is-compact"')
           : html;
-        const left = [ident, ideas, services];
-        const right = [money];
+        const left = [ident, ideas];
+        const right = [money, services];
         if (!ideaParts.length) left[1] = pack(ideas, true);
         return `<div class="consult-recap__col">${left.join('')}</div><div class="consult-recap__col">${right.join('')}</div>`;
       }
@@ -2349,7 +2353,6 @@
         if (money.length) sections.push({ title: 'Budget e tempistiche', rows: money });
         const contacts = isA ? [
           rowIf('Associazione', f.assocName),
-          rowIf('Referente', referente),
           rowIf('Rappresentante legale', f.assocRep),
           rowIf('Ruolo di chi compila', state.assocRole === 'Altro' && (f.assocRoleAltro || '').trim() ? `Altro (${f.assocRoleAltro.trim()})` : state.assocRole),
           rowIf('Email', f.assocEmail),
@@ -2380,7 +2383,7 @@
         const names = { light: 'DMSans-Light.ttf', regular: 'DMSans-Regular.ttf', medium: 'DMSans-Medium.ttf', bold: 'DMSans-Bold.ttf' };
         const fonts = {};
         await Promise.all(Object.keys(names).map(async key => {
-          const res = await fetch(new URL(names[key] + '?v=62', base).href);
+          const res = await fetch(new URL(names[key] + '?v=63', base).href);
           if (!res.ok) throw new Error('Font mancante: ' + names[key]);
           fonts[key] = new Uint8Array(await res.arrayBuffer());
         }));
@@ -2422,7 +2425,7 @@
       function openMailto() {
         const subject = encodeURIComponent('Richiesta consulenza Conler');
         const body = encodeURIComponent(buildEmailBody());
-        window.location.href = `mailto:conlerevents@gmail.com?subject=${subject}&body=${body}`;
+        window.location.href = `mailto:conlerstudio@gmail.com?subject=${subject}&body=${body}`;
       }
       function showThanksThenMail() {
         const thanks = document.querySelector('[data-consult-thanks]');
@@ -2548,8 +2551,23 @@
           }
         }
         back.hidden = state.step === 1;
-        next.setAttribute('aria-disabled', String(!canContinue()));
-        if (nextLabel && !sending) nextLabel.textContent = state.step === total() ? 'Invia richiesta' : 'Avanti';
+        const blocked = !canContinue();
+        next.setAttribute('aria-disabled', String(blocked));
+        const actionLabel = state.step === total() ? 'Invia richiesta' : 'Avanti';
+        if (nextLabel && !sending) nextLabel.textContent = actionLabel;
+        const helpEl = flow.querySelector('[data-next-help]');
+        const help = blocked ? missingHint() : '';
+        if (blocked && help) {
+          next.setAttribute('aria-label', `${actionLabel}. ${help}`);
+          if (helpEl) {
+            helpEl.textContent = help;
+            next.setAttribute('aria-describedby', helpEl.id);
+          }
+        } else {
+          next.removeAttribute('aria-label');
+          next.removeAttribute('aria-describedby');
+          if (helpEl) helpEl.textContent = '';
+        }
         syncIdeaCards();
         const privacyNote = flow.querySelector('[data-consult-privacy-note]');
         const stepHint = flow.querySelector('[data-consult-step-hint]');
@@ -2596,7 +2614,49 @@
         }
       }
 
-      function firstMissing() {
+
+      function missingHint() {
+        if (canContinue()) return '';
+        const id = currentId();
+        const f = state.fields;
+        switch (id) {
+          case 'category': return 'Selezionate una categoria.';
+          case 'assoc':
+            if (!filled('assocName')) return 'Inserite la denominazione dell\'associazione.';
+            if (!filled('assocCF')) return 'Inserite il codice fiscale.';
+            if (!filled('assocSede')) return 'Inserite la sede legale.';
+            if (!filled('assocRep')) return 'Inserite il rappresentante legale.';
+            if (!hasEmail(f.assocEmail)) return 'Inserite un\'email valida.';
+            return 'Completate i dati obbligatori dell\'associazione.';
+          case 'assocActivity': {
+            const soci = Number(f.assocSociCount);
+            if (!Number.isFinite(soci) || soci < 1) return 'Indicate il numero di soci.';
+            if (!filled('assocPresidente')) return 'Inserite il nome del presidente.';
+            if (!filled('assocTesoriere')) return 'Inserite il nome del tesoriere.';
+            if (!filled('assocSegretario')) return 'Inserite il nome del segretario.';
+            return 'Completate soci e organi.';
+          }
+          case 'ideas': return ideasFooterHint();
+          case 'services': return 'Selezionate almeno un servizio.';
+          case 'details': return isAssoc() ? '' : 'Indicate la direzione creativa.';
+          case 'budget': return 'Indicate un budget, oppure selezionate “Non lo so ancora”.';
+          case 'timeline': return 'Selezionate le tempistiche.';
+          case 'materials': return 'Selezionate almeno un materiale.';
+          case 'contact':
+            if (isAssoc()) {
+              if (!filled('assocName') || !filled('assocRep') || !hasEmail(f.assocEmail)) return 'Controllate denominazione, rappresentante ed email.';
+              if (f.privacyAccepted !== '1') return 'Confermate di aver letto l\'informativa privacy.';
+            } else {
+              if (!filled('name')) return 'Inserite il vostro nome.';
+              if (!hasEmail(f.email)) return 'Inserite un\'email valida.';
+              if (f.privacyAccepted !== '1') return 'Confermate di aver letto l\'informativa privacy.';
+            }
+            return 'Completate i campi obbligatori per inviare.';
+          default: return 'Completate i campi obbligatori per continuare.';
+        }
+      }
+
+            function firstMissing() {
         const id = currentId();
         const f = state.fields;
         const input = key => {
@@ -2769,10 +2829,12 @@
         if (data.assocRunts === 'Non lo so') data.assocRunts = '';
         const options = Array.from(flow.querySelectorAll('[data-option]'));
         SINGLE_KEYS.forEach(key => {
+          if (key === 'budget') return;
           if (!data[key]) return;
           const match = options.find(o => o.dataset.option === key && o.dataset.value === data[key]);
           if (match) selectSingle(match);
         });
+        if (typeof data.budget === 'string' && data.budget) state.budget = data.budget;
         Object.entries(SET_OPTIONS).map(([optionName, setName]) => [setName, optionName]).forEach(([setName, optionName]) => {
           (Array.isArray(data[setName]) ? data[setName] : []).forEach(value => {
             const match = options.find(o => o.dataset.option === optionName && o.dataset.value === value);
@@ -2966,8 +3028,6 @@
           `Materiali: ${joinSet(state.materials, '-')}`,
           '',
           '--- Contatti ---',
-          `Referente (rappresentante legale): ${dash(f.assocRep)}`,
-          `Rappresentante legale: ${dash(f.assocRep)}`,
           `Email: ${dash(f.assocEmail)}`,
           `Persona da contattare: ${dash(f.assocContactPerson)}`,
           `WhatsApp: ${dash(f.assocWhatsapp)}`,
