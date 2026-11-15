@@ -20,7 +20,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Migra&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="css/style.css?v=59" />
+  <link rel="stylesheet" href="css/style.css?v=60" />
   <script>
     if (location.hash === '#brief') document.documentElement.classList.add('consult-skip-cover');
   </script>
@@ -532,40 +532,65 @@
           <p>Anche abbozzate: ci aiutano a capire dove volete arrivare.</p>
         </div>
         <div class="consult-ideas">
-          <article class="consult-ideas__card">
-            <h3>Idea 01</h3>
+          <article class="consult-ideas__card" data-idea-card="1">
+            <header class="consult-ideas__title">
+              <span class="consult-ideas__num" aria-hidden="true">01</span>
+              <h3>Idea 01</h3>
+            </header>
             <label class="consult-field">
               <span>Titolo <b class="consult-req" aria-hidden="true">*</b></span>
               <input type="text" data-field="idea1Title" autocomplete="off" data-form-type="other" placeholder="Un titolo breve" required aria-required="true" />
             </label>
-            <label class="consult-field consult-field--full">
+            <label class="consult-field consult-ideas__desc">
               <span>Descrizione <b class="consult-req" aria-hidden="true">*</b></span>
               <textarea rows="3" data-field="idea1Desc" autocomplete="off" data-form-type="other" placeholder="Anche solo qualche riga." required aria-required="true"></textarea>
             </label>
+            <p class="consult-ideas__status" data-idea-status="1" data-state="empty">
+              <i class="fa-regular fa-circle" aria-hidden="true"></i>
+              <span>Da compilare</span>
+            </p>
           </article>
-          <article class="consult-ideas__card">
-            <h3>Idea 02</h3>
+          <article class="consult-ideas__card" data-idea-card="2">
+            <header class="consult-ideas__title">
+              <span class="consult-ideas__num" aria-hidden="true">02</span>
+              <h3>Idea 02</h3>
+            </header>
             <label class="consult-field">
               <span>Titolo <b class="consult-req" aria-hidden="true">*</b></span>
               <input type="text" data-field="idea2Title" autocomplete="off" data-form-type="other" placeholder="Un titolo breve" required aria-required="true" />
             </label>
-            <label class="consult-field consult-field--full">
+            <label class="consult-field consult-ideas__desc">
               <span>Descrizione <b class="consult-req" aria-hidden="true">*</b></span>
               <textarea rows="3" data-field="idea2Desc" autocomplete="off" data-form-type="other" placeholder="Anche solo qualche riga." required aria-required="true"></textarea>
             </label>
+            <p class="consult-ideas__status" data-idea-status="2" data-state="empty">
+              <i class="fa-regular fa-circle" aria-hidden="true"></i>
+              <span>Da compilare</span>
+            </p>
           </article>
-          <article class="consult-ideas__card">
-            <h3>Idea 03</h3>
+          <article class="consult-ideas__card" data-idea-card="3">
+            <header class="consult-ideas__title">
+              <span class="consult-ideas__num" aria-hidden="true">03</span>
+              <h3>Idea 03</h3>
+            </header>
             <label class="consult-field">
               <span>Titolo <b class="consult-req" aria-hidden="true">*</b></span>
               <input type="text" data-field="idea3Title" autocomplete="off" data-form-type="other" placeholder="Un titolo breve" required aria-required="true" />
             </label>
-            <label class="consult-field consult-field--full">
+            <label class="consult-field consult-ideas__desc">
               <span>Descrizione <b class="consult-req" aria-hidden="true">*</b></span>
               <textarea rows="3" data-field="idea3Desc" autocomplete="off" data-form-type="other" placeholder="Anche solo qualche riga." required aria-required="true"></textarea>
             </label>
+            <p class="consult-ideas__status" data-idea-status="3" data-state="empty">
+              <i class="fa-regular fa-circle" aria-hidden="true"></i>
+              <span>Da compilare</span>
+            </p>
           </article>
         </div>
+        <p class="consult-ideas__hint">
+          <i class="fa-regular fa-lightbulb" aria-hidden="true"></i>
+          <span>Anche abbozzate.</span>
+        </p>
       </section>
 
       <section class="consult-step" data-step-id="services" aria-labelledby="consult-services-title" hidden>
@@ -1025,6 +1050,7 @@
           <i class="fa-solid fa-lock" aria-hidden="true"></i>
           <span>I vostri dati sono trattati in modo riservato e utilizzati solo per questa richiesta.</span>
         </p>
+        <p class="consult-flow__hint" data-consult-step-hint hidden></p>
         <button class="consult-flow__next button-02" type="button" data-consult-next aria-disabled="true"><div class="inner" data-next-label>Avanti</div><div class="circle" aria-hidden="true"><span data-next-arrow>→</span><span class="consult-send-spin" data-next-spin hidden></span><span class="consult-send-check" data-next-check hidden>✓</span></div></button>
       </div>
 
@@ -1385,6 +1411,35 @@
       function ideaComplete(n) { return filled(`idea${n}Title`) && filled(`idea${n}Desc`); }
       function ideaCount() { return [1, 2, 3].filter(ideaComplete).length; }
       function ideasValid() { return ideaCount() === 3; }
+      function syncIdeaCards() {
+        const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        [1, 2, 3].forEach(n => {
+          const el = flow.querySelector(`[data-idea-status="${n}"]`);
+          const card = flow.querySelector(`[data-idea-card="${n}"]`);
+          if (!el) return;
+          const done = ideaComplete(n);
+          const next = done ? 'done' : 'empty';
+          if (card) card.classList.toggle('is-complete', done);
+          if (el.dataset.state === next) return;
+          el.dataset.state = next;
+          const icon = el.querySelector('i');
+          const label = el.querySelector('span');
+          if (icon) icon.className = done ? 'fa-solid fa-circle-check' : 'fa-regular fa-circle';
+          if (label) label.textContent = done ? 'Completata' : 'Da compilare';
+          if (!reduce) {
+            el.classList.remove('is-pop');
+            void el.offsetWidth;
+            el.classList.add('is-pop');
+          }
+        });
+      }
+      function ideasFooterHint() {
+        const missing = [1, 2, 3].filter(n => !ideaComplete(n)).length;
+        if (missing === 3) return 'Completate titolo e descrizione di ogni idea';
+        if (missing === 2) return 'Mancano ancora 2 idee';
+        if (missing === 1) return 'Manca ancora 1 idea';
+        return '';
+      }
       function ideasLines() {
         const f = state.fields;
         const out = ['--- Le vostre idee ---'];
@@ -2351,11 +2406,21 @@
         back.hidden = state.step === 1;
         next.setAttribute('aria-disabled', String(!canContinue()));
         if (nextLabel && !sending) nextLabel.textContent = state.step === total() ? 'Invia richiesta' : 'Avanti';
+        syncIdeaCards();
         const privacyNote = flow.querySelector('[data-consult-privacy-note]');
+        const stepHint = flow.querySelector('[data-consult-step-hint]');
         const finalBar = activeId === 'contact';
         if (privacyNote) privacyNote.hidden = !finalBar;
+        const ideasHint = activeId === 'ideas' && !canContinue() ? ideasFooterHint() : '';
+        if (stepHint) {
+          stepHint.textContent = ideasHint;
+          stepHint.hidden = !ideasHint;
+        }
         const barEl = flow.querySelector('.consult-flow__bar');
-        if (barEl) barEl.classList.toggle('is-final', finalBar);
+        if (barEl) {
+          barEl.classList.toggle('is-final', finalBar);
+          barEl.classList.toggle('is-hinted', Boolean(ideasHint));
+        }
         layoutPercorso(false);
         saveDraft(false);
         animateStep();

@@ -6339,14 +6339,14 @@ html.contact-open body {
    ========================================================================== */
 @font-face {
   font-family: "Nyght Serif";
-  src: url("../assets/fonts/NyghtSerif-Regular.woff2?v=59") format("woff2");
+  src: url("../assets/fonts/NyghtSerif-Regular.woff2?v=60") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Nyght Serif";
-  src: url("../assets/fonts/NyghtSerif-RegularItalic.woff2?v=59") format("woff2");
+  src: url("../assets/fonts/NyghtSerif-RegularItalic.woff2?v=60") format("woff2");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -7988,55 +7988,173 @@ html:has(body.consult-page.is-cover) {
 
 
 /* ---- Le vostre idee + masonry recap / no-gap card grids ---- */
+.consult-page .consult-step[data-step-id="ideas"]:not([hidden]) {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+@media (min-width: 761px) {
+  .consult-page .consult-step[data-step-id="ideas"]:not([hidden]) {
+    overflow: hidden;
+  }
+}
 .consult-page .consult-ideas {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
+  gap: 14px;
+  flex: 1 1 auto;
+  min-height: 0;
   align-items: stretch;
 }
 .consult-page .consult-ideas__card {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  padding: 14px 16px 16px;
+  min-height: 0;
+  height: 100%;
+  padding: 18px 18px 14px;
   border: 1px solid var(--consult-line);
   border-radius: 22px;
-  background: rgba(255, 255, 255, 0.03);
-  gap: 8px;
+  background: rgba(255, 255, 255, 0.035);
+  gap: 10px;
+}
+.consult-page .consult-ideas__title {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex: 0 0 auto;
+}
+.consult-page .consult-ideas__num {
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  color: #f5f5f5;
 }
 .consult-page .consult-ideas__card h3 {
-  margin: 0 0 2px;
-  font-size: 13px;
-  font-weight: 650;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--consult-muted);
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-transform: none;
+  color: #f5f5f5;
 }
 .consult-page .consult-ideas__card .consult-field { gap: 6px; }
-.consult-page .consult-ideas__card .consult-field span { font-size: 12px; }
+.consult-page .consult-ideas__card .consult-field span { font-size: 12px; font-weight: 650; }
 .consult-page .consult-ideas__card input {
   min-height: 42px;
-  padding: 0 12px;
-  border-radius: 12px;
+  padding: 0 14px;
+  border-radius: 14px;
 }
-.consult-page .consult-ideas__card textarea {
+.consult-page .consult-ideas__desc {
   flex: 1 1 auto;
-  min-height: 76px;
-  max-height: 120px;
-  padding: 10px 12px;
-  border-radius: 12px;
-  resize: vertical;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.consult-page .consult-ideas__desc textarea {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: none;
+  height: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  resize: none;
+}
+.consult-page .consult-ideas__status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 2px 0 0;
+  color: var(--consult-muted);
+  font-size: 13px;
+  line-height: 1;
+  flex: 0 0 auto;
+}
+.consult-page .consult-ideas__status i {
+  font-size: 13px;
+  width: 1em;
+  text-align: center;
+}
+.consult-page .consult-ideas__status[data-state="done"] {
+  color: rgba(245, 245, 245, 0.82);
+}
+.consult-page .consult-ideas__status[data-state="done"] i { color: #f5f5f5; }
+.consult-page .consult-ideas__status.is-pop i {
+  animation: consult-idea-status-pop 0.35s ease-out;
+}
+@keyframes consult-idea-status-pop {
+  from { transform: scale(0.82); opacity: 0.35; }
+  to { transform: scale(1); opacity: 1; }
+}
+.consult-page .consult-ideas__hint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0 0;
+  color: var(--consult-muted);
+  font-size: 13px;
+  line-height: 1.35;
+  flex: 0 0 auto;
+}
+.consult-page .consult-ideas__hint i { font-size: 14px; color: rgba(245, 245, 245, 0.7); }
+.consult-page .consult-flow__hint {
+  margin: 0;
+  padding: 0 12px;
+  color: var(--consult-muted);
+  font-size: 13px;
+  line-height: 1.35;
+  text-align: center;
+  justify-self: center;
+  max-width: 36ch;
+}
+.consult-page .consult-flow__hint[hidden] { display: none !important; }
+.consult-page .consult-flow__bar.is-hinted {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+}
+.consult-page .consult-flow__bar.is-hinted .consult-flow__back { justify-self: start; }
+.consult-page .consult-flow__bar.is-hinted .consult-flow__next.button-02 {
+  margin-left: 0;
+  justify-self: end;
+}
+@media (prefers-reduced-motion: reduce) {
+  .consult-page .consult-ideas__status.is-pop i { animation: none; }
 }
 @media (min-width: 1024px) and (max-height: 820px) {
   .consult-page [data-step-id="ideas"] .consult-step__head { margin-bottom: 10px; }
   .consult-page [data-step-id="ideas"] .consult-step__head h2 { font-size: clamp(22px, 2vw, 32px); }
   .consult-page .consult-ideas { gap: 10px; }
-  .consult-page .consult-ideas__card { padding: 10px 12px 12px; gap: 6px; }
+  .consult-page .consult-ideas__card { padding: 12px 14px 12px; gap: 8px; }
+  .consult-page .consult-ideas__num { font-size: 32px; }
+  .consult-page .consult-ideas__card h3 { font-size: 15px; }
   .consult-page .consult-ideas__card input { min-height: 38px; }
-  .consult-page .consult-ideas__card textarea { min-height: 64px; max-height: 88px; }
+  .consult-page .consult-ideas__hint { margin-top: 8px; }
+}
+@media (min-width: 761px) and (max-width: 1080px) {
+  .consult-page .consult-ideas {
+    min-height: min(420px, calc(100svh - 280px));
+  }
 }
 @media (max-width: 760px) {
-  .consult-page .consult-ideas { grid-template-columns: 1fr; }
+  .consult-page .consult-ideas {
+    grid-template-columns: 1fr;
+    flex: 0 0 auto;
+  }
+  .consult-page .consult-ideas__card { height: auto; }
+  .consult-page .consult-ideas__num { font-size: 32px; }
+  .consult-page .consult-ideas__desc textarea { min-height: 110px; height: auto; flex: 0 0 auto; }
+  .consult-page .consult-step[data-step-id="ideas"]:not([hidden]) { overflow-y: auto; }
+  .consult-page .consult-flow__bar.is-hinted {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "hint hint"
+      "back next";
+  }
+  .consult-page .consult-flow__bar.is-hinted .consult-flow__hint { grid-area: hint; padding: 0 4px 6px; max-width: none; }
+  .consult-page .consult-flow__bar.is-hinted .consult-flow__back { grid-area: back; }
+  .consult-page .consult-flow__bar.is-hinted .consult-flow__next.button-02 { grid-area: next; }
 }
 
 /* Masonry-like recap: two independent columns, last card grows to equal bottoms */
