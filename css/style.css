@@ -6339,14 +6339,14 @@ html.contact-open body {
    ========================================================================== */
 @font-face {
   font-family: "Nyght Serif";
-  src: url("../assets/fonts/NyghtSerif-Regular.woff2?v=65") format("woff2");
+  src: url("../assets/fonts/NyghtSerif-Regular.woff2?v=66") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Nyght Serif";
-  src: url("../assets/fonts/NyghtSerif-RegularItalic.woff2?v=65") format("woff2");
+  src: url("../assets/fonts/NyghtSerif-RegularItalic.woff2?v=66") format("woff2");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -6457,31 +6457,31 @@ html.consult-skip-cover body.consult-page.is-cover .consult-flow {
 .consult-cover__blob--1 {
   left: -18%;
   top: -24%;
-  background: radial-gradient(circle at 50% 50%, rgb(121, 184, 255) 0%, rgba(121, 184, 255, 0.55) 32%, rgba(121, 184, 255, 0) 68%);
-  animation: consult-cover-blob-1 26s ease-in-out infinite;
+  background: radial-gradient(circle at 50% 50%, #f2d27a 0%, rgba(212, 175, 55, 0.58) 32%, rgba(212, 175, 55, 0) 68%);
+  animation: consult-cover-blob-1 8s ease-in-out infinite;
 }
 .consult-cover__blob--2 {
   right: -16%;
   top: -10%;
   left: auto;
-  background: radial-gradient(circle at 50% 50%, rgb(31, 128, 255) 0%, rgba(31, 128, 255, 0.55) 34%, rgba(31, 128, 255, 0) 68%);
-  animation: consult-cover-blob-2 32s ease-in-out infinite;
+  background: radial-gradient(circle at 50% 50%, #e6e8eb 0%, rgba(192, 192, 192, 0.55) 34%, rgba(142, 148, 156, 0) 68%);
+  animation: consult-cover-blob-2 10s ease-in-out infinite;
 }
 .consult-cover__blob--3 {
   left: 18%;
   top: 22%;
   width: min(64vw, 760px);
   height: min(64vw, 760px);
-  background: radial-gradient(circle at 50% 50%, rgb(255, 91, 244) 0%, rgba(255, 91, 244, 0.5) 30%, rgba(255, 91, 244, 0) 68%);
-  animation: consult-cover-blob-3 24s ease-in-out infinite;
+  background: radial-gradient(circle at 50% 50%, #e8d5a8 0%, rgba(242, 210, 122, 0.5) 30%, rgba(232, 213, 168, 0) 68%);
+  animation: consult-cover-blob-3 7s ease-in-out infinite;
 }
 .consult-cover__blob--4 {
   right: -8%;
   bottom: -22%;
   left: auto;
   top: auto;
-  background: radial-gradient(circle at 50% 50%, rgb(255, 48, 41) 0%, rgba(255, 48, 41, 0.55) 32%, rgba(255, 48, 41, 0) 68%);
-  animation: consult-cover-blob-4 29s ease-in-out infinite;
+  background: radial-gradient(circle at 50% 50%, #d4af37 0%, rgba(184, 134, 43, 0.48) 32%, rgba(184, 134, 43, 0) 68%);
+  animation: consult-cover-blob-4 9s ease-in-out infinite;
 }
 .consult-cover__blob--5 {
   left: -14%;
@@ -6489,8 +6489,8 @@ html.consult-skip-cover body.consult-page.is-cover .consult-flow {
   top: auto;
   width: min(70vw, 840px);
   height: min(70vw, 840px);
-  background: radial-gradient(circle at 50% 50%, rgb(254, 123, 2) 0%, rgba(254, 123, 2, 0.58) 34%, rgba(254, 123, 2, 0) 68%);
-  animation: consult-cover-blob-5 34s ease-in-out infinite;
+  background: radial-gradient(circle at 50% 50%, #c0c0c0 0%, rgba(142, 148, 156, 0.52) 34%, rgba(142, 148, 156, 0) 68%);
+  animation: consult-cover-blob-5 11s ease-in-out infinite;
 }
 .consult-cover__vignette {
   position: absolute;
@@ -6508,10 +6508,10 @@ html.consult-skip-cover body.consult-page.is-cover .consult-flow {
   pointer-events: none;
   opacity: 0.22;
   mix-blend-mode: overlay;
-  background-image: url("../assets/consult-cover-grain.png?v=65");
+  background-image: url("../assets/consult-cover-grain.png?v=66");
   background-size: 256px 256px;
   background-repeat: repeat;
-  animation: consult-cover-grain 18s linear infinite;
+  animation: consult-cover-grain 8s linear infinite;
   will-change: transform;
 }
 @keyframes consult-cover-blob-1 {
@@ -6585,18 +6585,20 @@ html.consult-skip-cover body.consult-page.is-cover .consult-flow {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
   gap: 18px;
-  max-width: 920px;
-  padding: 0 16px;
+  max-width: min(100%, calc(100vw - 48px));
+  padding: 0 24px;
 }
 .consult-cover__title {
   margin: 0;
   font-family: "DM Sans", var(--font-sans);
   font-weight: 500;
-  font-size: clamp(42px, 8.2vw, 96px);
+  font-size: clamp(56px, 11vw, 160px);
   line-height: 0.95;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
   color: #fff;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25), 0 0 36px rgba(0, 0, 0, 0.45);
 }
@@ -6754,7 +6756,6 @@ html.consult-skip-cover body.consult-page.is-cover .consult-flow {
     flex-wrap: wrap;
     white-space: normal;
   }
-  .consult-cover__title { font-size: clamp(36px, 14vw, 56px); }
 }
 
 /* STEP 02 RUNTS: three equal buttons in one row */
@@ -7217,8 +7218,10 @@ html.consult-skip-cover body.consult-page.is-cover .consult-flow {
   font-optical-sizing: none;
   font-variation-settings: "wght" 550;
   font-synthesis: none;
-  letter-spacing: -0.02em;
-  line-height: 1.05;
+  font-size: clamp(56px, 11vw, 160px);
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  white-space: nowrap;
   color: #fff;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25), 0 0 36px rgba(0, 0, 0, 0.45);
 }
@@ -7242,21 +7245,38 @@ html:has(body.consult-page.is-cover) {
   box-sizing: border-box;
 }
 .consult-cover__content {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: max-content;
-  max-width: min(920px, calc(100vw - 32px));
+  position: relative;
+  left: auto;
+  top: auto;
+  transform: none;
+  width: min(100%, calc(100vw - 48px));
+  max-width: min(100%, calc(100vw - 48px));
   margin: 0;
-  padding: 0 16px;
+  padding: 0 24px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
   gap: 18px;
 }
 .consult-cover__start.button-02 { margin-top: 8px; }
+
+@media (max-width: 760px) {
+  .consult-page .consult-cover__title,
+  .consult-cover__title {
+    white-space: normal;
+    font-size: clamp(56px, 21vw, 104px);
+    letter-spacing: -0.025em;
+    width: 100%;
+    max-width: 100%;
+    line-height: 0.92;
+    text-wrap: balance;
+    overflow-wrap: normal;
+    hyphens: none;
+  }
+}
 
 /* Brief live: compact rows, wrap long values, no Destinazione highlight */
 .consult-page .consult-live-summary__grid {
