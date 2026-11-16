@@ -6339,14 +6339,14 @@ html.contact-open body {
    ========================================================================== */
 @font-face {
   font-family: "Nyght Serif";
-  src: url("../assets/fonts/NyghtSerif-Regular.woff2?v=66") format("woff2");
+  src: url("../assets/fonts/NyghtSerif-Regular.woff2?v=67") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Nyght Serif";
-  src: url("../assets/fonts/NyghtSerif-RegularItalic.woff2?v=66") format("woff2");
+  src: url("../assets/fonts/NyghtSerif-RegularItalic.woff2?v=67") format("woff2");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -6457,14 +6457,14 @@ html.consult-skip-cover body.consult-page.is-cover .consult-flow {
 .consult-cover__blob--1 {
   left: -18%;
   top: -24%;
-  background: radial-gradient(circle at 50% 50%, #f2d27a 0%, rgba(212, 175, 55, 0.58) 32%, rgba(212, 175, 55, 0) 68%);
+  background: radial-gradient(circle at 50% 50%, #f5c66b 0%, rgba(224, 168, 58, 0.6) 32%, rgba(224, 168, 58, 0) 68%);
   animation: consult-cover-blob-1 8s ease-in-out infinite;
 }
 .consult-cover__blob--2 {
   right: -16%;
   top: -10%;
   left: auto;
-  background: radial-gradient(circle at 50% 50%, #e6e8eb 0%, rgba(192, 192, 192, 0.55) 34%, rgba(142, 148, 156, 0) 68%);
+  background: radial-gradient(circle at 50% 50%, #e9e1d3 0%, rgba(233, 225, 211, 0.4) 34%, rgba(233, 225, 211, 0) 68%);
   animation: consult-cover-blob-2 10s ease-in-out infinite;
 }
 .consult-cover__blob--3 {
@@ -6472,7 +6472,7 @@ html.consult-skip-cover body.consult-page.is-cover .consult-flow {
   top: 22%;
   width: min(64vw, 760px);
   height: min(64vw, 760px);
-  background: radial-gradient(circle at 50% 50%, #e8d5a8 0%, rgba(242, 210, 122, 0.5) 30%, rgba(232, 213, 168, 0) 68%);
+  background: radial-gradient(circle at 50% 50%, #f3dcae 0%, rgba(245, 198, 107, 0.48) 30%, rgba(243, 220, 174, 0) 68%);
   animation: consult-cover-blob-3 7s ease-in-out infinite;
 }
 .consult-cover__blob--4 {
@@ -6480,7 +6480,7 @@ html.consult-skip-cover body.consult-page.is-cover .consult-flow {
   bottom: -22%;
   left: auto;
   top: auto;
-  background: radial-gradient(circle at 50% 50%, #d4af37 0%, rgba(184, 134, 43, 0.48) 32%, rgba(184, 134, 43, 0) 68%);
+  background: radial-gradient(circle at 50% 50%, #e0a83a 0%, rgba(201, 138, 46, 0.52) 32%, rgba(201, 138, 46, 0) 68%);
   animation: consult-cover-blob-4 9s ease-in-out infinite;
 }
 .consult-cover__blob--5 {
@@ -6489,7 +6489,7 @@ html.consult-skip-cover body.consult-page.is-cover .consult-flow {
   top: auto;
   width: min(70vw, 840px);
   height: min(70vw, 840px);
-  background: radial-gradient(circle at 50% 50%, #c0c0c0 0%, rgba(142, 148, 156, 0.52) 34%, rgba(142, 148, 156, 0) 68%);
+  background: radial-gradient(circle at 50% 50%, #c98a2e 0%, rgba(184, 116, 58, 0.4) 34%, rgba(184, 116, 58, 0) 68%);
   animation: consult-cover-blob-5 11s ease-in-out infinite;
 }
 .consult-cover__vignette {
@@ -6506,13 +6506,20 @@ html.consult-skip-cover body.consult-page.is-cover .consult-flow {
   width: 180%;
   height: 180%;
   pointer-events: none;
-  opacity: 0.22;
-  mix-blend-mode: overlay;
-  background-image: url("../assets/consult-cover-grain.png?v=66");
-  background-size: 256px 256px;
+  opacity: 0.5;
+  mix-blend-mode: soft-light;
+  background-image: url("../assets/consult-cover-grain.png?v=67");
+  background-size: 280px 280px;
   background-repeat: repeat;
-  animation: consult-cover-grain 8s linear infinite;
-  will-change: transform;
+  animation: consult-cover-grain 8s linear infinite, consult-cover-grain-flicker 0.36s steps(4, end) infinite;
+  will-change: transform, background-position;
+}
+@keyframes consult-cover-grain-flicker {
+  0% { background-position: 0 0; }
+  25% { background-position: 45px -30px; }
+  50% { background-position: -36px 40px; }
+  75% { background-position: 28px 18px; }
+  100% { background-position: 0 0; }
 }
 @keyframes consult-cover-blob-1 {
   0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
