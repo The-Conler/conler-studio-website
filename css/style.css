@@ -6339,14 +6339,14 @@ html.contact-open body {
    ========================================================================== */
 @font-face {
   font-family: "Nyght Serif";
-  src: url("../assets/fonts/NyghtSerif-Regular.woff2?v=67") format("woff2");
+  src: url("../assets/fonts/NyghtSerif-Regular.woff2?v=68") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Nyght Serif";
-  src: url("../assets/fonts/NyghtSerif-RegularItalic.woff2?v=67") format("woff2");
+  src: url("../assets/fonts/NyghtSerif-RegularItalic.woff2?v=68") format("woff2");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -6597,6 +6597,7 @@ html.consult-skip-cover body.consult-page.is-cover .consult-flow {
   gap: 18px;
   max-width: min(100%, calc(100vw - 48px));
   padding: 0 24px;
+  transform: translateY(5vh);
 }
 .consult-cover__title {
   margin: 0;
@@ -7232,6 +7233,21 @@ html.consult-skip-cover body.consult-page.is-cover .consult-flow {
   color: #fff;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25), 0 0 36px rgba(0, 0, 0, 0.45);
 }
+.consult-page .consult-cover__title .consult-cover__studio,
+.consult-cover__title .consult-cover__studio {
+  font-family: "Nyght Serif", "Cormorant Garamond", serif !important;
+  font-style: italic;
+  font-weight: 400;
+  font-optical-sizing: none;
+  font-variation-settings: normal;
+  font-synthesis: none;
+  letter-spacing: 0;
+  font-size: 1.16em;
+  line-height: 1;
+  display: inline-block;
+  white-space: nowrap;
+  vertical-align: -0.1em;
+}
 .consult-page .consult-cover__subtitle,
 .consult-cover__subtitle {
   font-family: "DM Sans", sans-serif;
@@ -7255,7 +7271,7 @@ html:has(body.consult-page.is-cover) {
   position: relative;
   left: auto;
   top: auto;
-  transform: none;
+  transform: translateY(5vh);
   width: min(100%, calc(100vw - 48px));
   max-width: min(100%, calc(100vw - 48px));
   margin: 0;
