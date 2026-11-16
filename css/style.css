@@ -6339,14 +6339,14 @@ html.contact-open body {
    ========================================================================== */
 @font-face {
   font-family: "Nyght Serif";
-  src: url("../assets/fonts/NyghtSerif-Regular.woff2?v=64") format("woff2");
+  src: url("../assets/fonts/NyghtSerif-Regular.woff2?v=65") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Nyght Serif";
-  src: url("../assets/fonts/NyghtSerif-RegularItalic.woff2?v=64") format("woff2");
+  src: url("../assets/fonts/NyghtSerif-RegularItalic.woff2?v=65") format("woff2");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -6434,29 +6434,149 @@ html.consult-skip-cover body.consult-page.is-cover .consult-flow {
   inset: 0;
   overflow: hidden;
   pointer-events: none;
-  background: #0b0b0b;
+  background: #050505;
+  isolation: isolate;
 }
-.consult-cover__glow {
+.consult-cover__mesh {
   position: absolute;
-  inset: -30%;
+  inset: -8%;
+  overflow: visible;
+  pointer-events: none;
+}
+.consult-cover__blob {
+  position: absolute;
+  width: min(78vw, 920px);
+  height: min(78vw, 920px);
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+}
+.consult-cover__blob--1 {
+  left: -18%;
+  top: -24%;
+  background: radial-gradient(circle at 50% 50%, rgb(121, 184, 255) 0%, rgba(121, 184, 255, 0.55) 32%, rgba(121, 184, 255, 0) 68%);
+  animation: consult-cover-blob-1 26s ease-in-out infinite;
+}
+.consult-cover__blob--2 {
+  right: -16%;
+  top: -10%;
+  left: auto;
+  background: radial-gradient(circle at 50% 50%, rgb(31, 128, 255) 0%, rgba(31, 128, 255, 0.55) 34%, rgba(31, 128, 255, 0) 68%);
+  animation: consult-cover-blob-2 32s ease-in-out infinite;
+}
+.consult-cover__blob--3 {
+  left: 18%;
+  top: 22%;
+  width: min(64vw, 760px);
+  height: min(64vw, 760px);
+  background: radial-gradient(circle at 50% 50%, rgb(255, 91, 244) 0%, rgba(255, 91, 244, 0.5) 30%, rgba(255, 91, 244, 0) 68%);
+  animation: consult-cover-blob-3 24s ease-in-out infinite;
+}
+.consult-cover__blob--4 {
+  right: -8%;
+  bottom: -22%;
+  left: auto;
+  top: auto;
+  background: radial-gradient(circle at 50% 50%, rgb(255, 48, 41) 0%, rgba(255, 48, 41, 0.55) 32%, rgba(255, 48, 41, 0) 68%);
+  animation: consult-cover-blob-4 29s ease-in-out infinite;
+}
+.consult-cover__blob--5 {
+  left: -14%;
+  bottom: -26%;
+  top: auto;
+  width: min(70vw, 840px);
+  height: min(70vw, 840px);
+  background: radial-gradient(circle at 50% 50%, rgb(254, 123, 2) 0%, rgba(254, 123, 2, 0.58) 34%, rgba(254, 123, 2, 0) 68%);
+  animation: consult-cover-blob-5 34s ease-in-out infinite;
+}
+.consult-cover__vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
   background:
-    radial-gradient(ellipse 58% 48% at 72% 18%, rgba(245, 245, 245, 0.1), transparent 58%),
-    radial-gradient(ellipse 50% 42% at 18% 86%, rgba(245, 245, 245, 0.06), transparent 60%),
-    radial-gradient(ellipse 36% 32% at 48% 48%, rgba(255, 255, 255, 0.035), transparent 70%);
-  animation: consult-cover-glow 22s ease-in-out infinite alternate;
+    radial-gradient(ellipse 72% 62% at 50% 48%, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.18) 48%, rgba(0, 0, 0, 0.62) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0) 18%, rgba(0, 0, 0, 0) 82%, rgba(0, 0, 0, 0.34) 100%);
 }
 .consult-cover__grain {
   position: absolute;
-  inset: -20%;
-  width: 140%;
-  height: 140%;
+  inset: -40%;
+  width: 180%;
+  height: 180%;
+  pointer-events: none;
   opacity: 0.22;
   mix-blend-mode: overlay;
-  pointer-events: none;
+  background-image: url("../assets/consult-cover-grain.png?v=65");
+  background-size: 256px 256px;
+  background-repeat: repeat;
+  animation: consult-cover-grain 18s linear infinite;
+  will-change: transform;
 }
-@keyframes consult-cover-glow {
-  0% { transform: translate(-4%, 2%) scale(1); }
-  100% { transform: translate(5%, -3%) scale(1.08); }
+@keyframes consult-cover-blob-1 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  35% { transform: translate3d(14%, 10%, 0) scale(1.12); }
+  65% { transform: translate3d(4%, 16%, 0) scale(0.9); }
+}
+@keyframes consult-cover-blob-2 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  40% { transform: translate3d(-12%, 8%, 0) scale(1.08); }
+  70% { transform: translate3d(-4%, -10%, 0) scale(0.94); }
+}
+@keyframes consult-cover-blob-3 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  30% { transform: translate3d(-10%, -8%, 0) scale(1.14); }
+  60% { transform: translate3d(12%, 6%, 0) scale(0.92); }
+}
+@keyframes consult-cover-blob-4 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  45% { transform: translate3d(-10%, -12%, 0) scale(1.1); }
+  75% { transform: translate3d(8%, -4%, 0) scale(0.9); }
+}
+@keyframes consult-cover-blob-5 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  38% { transform: translate3d(12%, -10%, 0) scale(1.08); }
+  68% { transform: translate3d(6%, 8%, 0) scale(0.95); }
+}
+@keyframes consult-cover-grain {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-128px, -96px, 0); }
+}
+@media (max-width: 760px) {
+  .consult-cover__blob {
+    width: min(115vw, 760px);
+    height: min(115vw, 760px);
+  }
+  .consult-cover__blob--1 {
+    left: -36%;
+    top: 6%;
+  }
+  .consult-cover__blob--2 {
+    right: -32%;
+    top: 2%;
+  }
+  .consult-cover__blob--3 {
+    width: min(108vw, 700px);
+    height: min(108vw, 700px);
+    left: -10%;
+    top: 16%;
+  }
+  .consult-cover__blob--4 {
+    right: -34%;
+    bottom: 4%;
+    top: auto;
+  }
+  .consult-cover__blob--5 {
+    left: -36%;
+    bottom: 2%;
+    top: auto;
+  }
+  .consult-cover__vignette {
+    background:
+      radial-gradient(ellipse 86% 72% at 50% 46%, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.16) 50%, rgba(0, 0, 0, 0.58) 100%),
+      linear-gradient(180deg, rgba(0, 0, 0, 0.26) 0%, rgba(0, 0, 0, 0) 16%, rgba(0, 0, 0, 0) 84%, rgba(0, 0, 0, 0.32) 100%);
+  }
 }
 
 .consult-cover__content {
@@ -6477,7 +6597,8 @@ html.consult-skip-cover body.consult-page.is-cover .consult-flow {
   font-size: clamp(42px, 8.2vw, 96px);
   line-height: 0.95;
   letter-spacing: -0.045em;
-  color: #f5f5f5;
+  color: #fff;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25), 0 0 36px rgba(0, 0, 0, 0.45);
 }
 .consult-cover__subtitle {
   margin: 0 0 10px;
@@ -6497,12 +6618,10 @@ html.consult-skip-cover body.consult-page.is-cover .consult-flow {
     transition: none;
     filter: none !important;
   }
-  .consult-cover__glow,
-  .consult-cover__grain animate {
+  .consult-cover__blob,
+  .consult-cover__grain {
     animation: none !important;
-  }
-  .consult-cover__grain animate {
-    display: none;
+    will-change: auto;
   }
 }
 
@@ -7100,6 +7219,8 @@ html.consult-skip-cover body.consult-page.is-cover .consult-flow {
   font-synthesis: none;
   letter-spacing: -0.02em;
   line-height: 1.05;
+  color: #fff;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25), 0 0 36px rgba(0, 0, 0, 0.45);
 }
 .consult-page .consult-cover__subtitle,
 .consult-cover__subtitle {
@@ -7723,8 +7844,10 @@ html:has(body.consult-page.is-cover) {
   inset: 0;
   overflow: hidden;
 }
-.consult-thanks__media .consult-cover__grain,
-.consult-thanks__media .consult-cover__glow { position: absolute; inset: 0; width: 100%; height: 100%; }
+.consult-thanks__media { isolation: isolate; background: #050505; }
+.consult-thanks__media .consult-cover__mesh,
+.consult-thanks__media .consult-cover__vignette,
+.consult-thanks__media .consult-cover__grain { position: absolute; }
 .consult-thanks__content {
   position: relative;
   z-index: 1;
@@ -7743,6 +7866,8 @@ html:has(body.consult-page.is-cover) {
   font-size: clamp(28px, 5vw, 52px);
   letter-spacing: -0.03em;
   line-height: 1.1;
+  color: #fff;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25), 0 0 36px rgba(0, 0, 0, 0.45);
 }
 .consult-thanks__content p {
   margin: 0;
